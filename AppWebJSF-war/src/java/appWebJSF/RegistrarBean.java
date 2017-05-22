@@ -7,6 +7,7 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import java.math.BigInteger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -113,6 +114,8 @@ public class RegistrarBean {
             if(web!=null && !web.isEmpty()){
                 usuario.setWeb(web);
             }
+            //Visitas a 0
+            usuario.setVisitas(BigInteger.ZERO);
             this.datosUsuarioFacade.create(usuario);
             return "login";
         }

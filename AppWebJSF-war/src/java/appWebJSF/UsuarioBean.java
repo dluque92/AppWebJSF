@@ -33,6 +33,14 @@ public class UsuarioBean implements Serializable {
     public void init(){
         error=false;
     }
+    
+    public DatosUsuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(DatosUsuario usuario) {
+        this.usuario = usuario;
+    }
 
     public Boolean getError() {
         return error;
@@ -66,7 +74,7 @@ public class UsuarioBean implements Serializable {
             limpiarCampos();
             return "login";
         } else {
-            usuario = this.datosUsuarioFacade.obtenerUsuario(email, password);
+            this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
             if (usuario == null) {
                 error=true;
                 limpiarCampos();

@@ -1,12 +1,93 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</title>
     </h:head>
     <h:body>
-        HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        #{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}<br/>
+        <h:graphicImage value=""/>
+        Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
+        Aficiones
+        <h:dataTable border="1" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
+            <h:column>
+                <f:facet name="header">
+                    Nombre
+                </f:facet>
+                #{aficion.nombre}
+            </h:column>
+        </h:dataTable>
+        Estudios:
+        <h:dataTable border="1" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+            <h:column>
+                <f:facet name="header">
+                    Nombre
+                </f:facet>
+                #{estudio.nombre}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Descripción
+                </f:facet>
+                #{estudio.descripcion}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha de Comienzo
+                </f:facet>
+                #{estudio.fechaComienzoString}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha de finalización
+                </f:facet>
+                #{estudio.fechaFinString}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Ubicación
+                </f:facet>
+                #{estudio.ubicacion}
+            </h:column>
+        </h:dataTable>
+        Experiencia:
+        <h:dataTable border="1" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
+            <h:column>
+                <f:facet name="header">
+                    Empresa
+                </f:facet>
+                #{experiencia.empresa}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Puesto
+                </f:facet>
+                #{experiencia.puesto}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha de comienzo
+                </f:facet>
+                #{experiencia.fechaComienzoString}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha de finalización
+                </f:facet>
+                #{experiencia.fechaFinalizacionString}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Web de la empresa
+                </f:facet>
+                #{experiencia.webEmpresa}
+            </h:column>
+        </h:dataTable>
+        <h:link value="Editar perfil" outcome="editar"/><br/>
+        <h:link value="Peticiones" outcome="peticiones"/><br/>
+        <h:link value="Mensajes" outcome="mensaje"/><br/>
     </h:body>
 </html>
 
