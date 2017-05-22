@@ -1,3 +1,7 @@
 build/*
 dist/*
 nbproject/private/*
+/AppWebJSF-ejb/build/
+/AppWebJSF-war/build/
+/AppWebJSF-ejb/dist/
+/AppWebJSF-war/dist/
