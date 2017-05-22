@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form enctype="multipart/form-data">
+            Nombre:<h:inputText required="true" value="#{registrarBean.nombre}"/><br/>  
+            Apellidos<h:inputText required="true" value="#{registrarBean.apellidos}"/><br/>  
+            Email:<h:inputText required="true" value="#{registrarBean.email}"/><br/>  
+            Contraseña:<h:inputSecret required="true" value="#{registrarBean.password}"/><br/>  
+            Repetir Contraseña:<h:inputSecret required="true" value="#{registrarBean.password2}"/><br/>  
+            Twitter:<h:inputText value="#{registrarBean.twitter}"/><br/>  
+            Instagram:<h:inputText value="#{registrarBean.instagram}"/><br/>  
+            Web:<h:inputText value="#{registrarBean.web}"/><br/>  
+            Foto de Perfil<h:inputFile/><br/>
+            <h:commandButton value="Registrar" action="#{registrarBean.doRegistrar()}"/>
+        </h:form>
+    </h:body>
+</html>
+

@@ -7,9 +7,10 @@
     </h:head>
     <h:body>
         <h:form>
-        Usuario:<h:inputText value="#{UsuarioBean.email}"/><br/>
-        Contraseña:<h:inputSecret value="#{UsuarioBean.password}"/><br/>
-        <h:commandButton value="Entrar" action="#{UsuarioBean.doLogin()}"/>
+            Usuario:<h:inputText required="true" value="#{UsuarioBean.email}"/><br/>
+            Contraseña:<h:inputSecret required="true" value="#{UsuarioBean.password}"/><br/>            
+            <h:commandButton value="Entrar" action="#{UsuarioBean.doLogin()}"/>
+            <h:link value="Registrar" outcome="registrar"/>
         </h:form>
     </h:body>
 </html>

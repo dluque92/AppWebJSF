@@ -8,6 +8,7 @@ package appWebJSF;
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -26,7 +27,21 @@ public class UsuarioBean implements Serializable {
     private String email = "";
     private String password = "";
     private DatosUsuario usuario;
+    private Boolean error;
 
+    @PostConstruct
+    public void init(){
+        error=false;
+    }
+
+    public Boolean getError() {
+        return error;
+    }
+
+    public void setError(Boolean error) {
+        this.error = error;
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -53,6 +68,7 @@ public class UsuarioBean implements Serializable {
         } else {
             usuario = this.datosUsuarioFacade.obtenerUsuario(email, password);
             if (usuario == null) {
+                error=true;
                 limpiarCampos();
                 return "login";
             } else {
@@ -65,4 +81,6 @@ public class UsuarioBean implements Serializable {
         email = "";
         password = "";
     }
+    
+    
 }
