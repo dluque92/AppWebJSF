@@ -5,90 +5,210 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!-- Icons -->
+        <script src="https://use.fontawesome.com/0e798431ad.js"></script>
+        <h:outputStylesheet library="css" name="style.css" />
+        <style>
+            /* Para el fondo del body */
+            body {
+                background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
+                background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
+                background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
+                background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Opera 11.10+ */
+                background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* W3C */
+                padding-top: 60px; /* ESTO LO PIDE LA PAGINA WEB DE BOOTSTRAP */
+            }
+            .jumbotron{
+                margin: 1em;
+
+            }
+            .btn{
+                margin: 0.2em;
+            }
+            h1 { 
+                color: #16222A;
+                font-size: 2em; 
+                font-weight: 800; 
+                line-height: 72px; 
+                margin: 0 0 24px;
+                text-transform: uppercase; 
+            }
+            h3 { 
+                color: #16222A;
+                font-size: 2em; 
+                font-weight: 600; 
+                line-height: 72px;
+                text-transform: uppercase; 
+            }
+            /* Codigo para los social links */
+            .social-links a{
+                text-align:center;
+                float: left;
+                width: 36px;
+                height: 36px;
+                border: 2px solid #909090;
+                border-radius: 100%;
+                margin-right: 7px; /*space between*/
+                display: flex;
+                align-items: flex-start;
+                transition: all 0.4s;
+                -webkit-transition: all 0.4s;
+            } 
+            .social-links a i{
+                font-size: 20px;
+                align-self:center;
+                color: #909090;
+                transition: all 0.4s;
+                -webkit-transition: all 0.4s;
+                margin: 0 auto;
+            }
+            .social-links a i::before{
+                display:inline-block;
+                text-decoration:none;
+            }
+            .social-links a:hover{
+                background: rgba(0,0,0,0.2);
+            }
+            .social-links a:hover i{
+                color:#fff;
+            }
+            .bgimg {
+                padding: 2em;
+                width: 100%;
+                background-image: url('http://medioambiente.blogs.upv.es/files/2013/10/cabecera1.jpg');
+                background-size: cover;
+                margin: 0.1em;
+            }
+
+
+        </style>
     </h:head>
     <h:body>
-        
-        #{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}<br/>
-        <h:graphicImage value="#{UsuarioBean.foto}"/><br/>
-        Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
-        Aficiones
-        <h:dataTable border="1" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
-            <h:column>
-                <f:facet name="header">
-                    Nombre
-                </f:facet>
-                #{aficion.nombre}
-            </h:column>
-        </h:dataTable>
-        Estudios:
-        <h:dataTable border="1" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
-            <h:column>
-                <f:facet name="header">
-                    Nombre
-                </f:facet>
-                #{estudio.nombre}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Descripción
-                </f:facet>
-                #{estudio.descripcion}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Fecha de Comienzo
-                </f:facet>
-                #{estudio.fechaComienzoString}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Fecha de finalización
-                </f:facet>
-                #{estudio.fechaFinString}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Ubicación
-                </f:facet>
-                #{estudio.ubicacion}
-            </h:column>
-        </h:dataTable>
-        Experiencia:
-        <h:dataTable border="1" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
-            <h:column>
-                <f:facet name="header">
-                    Empresa
-                </f:facet>
-                #{experiencia.empresa}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Puesto
-                </f:facet>
-                #{experiencia.puesto}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Fecha de comienzo
-                </f:facet>
-                #{experiencia.fechaComienzoString}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Fecha de finalización
-                </f:facet>
-                #{experiencia.fechaFinalizacionString}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Web de la empresa
-                </f:facet>
-                #{experiencia.webEmpresa}
-            </h:column>
-        </h:dataTable>
-        <h:link value="Editar perfil" outcome="editar"/><br/>
-        <h:link value="Peticiones" outcome="peticiones"/><br/>
-        <h:link value="Mensajes" outcome="mensaje"/><br/>
+        <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <h:link styleClass="navbar-toggle collapsed" value="Editar perfil" outcome="editar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </h:link>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <h:form>Buscador:<h:inputText value=""/></h:form>
+
+                    <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
+                        <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/></li>
+                        <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/></li>
+                        <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/><br/></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="jumbotron vertical-center">
+                 <div class="row bgimg">
+                    <div class="col-sm-3 col-md-3">  
+                        <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#{UsuarioBean.foto}"/><br/>
+                    </div>
+                    <div class="col-sm-9 col-md-9">
+                        #{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}<br/>
+                        Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
+                    </div>
+                </div>
+                
+                <h3>Aficiones:</h3>
+                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
+                    <h:column>
+                        <f:facet name="header">
+                            Nombre
+                        </f:facet>
+                        #{aficion.nombre}
+                    </h:column>
+                </h:dataTable>
+                <h3>Estudios:</h3>
+                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+                    <h:column>
+                        <f:facet name="header">
+                            Nombre
+                        </f:facet>
+                        #{estudio.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Descripción
+                        </f:facet>
+                        #{estudio.descripcion}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha de Comienzo
+                        </f:facet>
+                        #{estudio.fechaComienzoString}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha de finalización
+                        </f:facet>
+                        #{estudio.fechaFinString}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Ubicación
+                        </f:facet>
+                        #{estudio.ubicacion}
+                    </h:column>
+                </h:dataTable>
+                <h3>Experiencia:</h3>
+                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
+                    <h:column>
+                        <f:facet name="header">
+                            Empresa
+                        </f:facet>
+                        #{experiencia.empresa}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Puesto
+                        </f:facet>
+                        #{experiencia.puesto}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha de comienzo
+                        </f:facet>
+                        #{experiencia.fechaComienzoString}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha de finalización
+                        </f:facet>
+                        #{experiencia.fechaFinalizacionString}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Web de la empresa
+                        </f:facet>
+                        #{experiencia.webEmpresa}
+                    </h:column>
+                </h:dataTable>
+                <h:link value="Editar perfil" outcome="editar"/><br/>
+                <h:link value="Peticiones" outcome="peticiones"/><br/>
+                <h:link value="Mensajes" outcome="mensaje"/><br/>
+            </div>
+        </div>
     </h:body>
 </html>
 
