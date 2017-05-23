@@ -106,5 +106,13 @@ public class UsuarioBean implements Serializable {
         password = "";
     }
     
+    public String buscar(DatosUsuario usuario){
+        setUsuario(usuario);
+        return "index";
+    }
     
+    public String volverAIndex(){
+        this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
+        return "index";
+    }
 }

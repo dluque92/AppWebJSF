@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Busqueda</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!-- Icons -->
+        <script src="https://use.fontawesome.com/0e798431ad.js"></script>
+        <h:outputStylesheet library="css" name="style.css" />
+        <style>
+            body {
+                background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
+                background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
+                background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
+                background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Opera 11.10+ */
+                background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* W3C */
+                padding-top: 60px; /* ESTO LO PIDE LA PAGINA WEB DE BOOTSTRAP */
+
+            }
+            .jumbotron{
+                margin: 1em;
+            }
+        </style>
+        <script>
+            jQuery(document).ready(function ($) {
+                $(".clickable-row").click(function () {
+                    window.location = $(this).data("href");
+                });
+            });
+        </script>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    
+                    <button styleClass="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <h:form>
+                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
+                    </h:form>
+                    </button>
+                </div>
+                
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <h:form>
+                        <h:inputText value="#{buscarBean.busqueda}"/>
+                        <h:commandButton action="#{buscarBean.hacerBusqueda()}" value="BUSCAR"/>
+                    </h:form>
+
+                    <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
+                        <h:form>
+                            <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
+                            <li><h:link styleClass="fa fa-envelope" outcome="mensaje"/></li>
+                            <li><h:commandButton styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
+                        </h:form>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <div class="jumbotron vertical-center">
+                <h3>Usuarios cuyo nombre contiene: #{buscarBean.busqueda}</h3>
+                <div class="list-group">
+                    <h:form>
+                        <h:dataTable value="#{buscarBean.usuariosPorNombre}" var="usuario">
+                            <h:column>
+                                <h:link styleClass="list-group-item" outcome="#{UsuarioBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+                <h3>Usuarios que estudian o han estudiado en: #{buscarBean.busqueda}</h3>
+                <div class="list-group">
+                    <h:form>
+                        <h:dataTable value="#{buscarBean.usuarioPorEstudio}" var="usuario">
+                            <h:column>
+                                <h:link styleClass="list-group-item" outcome="#{UsuarioBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+                <h3>Usuarios trabajan o han trabajado en: #{buscarBean.busqueda}</h3>
+                <div class="list-group">
+                    <h:form>
+                        <h:dataTable value="#{buscarBean.usuariosPorExperiencia}" var="usuario">
+                            <h:column>
+                                <h:link styleClass="list-group-item" outcome="#{UsuarioBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+                <h3>Usuarios que son aficionados a: #{buscarBean.busqueda}</h3>
+                <div class="list-group">
+                    <h:form>
+                        <h:dataTable value="#{buscarBean.usuariosPorAficion}" var="usuario">
+                            <h:column>
+                                <h:link styleClass="list-group-item" outcome="#{UsuarioBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

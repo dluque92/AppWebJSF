@@ -97,22 +97,29 @@
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <h:link styleClass="navbar-toggle collapsed" value="Editar perfil" outcome="editar">
+                    
+                    <button styleClass="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </h:link>
+                        <h:form>
+                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
+                    </h:form>
+                    </button>
                 </div>
-
+                
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <h:form>Buscador:<h:inputText value=""/></h:form>
+                    <h:form>
+                        <h:inputText value="#{buscarBean.busqueda}"/>
+                        <h:commandButton action="#{buscarBean.hacerBusqueda()}" value="BUSCAR"/>
+                    </h:form>
 
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
                         <h:form>
-                            <li><h:commandButton styleClass="fa fa-sign-out" value="Logout" action="#{UsuarioBean.doLogout}"/></li>
-                            <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/></li>
-                            <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/><br/></li>
+                            <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
+                            <li><h:link styleClass="fa fa-envelope" outcome="mensaje"/></li>
+                            <li><h:commandButton styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
                         </h:form>
                     </ul>
                 </div>
@@ -128,6 +135,11 @@
                     <div class="col-sm-9 col-md-9">
                         <h3>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</h3><br/>
                         Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
+                    </div>
+                    <div class="co-sm-3 col-md-3">
+                        <h:form>
+                            <h:commandButton value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>
+                        </h:form>
                     </div>
                 </div>
                 <br/>
