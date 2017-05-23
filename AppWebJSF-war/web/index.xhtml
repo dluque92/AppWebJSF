@@ -7,8 +7,9 @@
         <title>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</title>
     </h:head>
     <h:body>
+        
         #{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}<br/>
-        <h:graphicImage value=""/>
+        <h:graphicImage value="#{UsuarioBean.foto}"/><br/>
         Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
         Aficiones
         <h:dataTable border="1" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">

@@ -7,6 +7,7 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import dropbox.DropboxController;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -28,10 +29,16 @@ public class UsuarioBean implements Serializable {
     private String password = "";
     private DatosUsuario usuario;
     private Boolean error;
-
+    
+    
+    
     @PostConstruct
     public void init(){
         error=false;
+    }
+    
+    public String getFoto(){
+        return DropboxController.getUrl(usuario.getFoto());
     }
     
     public DatosUsuario getUsuario() {
