@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -90,6 +91,14 @@ public class UsuarioBean implements Serializable {
                 return "index";
             }
         }
+    }
+    
+    public String doLogout(){
+        //limpiarCampos();
+        //this.usuario=null;
+        //¿Hay que cerrar la sesion?
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
     }
 
     public void limpiarCampos() {

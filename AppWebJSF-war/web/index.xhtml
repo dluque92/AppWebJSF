@@ -109,9 +109,11 @@
                     <h:form>Buscador:<h:inputText value=""/></h:form>
 
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
-                        <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/></li>
-                        <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/></li>
-                        <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/><br/></li>
+                        <h:form>
+                            <li><h:commandButton styleClass="fa fa-sign-out" value="Logout" action="#{UsuarioBean.doLogout}"/></li>
+                            <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/></li>
+                            <li><h:link styleClass="fa fa-sign-out" value="Editar perfil" outcome="editar"/><br/></li>
+                        </h:form>
                     </ul>
                 </div>
             </div>
@@ -119,16 +121,17 @@
 
         <div class="container">
             <div class="jumbotron vertical-center">
-                 <div class="row bgimg">
+                <div class="row bgimg">
                     <div class="col-sm-3 col-md-3">  
                         <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#{UsuarioBean.foto}"/><br/>
                     </div>
                     <div class="col-sm-9 col-md-9">
-                        #{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}<br/>
+                        <h3>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</h3><br/>
                         Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
                     </div>
                 </div>
-                
+                <br/>
+
                 <h3>Aficiones:</h3>
                 <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
                     <h:column>

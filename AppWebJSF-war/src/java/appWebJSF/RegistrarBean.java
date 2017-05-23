@@ -116,6 +116,7 @@ public class RegistrarBean {
             }
             //Visitas a 0
             usuario.setVisitas(BigInteger.ZERO);
+            usuario.setFoto("default.jpg");
             this.datosUsuarioFacade.create(usuario);
             return "login";
         }
