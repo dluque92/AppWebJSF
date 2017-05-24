@@ -117,7 +117,9 @@
 
                             <fieldset>
                                 <h:form>
-                                    <h:inputText required="true" value="#{UsuarioBean.email}" requiredMessage="Ingresa tu email."  validatorMessage="Email o contraseña inválido">
+                                    <h:inputText required="true" value="#{UsuarioBean.email}" 
+                                                 requiredMessage="Ingresa tu email."  
+                                                 validatorMessage="Email o contraseña inválido">
                                         <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /></h:inputText><br/>
                                     <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1" /><small> Recuerdame</small></div>
                                     <h:inputSecret required="true" value="#{UsuarioBean.password}" requiredMessage="Introduce una contraseña."/><br/>                                
