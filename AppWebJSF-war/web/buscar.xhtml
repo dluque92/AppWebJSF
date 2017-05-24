@@ -79,7 +79,7 @@
                     <h:form>
                         <h:dataTable value="#{buscarBean.usuariosPorNombre}" var="usuario">
                             <h:column>
-                                <h:link styleClass="list-group-item" outcome="#{UsuarioBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                                <h:link styleClass="list-group-item" onclick="#{buscarBean.visita(usuario)}" outcome="#{UsuarioBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
                             </h:column>
                         </h:dataTable>
                     </h:form>

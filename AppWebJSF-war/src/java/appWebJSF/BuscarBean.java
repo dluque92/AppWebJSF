@@ -7,9 +7,8 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -27,10 +26,10 @@ public class BuscarBean {
     private DatosUsuarioFacade datosUsuarioFacade;
     
     private String busqueda;
-    private List<DatosUsuario> usuariosPorNombre;
-    private List<DatosUsuario> usuariosPorAficion;
-    private List<DatosUsuario> usuariosPorExperiencia;
-    private List<DatosUsuario> usuarioPorEstudio;
+    private List<DatosUsuario> usuariosPorNombre = null;
+    private List<DatosUsuario> usuariosPorAficion = null;
+    private List<DatosUsuario> usuariosPorExperiencia = null;
+    private List<DatosUsuario> usuarioPorEstudio = null;
     
     
     @Inject
@@ -79,7 +78,13 @@ public class BuscarBean {
     public BuscarBean() {
     }
     
+    public void visita(DatosUsuario usuario){
+        usuario.setVisitas(usuario.getVisitas().add(BigInteger.ONE));
+        this.datosUsuarioFacade.edit(usuario);
+    }
+    
     public String hacerBusqueda(){
+        usuarioBean.cargarUsuario();
         setUsuarioPorEstudio(this.datosUsuarioFacade.findByEstudios(busqueda, usuarioBean.getUsuario().getIdUsuario()));
         setUsuariosPorAficion(this.datosUsuarioFacade.findByAficion(busqueda, usuarioBean.getUsuario().getIdUsuario()));
         setUsuariosPorNombre(this.datosUsuarioFacade.findByName(busqueda, usuarioBean.getUsuario().getIdUsuario()));

@@ -9,6 +9,7 @@ import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import dropbox.DropboxController;
 import java.io.Serializable;
+import java.math.BigInteger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -82,7 +83,7 @@ public class UsuarioBean implements Serializable {
             limpiarCampos();
             return "login";
         } else {
-            this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
+            cargarUsuario();
             if (usuario == null) {
                 error=true;
                 limpiarCampos();
@@ -112,7 +113,11 @@ public class UsuarioBean implements Serializable {
     }
     
     public String volverAIndex(){
-        this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
+        cargarUsuario();
         return "index";
+    }
+
+    public void cargarUsuario() {
+        this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
     }
 }
