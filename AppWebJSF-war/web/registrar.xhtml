@@ -1,23 +1,69 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Registrar</title>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>JobsNow</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!-- Icons -->
+        <script src="https://use.fontawesome.com/0e798431ad.js"></script>
+        <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
-        <h:form enctype="multipart/form-data">
-            Nombre:<h:inputText required="true" value="#{registrarBean.nombre}"/><br/>  
-            Apellidos<h:inputText required="true" value="#{registrarBean.apellidos}"/><br/>  
-            Email:<h:inputText required="true" value="#{registrarBean.email}"/><br/>  
-            Contraseña:<h:inputSecret required="true" value="#{registrarBean.password}"/><br/>  
-            Repetir Contraseña:<h:inputSecret required="true" value="#{registrarBean.password2}"/><br/>  
-            Twitter:<h:inputText value="#{registrarBean.twitter}"/><br/>  
-            Instagram:<h:inputText value="#{registrarBean.instagram}"/><br/>  
-            Web:<h:inputText value="#{registrarBean.web}"/><br/>  
-            Foto de Perfil<h:inputFile/><br/>
-            <h:commandButton value="Registrar" action="#{registrarBean.doRegistrar()}"/>
-        </h:form>
+        <div class="middlePage" style="margin-top:  0;">
+            <div class="page-header">
+                <h1 class="logo">JobsNow <small>Welcome to our place!</small></h1>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Registrate</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-7" style="border-left:1px solid #ccc; height:715px">
+                            <h:form enctype="multipart/form-data">
+                                <fieldset>
+                                    <div class="spacing"><small>Nombre</small></div>
+                                    <h:inputText styleClass="form-control input-md" p:placeholder="Nombre" required="true" value="#{registrarBean.nombre}"/>
+                                    <div class="spacing"><small>Apellidos</small></div>
+                                    <h:inputText styleClass="form-control input-md" required="true" p:placeholder="Apellidos" value="#{registrarBean.apellidos}"/>
+                                    <div class="spacing"><small>Email</small></div>
+                                    <h:inputText styleClass="form-control input-md" required="true" p:placeholder="Email" value="#{registrarBean.email}" 
+                                                 requiredMessage="Ingresa tu email."
+                                                 validatorMessage="Email o contraseña inválido">
+                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </h:inputText> 
+                                    <div class="spacing"><small>Contraseña:</small></div>
+                                    <h:inputSecret styleClass="form-control input-md" required="true" value="#{registrarBean.password}"/> 
+                                    <div class="spacing"><small>Repetir Contraseña:</small></div>
+                                    <h:inputSecret styleClass="form-control input-md" required="true" value="#{registrarBean.password2}"/>  
+                                    <div class="spacing"><small>Twitter:</small></div>
+                                    <h:inputText styleClass="form-control input-md" value="#{registrarBean.twitter}"/>
+                                    <div class="spacing"><small>Instagram:</small></div>
+                                    <h:inputText styleClass="form-control input-md" value="#{registrarBean.instagram}"/>
+                                    <div class="spacing"><small>Web:</small></div>
+                                    <h:inputText styleClass="form-control input-md" value="#{registrarBean.web}"/>
+                                    <div class="spacing"><small>Foto de Perfil</small></div>
+                                    <h:inputFile/>
+                                    <br/>
+                                    <h:commandButton styleClass="btn btn-info btn-sm pull-right" value="Registrar" action="#{registrarBean.doRegistrar()}"/>
+                                </fieldset>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>
 

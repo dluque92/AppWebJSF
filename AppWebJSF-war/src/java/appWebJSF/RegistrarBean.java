@@ -22,7 +22,7 @@ public class RegistrarBean {
 
     @EJB
     private DatosUsuarioFacade datosUsuarioFacade;
-    
+
     private String nombre;
     private String apellidos;
     private String email;
@@ -32,7 +32,7 @@ public class RegistrarBean {
     private String instagram;
     private String web;
     //FOTOOOOOOO
-    
+
     public RegistrarBean() {
     }
 
@@ -99,19 +99,19 @@ public class RegistrarBean {
     public void setWeb(String web) {
         this.web = web;
     }
-    
-    public String doRegistrar(){
-        if(this.datosUsuarioFacade.emailUsado(email) || !password.equals(password2)){
+
+    public String doRegistrar() {
+        if (this.datosUsuarioFacade.emailUsado(email) || !password.equals(password2)) {
             return "registrar";
-        }else{
+        } else {
             DatosUsuario usuario = this.datosUsuarioFacade.crearUsuario(email, password, nombre, apellidos);
-            if(twitter!=null && !twitter.isEmpty()){
-            usuario.setTwitter(twitter);
+            if (twitter != null && !twitter.isEmpty()) {
+                usuario.setTwitter(twitter);
             }
-            if(instagram!=null && !instagram.isEmpty()){
+            if (instagram != null && !instagram.isEmpty()) {
                 usuario.setInstagram(instagram);
             }
-            if(web!=null && !web.isEmpty()){
+            if (web != null && !web.isEmpty()) {
                 usuario.setWeb(web);
             }
             //Visitas a 0
@@ -121,5 +121,5 @@ public class RegistrarBean {
             return "login";
         }
     }
-    
+
 }

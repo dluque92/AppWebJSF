@@ -9,7 +9,6 @@ import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import dropbox.DropboxController;
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
