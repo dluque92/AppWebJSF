@@ -220,9 +220,9 @@
                         #{experiencia.webEmpresa}
                     </h:column>
                 </h:dataTable>
-                <h:link value="Editar perfil" outcome="editar"/><br/>
-                <h:link value="Peticiones" outcome="peticiones"/><br/>
-                <h:link value="Mensajes" outcome="mensaje"/><br/>
+                <h:form>
+                    <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="editar" value="Editar Perfil"/>
+                </h:form>
             </div>
         </div>
     </h:body>

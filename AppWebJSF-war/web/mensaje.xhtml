@@ -4,8 +4,126 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Mensajes</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!-- Icons -->
+        <script src="https://use.fontawesome.com/0e798431ad.js"></script>
+        <h:outputStylesheet library="css" name="style.css" />
+        
+        <style>
+            /* Para el fondo del body */
+            body {
+                background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
+                background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
+                background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
+                background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Opera 11.10+ */
+                background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* W3C */
+                padding-top: 60px; /* ESTO LO PIDE LA PAGINA WEB DE BOOTSTRAP */
+            }
+            .jumbotron{
+                margin: 1em;
+
+            }
+            .btn{
+                margin: 0.2em;
+            }
+            h1 { 
+                color: #16222A;
+                font-size: 2em; 
+                font-weight: 800; 
+                line-height: 72px; 
+                margin: 0 0 24px;
+                text-transform: uppercase; 
+            }
+            h3 { 
+                color: #16222A;
+                font-size: 2em; 
+                font-weight: 600; 
+                line-height: 72px;
+                text-transform: uppercase; 
+            }
+            /* Codigo para los social links */
+            .social-links a{
+                text-align:center;
+                float: left;
+                width: 36px;
+                height: 36px;
+                border: 2px solid #909090;
+                border-radius: 100%;
+                margin-right: 7px; /*space between*/
+                display: flex;
+                align-items: flex-start;
+                transition: all 0.4s;
+                -webkit-transition: all 0.4s;
+            } 
+            .social-links a i{
+                font-size: 20px;
+                align-self:center;
+                color: #909090;
+                transition: all 0.4s;
+                -webkit-transition: all 0.4s;
+                margin: 0 auto;
+            }
+            .social-links a i::before{
+                display:inline-block;
+                text-decoration:none;
+            }
+            .social-links a:hover{
+                background: rgba(0,0,0,0.2);
+            }
+            .social-links a:hover i{
+                color:#fff;
+            }
+            .bgimg {
+                padding: 2em;
+                width: 100%;
+                background-image: url('http://medioambiente.blogs.upv.es/files/2013/10/cabecera1.jpg');
+                background-size: cover;
+                margin: 0.1em;
+            }
+            ul{
+                margin: 1em;
+            }
+            nav ul li{
+                display: inline;
+                margin-right: 2em;
+            }
+
+        </style>
     </h:head>
     <h:body>
+        <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <h:form>
+                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
+                    </h:form>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <h:form styleClass="navbar-form navbar-left">
+                        <div class="form-group">
+                            <h:inputText value="#{buscarBean.busqueda}"/>
+                        </div>
+                        <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
+                    </h:form>
+
+                    <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
+                        <h:form>
+                            <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
+                            <li><h:link styleClass="fa fa-envelope" outcome="mensaje"/></li>
+                            <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
+                        </h:form>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <h:dataTable value="#{mensajeBean.listaAmigos}" var="amigo">
             <h:column>
                 #{amigo.nombre} #{amigo.apellidos}

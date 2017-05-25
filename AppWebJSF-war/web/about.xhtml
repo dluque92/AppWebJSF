@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>        
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>JobsNow</title>
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>About eCorp</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
         <!-- Optional theme -->
@@ -16,8 +16,9 @@
 
         <!-- Icons -->
         <script src="https://use.fontawesome.com/0e798431ad.js"></script>
-        <h:outputStylesheet library="css" name="style.css" ></h:outputStylesheet>
+
         <style>
+            /* Para el fondo del body */
             body {
                 background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
                 background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
@@ -87,47 +88,19 @@
                 background-size: cover;
                 margin: 0.1em;
             }
+            ul{
+                margin: 1em;
+            }
+            nav ul li{
+                display: inline;
+                margin-right: 2em;
+            }
+
         </style>
     </h:head>
     <h:body>
-
-
-        <div class="middlePage">
-            <div class="page-header">
-                <h1 class="logo">JobsNow <small>Encuentra trabajo ya!</small></h1>
-            </div>
-
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please Sign In</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-5" >
-                            <a class="btn btn-block btn-social btn-lg btn-twitter"><i class="fa fa-twitter"></i> Logueate con Twitter</a><br/>
-                            <a class="btn btn-block btn-social btn-lg btn-github"><i class="fa fa-github"></i> Logueate con GitHub</a><br/>
-                            <a class="btn btn-block btn-social btn-lg btn-facebook"><i class="fa fa-facebook"></i> Logueate con Facebook</a><br/>
-                        </div>
-                        <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
-                            <fieldset>
-                                <h:form>
-                                    <h:inputText required="true" value="#{UsuarioBean.email}" requiredMessage="Ingresa tu email." validatorMessage="Email o contraseña inválido">
-                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                    </h:inputText><br/>
-                                    <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1" /><small> Recuerdame</small></div>
-                                    <h:inputSecret required="true" value="#{UsuarioBean.password}" requiredMessage="Introduce una contraseña."/><br/>                                
-                                    <div class="spacing"><a href="#"><small>¿Has olvidado tu contraseña?</small></a><br/></div>
-                                    <h:commandButton value="Entrar" action="#{UsuarioBean.doLogin()}" class="btn btn-info btn-sm pull-right"/>
-                                </h:form>
-                                <h:form>
-                                    <h:commandButton value="Registrar" action="registrar" class="btn btn-default btn-sm pull-left"/>
-                                </h:form>
-                            </fieldset>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h:link value="Sobre eCorp" outcome="about"/><br/>
+        <div class="col-sm-3 col-md-3">  
+           <!-- <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/><br/> -->
         </div>
     </h:body>
 </html>
