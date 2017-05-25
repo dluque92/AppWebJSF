@@ -38,8 +38,8 @@ public class UsuarioBean implements Serializable {
         error=false;
     }
     
-    public String getFoto(){
-        return DropboxController.getUrl(usuario.getFoto());
+    public String getFoto(DatosUsuario user){
+        return DropboxController.getUrl(user.getFoto());
     }
     
     public DatosUsuario getUsuario() {

@@ -71,7 +71,11 @@
                 <div class="list-group">
                     <h:form>
                         <h:dataTable value="#{UsuarioBean.usuario.peticionesRecibidas}" var="usuario">
-
+                            <h:column>
+                                <div class="col-sm-3 col-md-3">  
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/><br/>
+                                </div>
+                            </h:column>
                             <h:column>
                                 <div class="list-group-item">
                                     #{usuario.nombre} #{usuario.apellidos}
