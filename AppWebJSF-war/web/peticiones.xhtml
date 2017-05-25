@@ -39,6 +39,7 @@
         </style>
     </h:head>
     <h:body>
+        <h:form>
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -68,8 +69,7 @@
         <div class="container">
             <div class="jumbotron vertical-center">
                 <h3>Usuarios</h3>
-                <div class="list-group">
-                    <h:form>
+                <div class="list-group">                
                         <h:dataTable value="#{UsuarioBean.usuario.peticionesRecibidas}" var="usuario">
                             <h:column>
                                 <div class="col-sm-3 col-md-3">  
@@ -86,10 +86,11 @@
                             </h:column>
 
                         </h:dataTable>
-                    </h:form>
                 </div>
             </div>
         </div>
+    </h:form>
+            
     </h:body>
 </html>
 

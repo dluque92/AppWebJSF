@@ -94,9 +94,6 @@ public class UsuarioBean implements Serializable {
     }
     
     public String doLogout(){
-        //limpiarCampos();
-        //this.usuario=null;
-        //¿Hay que cerrar la sesion?
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login.xhtml?faces-redirect=true";
     }

@@ -27,7 +27,7 @@ public class PeticionBean {
     @Inject
     private UsuarioBean usuarioBean;
 
-    private DatosUsuario usuarioEnSesion;
+    private DatosUsuario usuarioEnviarPeticion;
 
     /**
      * Creates a new instance of PeticionBean
@@ -36,38 +36,35 @@ public class PeticionBean {
     }
 
     public String enviarPeticion() {
-        usuarioEnSesion = this.datosUsuarioFacade.obtenerUsuario(usuarioBean.getEmail(), usuarioBean.getPassword());
-        usuarioEnSesion.getPeticionesEnviadas().add(usuarioBean.getUsuario());
-        usuarioBean.getUsuario().getPeticionesRecibidas().add(usuarioEnSesion);
-        this.datosUsuarioFacade.edit(usuarioEnSesion);
+        usuarioEnviarPeticion = usuarioBean.getUsuario();
+        usuarioBean.cargarUsuario();
+        usuarioBean.getUsuario().getPeticionesEnviadas().add(usuarioEnviarPeticion);
+        usuarioEnviarPeticion.getPeticionesRecibidas().add(usuarioBean.getUsuario());
+        this.datosUsuarioFacade.edit(usuarioEnviarPeticion);
         this.datosUsuarioFacade.edit(usuarioBean.getUsuario());
         return "index";
     }
 
     public String rechazarPeticion(DatosUsuario nuevoAmigo) {
-        usuarioEnSesion.getPeticionesRecibidas().remove(nuevoAmigo);
-        nuevoAmigo.getPeticionesEnviadas().remove(usuarioEnSesion);
-        this.datosUsuarioFacade.edit(usuarioEnSesion);
+        usuarioBean.cargarUsuario();
+        usuarioBean.getUsuario().getPeticionesRecibidas().remove(nuevoAmigo);
+        nuevoAmigo.getPeticionesEnviadas().remove(usuarioBean.getUsuario());
+        this.datosUsuarioFacade.edit(usuarioBean.getUsuario());
         this.datosUsuarioFacade.edit(nuevoAmigo);
         return "peticiones";
     }
 
-    @PostConstruct
-    public void init() {
-        usuarioEnSesion = this.datosUsuarioFacade.obtenerUsuario(usuarioBean.getEmail(), usuarioBean.getPassword());
-    }
-
     public String aceptarPeticion(DatosUsuario nuevoAmigo) {
+        usuarioBean.cargarUsuario();
+        usuarioBean.getUsuario().getMisAmigos().add(nuevoAmigo);
+        nuevoAmigo.getSoyAmigoDe().add(usuarioBean.getUsuario());
+        usuarioBean.getUsuario().getSoyAmigoDe().add(nuevoAmigo);
+        nuevoAmigo.getMisAmigos().add(usuarioBean.getUsuario());
 
-        usuarioEnSesion.getMisAmigos().add(nuevoAmigo);
-        nuevoAmigo.getSoyAmigoDe().add(usuarioEnSesion);
-        usuarioEnSesion.getSoyAmigoDe().add(nuevoAmigo);
-        nuevoAmigo.getMisAmigos().add(usuarioEnSesion);
+        usuarioBean.getUsuario().getPeticionesRecibidas().remove(nuevoAmigo);
+        nuevoAmigo.getPeticionesEnviadas().remove(usuarioBean.getUsuario());
 
-        usuarioEnSesion.getPeticionesRecibidas().remove(nuevoAmigo);
-        nuevoAmigo.getPeticionesEnviadas().remove(usuarioEnSesion);
-
-        this.datosUsuarioFacade.edit(usuarioEnSesion);
+        this.datosUsuarioFacade.edit(usuarioBean.getUsuario());
         this.datosUsuarioFacade.edit(nuevoAmigo);
         return "peticiones";
     }

@@ -6,7 +6,11 @@
         <title>Mensajes</title>
     </h:head>
     <h:body>
-        <h:graphicImage value="http://4.bp.blogspot.com/-YeLX16EHtoM/U6A-7JAIFbI/AAAAAAAAF5c/6modQeLs_is/s1600/no-fue-un-error-si-sabias.jpg"/>
+        <h:dataTable value="#{mensajeBean.listaAmigos}" var="amigo">
+            <h:column>
+                #{amigo.nombre} #{amigo.apellidos}
+            </h:column>
+        </h:dataTable>
     </h:body>
 </html>
 
