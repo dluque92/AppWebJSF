@@ -18,88 +18,6 @@
         <!-- Icons -->
         <script src="https://use.fontawesome.com/0e798431ad.js"></script>
         <h:outputStylesheet library="css" name="style.css" />
-        
-        <style>
-            /* Para el fondo del body */
-            body {
-                background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
-                background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
-                background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
-                background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Opera 11.10+ */
-                background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* W3C */
-                padding-top: 60px; /* ESTO LO PIDE LA PAGINA WEB DE BOOTSTRAP */
-            }
-            .jumbotron{
-                margin: 1em;
-
-            }
-            .btn{
-                margin: 0.2em;
-            }
-            h1 { 
-                color: #16222A;
-                font-size: 2em; 
-                font-weight: 800; 
-                line-height: 72px; 
-                margin: 0 0 24px;
-                text-transform: uppercase; 
-            }
-            h3 { 
-                color: #16222A;
-                font-size: 2em; 
-                font-weight: 600; 
-                line-height: 72px;
-                text-transform: uppercase; 
-            }
-            /* Codigo para los social links */
-            .social-links a{
-                text-align:center;
-                float: left;
-                width: 36px;
-                height: 36px;
-                border: 2px solid #909090;
-                border-radius: 100%;
-                margin-right: 7px; /*space between*/
-                display: flex;
-                align-items: flex-start;
-                transition: all 0.4s;
-                -webkit-transition: all 0.4s;
-            } 
-            .social-links a i{
-                font-size: 20px;
-                align-self:center;
-                color: #909090;
-                transition: all 0.4s;
-                -webkit-transition: all 0.4s;
-                margin: 0 auto;
-            }
-            .social-links a i::before{
-                display:inline-block;
-                text-decoration:none;
-            }
-            .social-links a:hover{
-                background: rgba(0,0,0,0.2);
-            }
-            .social-links a:hover i{
-                color:#fff;
-            }
-            .bgimg {
-                padding: 2em;
-                width: 100%;
-                background-image: url('http://medioambiente.blogs.upv.es/files/2013/10/cabecera1.jpg');
-                background-size: cover;
-                margin: 0.1em;
-            }
-            ul{
-                margin: 1em;
-            }
-            nav ul li{
-                display: inline;
-                margin-right: 2em;
-            }
-
-        </style>
-        
     </h:head>
     <h:body>
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
@@ -154,16 +72,20 @@
                                                      validatorMessage="Email inválido">
                                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                         </h:inputText>
-
+                                        <div class="spacing"><small>Contraseña Antigua:</small></div>
+                                        <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passAntigua }"/>
+                                        <h:outputText style="color: red; font: bolder" value="Contraseña Incorrecta" rendered="#{usuarioModificarBean.badPasswordAntigua}"/>
+                                        <div class="spacing"><small>Nueva Contraseña:</small></div>
+                                        <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passNueva}"/>
+                                        <div class="spacing"><small>Repetir Contraseña:</small></div>
+                                        <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passRepetida}"/>
+                                        <h:outputText style="color: red; font: bolder" value="Contraseña No Coincide" rendered="#{usuarioModificarBean.badPasswordRepetida}" />
                                         <div class="spacing"><small>Twitter</small></div>
                                         <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.twitter}" />
-
                                         <div class="spacing"><small>Instagram</small></div>
                                         <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.instagram}" />
-
                                         <div class="spacing"><small>Web</small></div>
                                         <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.web}" />
-
                                         <br/>
                                         <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" />
                                     </h:form>
