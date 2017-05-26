@@ -170,6 +170,101 @@
                                 </fieldset>
                             </div>
                         </div>
+                        <h4>Experiencia:</h4>
+                        <h:dataTable styleClass="table table-strip" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
+                            <h:column>
+                                <f:facet name="header">
+                                    Empresa
+                                </f:facet>
+                                #{experiencia.empresa}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Puesto
+                                </f:facet>
+                                #{experiencia.puesto}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de comienzo
+                                </f:facet>
+                                #{experiencia.fechaComienzoString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de finalización
+                                </f:facet>
+                                #{experiencia.fechaFinalizacionString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Web de la empresa
+                                </f:facet>
+                                #{experiencia.webEmpresa}
+                            </h:column>
+                        </h:dataTable>
+
+                        <h4>Aficiones:</h4>
+                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
+                            <h:column>
+                                <f:facet name="header">
+                                    Nombre
+                                </f:facet>
+                                #{aficion.nombre}
+                            </h:column>
+                        </h:dataTable>
+
+                        <h4>Estudios:</h4>
+                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+                            <h:column>
+                                <f:facet name="header">
+                                    Nombre
+                                </f:facet>
+                                #{estudio.nombre}
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Descripción
+                                </f:facet>
+                                #{estudio.descripcion}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de Comienzo
+                                </f:facet>
+                                #{estudio.fechaComienzoString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de finalización
+                                </f:facet>
+                                #{estudio.fechaFinString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Ubicación
+                                </f:facet>
+                                #{estudio.ubicacion}
+                            </h:column>
+                            <h:column>
+                                <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-default" >
+                                    <!-- <span class="glyphicon glyphicon-remove"></span> -->
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                        <h:inputText value="#{estudioBean.nuevoEstudio.nombre}"></h:inputText>
+                        <h:inputText value="#{estudioBean.nuevoEstudio.descripcion}"></h:inputText>
+                        <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaComienzo}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                        </h:inputText>
+                        <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaFinalizacion}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                        </h:inputText>
+                        <h:inputText value="#{estudioBean.nuevoEstudio.ubicacion}"></h:inputText>
+                        <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default">
+                            <!-- <span class="glyphicon glyphicon-remove"></span> -->
+                        </h:commandButton>
                     </div>
                 </div>
             </div>
