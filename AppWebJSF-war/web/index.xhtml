@@ -136,7 +136,9 @@
                             Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
                         </div>
                         <div class="co-sm-3 col-md-3">
-                            <h:commandButton value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>    
+                            <h:commandButton styleClass="btn btn-success btn-sm pull-left" value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>
+                            <h:commandButton styleClass="btn btn-primary btn-sm pull-left" action="mensaje" value="Enviar Mensaje"/>
+                            <h:commandButton styleClass="btn btn-warning btn-sm pull-right" action="editar" value="Editar Perfil"/>
                         </div>
                     </div>
                     <br/>
@@ -216,7 +218,6 @@
                             #{experiencia.webEmpresa}
                         </h:column>
                     </h:dataTable>
-                    <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="editar" value="Editar Perfil"/>
                 <h4>Amigos</h4>
                     <div class="list-unstyled" style="padding:1em; display: inline-block">
                         <ui:repeat value="#{UsuarioBean.amigosAmostrar}" var="amigo" >
