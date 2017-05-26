@@ -76,5 +76,6 @@ public class EstudioBean {
     @PostConstruct
     public void init(){
         this.nuevoEstudio = new Estudio();
+        this.nuevoEstudio.setDatosUsuarioIdUsuario(usuarioBean.getUsuario());
     }
 }
