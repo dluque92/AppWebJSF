@@ -7,11 +7,17 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import dropbox.DropboxController;
+import dropbox.DropboxControllerException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -31,8 +37,16 @@ public class UsuarioModificarBean {
     private boolean badPasswordRepetida=false;
     private String passNueva;
     private String passRepetida;
+    private Part archivo;
     
     protected DatosUsuario usuarioEnSesion;
+    public Part getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(Part archivo) {
+        this.archivo = archivo;
+    }
 
     public DatosUsuario getUsuarioEnSesion() {
         return usuarioEnSesion;
@@ -53,8 +67,6 @@ public class UsuarioModificarBean {
     public void setBadPasswordRepetida(boolean badPasswordRepetida) {
         this.badPasswordRepetida = badPasswordRepetida;
     }
-
-   
 
     public String getPassAntigua() {
         return passAntigua;
@@ -112,6 +124,20 @@ public class UsuarioModificarBean {
                 badPasswordAntigua=true;
             }
         }
+        
+        String nombreFoto;
+            if (archivo != null) {
+                nombreFoto = getUsuarioEnSesion().getEmail() + ".jpg";
+                try {
+                    InputStream fileContent = archivo.getInputStream();
+                    DropboxController.overwriteFile(nombreFoto, fileContent);
+                }catch (IOException ex) {
+                    //Fallo al subir la foto
+                }
+            //Fallo en Dropbox
+            
+
+            }
         
         this.datosUsuarioFacade.edit(this.usuarioEnSesion);
         
