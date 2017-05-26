@@ -42,6 +42,7 @@ public class PeticionBean {
         usuarioEnviarPeticion.getPeticionesRecibidas().add(usuarioBean.getUsuario());
         this.datosUsuarioFacade.edit(usuarioEnviarPeticion);
         this.datosUsuarioFacade.edit(usuarioBean.getUsuario());
+        usuarioBean.setUsuario(usuarioEnviarPeticion);
         return "index";
     }
 

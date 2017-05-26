@@ -101,28 +101,25 @@
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
+        <h:form enctype="multipart/form-data">
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <h:form>
                         <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
-                    </h:form>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <h:form styleClass="navbar-form navbar-left">
+                    <div class="navbar-form navbar-left">
                         <div class="form-group">
                             <h:inputText value="#{buscarBean.busqueda}"/>
                         </div>
                         <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
-                    </h:form>
+                    </div>
 
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
-                        <h:form>
                             <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
                             <li><h:link styleClass="fa fa-envelope" outcome="mensaje"/></li>
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
-                        </h:form>
                     </ul>
                 </div>
             </div>
@@ -138,9 +135,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-7" style="border-left:1px solid #ccc; height:715px">
-                            <h:form enctype="multipart/form-data">
                                 <fieldset>
-                                    <h:form>
                                         <div class="spacing"><small>Nombre</small></div>
                                         <h:inputText styleClass="form-control input-md" p:placeholder="Nombre" required="true" requiredMessage="Introduce el nombre" value="#{usuarioModificarBean.usuarioEnSesion.nombre}" />
 
@@ -169,14 +164,14 @@
                                         <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.web}" />
                                         <br/>
                                         <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" />
-                                    </h:form>
+                                    
                                 </fieldset>
-                            </h:form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+            </h:form>
     </h:body>
 </html>
 

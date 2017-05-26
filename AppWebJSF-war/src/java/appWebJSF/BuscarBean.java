@@ -9,6 +9,7 @@ import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import java.math.BigInteger;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -83,12 +84,18 @@ public class BuscarBean {
         this.datosUsuarioFacade.edit(usuario);
     }
     
+    public String buscar(DatosUsuario usuario){
+        usuarioBean.setUsuario(usuario);
+        visita(usuario);
+        return "index";
+    }
+    
     public String hacerBusqueda(){
         usuarioBean.cargarUsuario();
         setUsuarioPorEstudio(this.datosUsuarioFacade.findByEstudios(busqueda, usuarioBean.getUsuario().getIdUsuario()));
         setUsuariosPorAficion(this.datosUsuarioFacade.findByAficion(busqueda, usuarioBean.getUsuario().getIdUsuario()));
         setUsuariosPorNombre(this.datosUsuarioFacade.findByName(busqueda, usuarioBean.getUsuario().getIdUsuario()));
-        setUsuariosPorExperiencia(this.datosUsuarioFacade.findByExperiencia(busqueda, usuarioBean.getUsuario().getIdUsuario()));
+        setUsuariosPorExperiencia(this.datosUsuarioFacade.findByExperiencia(busqueda, usuarioBean.getUsuario().getIdUsuario()));        
         busqueda="";
         return "buscar";
     }

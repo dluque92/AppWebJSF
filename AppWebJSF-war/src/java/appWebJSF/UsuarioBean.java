@@ -9,6 +9,10 @@ import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import dropbox.DropboxController;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -30,8 +34,26 @@ public class UsuarioBean implements Serializable {
     private String password = "";
     private DatosUsuario usuario;
     private Boolean error;
+    private List<DatosUsuario> amigosAmostrar;
     
     
+    public List<DatosUsuario> getAmigosAmostrar() {
+        List<DatosUsuario> misAmigos = new ArrayList();
+        misAmigos.addAll(usuario.getMisAmigos());
+        if (usuario.getMisAmigos().size() > 5) {
+            Random alea = new Random();
+            amigosAmostrar = new ArrayList<>(5);
+            while (amigosAmostrar.size()<5) {
+                DatosUsuario u = misAmigos.get(alea.nextInt(usuario.getMisAmigos().size()));
+                if (!amigosAmostrar.contains(u)) {
+                    amigosAmostrar.add(u);
+                }
+            }
+            return amigosAmostrar;
+        } else {
+            return misAmigos;
+        }
+    }
     
     @PostConstruct
     public void init(){
@@ -101,11 +123,6 @@ public class UsuarioBean implements Serializable {
     public void limpiarCampos() {
         email = "";
         password = "";
-    }
-    
-    public String buscar(DatosUsuario usuario){
-        setUsuario(usuario);
-        return "index";
     }
     
     public String volverAIndex(){
