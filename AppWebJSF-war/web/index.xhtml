@@ -221,8 +221,11 @@
                     <div class="list-unstyled" style="padding:1em; display: inline-block">
                         <ui:repeat value="#{UsuarioBean.amigosAmostrar}" var="amigo" >
                             <div class="col-sm-1 col-md-1" style="padding-right: 3em">  
-                                <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(amigo)}"/><br/>
-                                <h:commandLink action="#{UsuarioBean.buscar(amigo)}" style="font-size: 12px;left: 50%">#{amigo.nombre} #{amigo.apellidos}</h:commandLink>
+                                
+                                <h:commandLink action="#{buscarBean.buscar(amigo)}" style="font-size: 12px;left: 50%">
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(amigo)}"/><br/>
+                                    #{amigo.nombre} #{amigo.apellidos}
+                                </h:commandLink>
                             </div> 
                         </ui:repeat>
                     </div>
