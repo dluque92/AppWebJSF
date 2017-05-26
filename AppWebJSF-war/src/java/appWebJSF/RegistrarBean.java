@@ -7,10 +7,18 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import dropbox.DropboxController;
+import dropbox.DropboxControllerException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -31,7 +39,15 @@ public class RegistrarBean {
     private String twitter;
     private String instagram;
     private String web;
-    //FOTOOOOOOO
+    private Part archivo;
+
+    public Part getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(Part archivo) {
+        this.archivo = archivo;
+    }
 
     public RegistrarBean() {
     }
@@ -116,7 +132,22 @@ public class RegistrarBean {
             }
             //Visitas a 0
             usuario.setVisitas(BigInteger.ZERO);
-            usuario.setFoto("default.jpg");
+            String nombreFoto;
+            if (archivo != null) {
+                nombreFoto = email + ".jpg";
+                try {
+                    InputStream fileContent = archivo.getInputStream();
+                    DropboxController.uploadFile(nombreFoto, fileContent);
+                } catch (IOException ex) {
+                    //Fallo al subir la foto
+                } catch (DropboxControllerException ex) {
+                    //Fallo en Dropbox
+                }
+
+            } else {
+                nombreFoto = "default.jpg";
+            }
+            usuario.setFoto(nombreFoto);
             this.datosUsuarioFacade.create(usuario);
             return "login";
         }

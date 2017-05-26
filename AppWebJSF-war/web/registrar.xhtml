@@ -54,7 +54,7 @@
                                     <div class="spacing"><small>Web:</small></div>
                                     <h:inputText styleClass="form-control input-md" value="#{registrarBean.web}"/>
                                     <div class="spacing"><small>Foto de Perfil</small></div>
-                                    <h:inputFile/>
+                                    <h:inputFile value="#{registrarBean.archivo}"/>
                                     <br/>
                                     <h:commandButton styleClass="btn btn-info btn-sm pull-right" value="Registrar" action="#{registrarBean.doRegistrar()}"/>
                                 </fieldset>
