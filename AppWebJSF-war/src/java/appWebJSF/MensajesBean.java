@@ -145,17 +145,21 @@ public class MensajesBean {
         usuario = usuarioBean.getUsuario();
         listaMensajes = (List<Mensaje>) usuario.getMensajeCollection();
         listaAmigos = (List<DatosUsuario>) usuario.getMisAmigos();
-        amigo = listaAmigos.get(0);
+        //amigo = listaAmigos.get(0);
         if (idAmigo == null && listaMensajes != null && !listaMensajes.isEmpty() && listaAmigos != null) {
             Collections.sort(listaMensajes);
             for (DatosUsuario u : listaMensajes.get(listaMensajes.size() - 1).getDatosUsuarioCollection()) {
                 if (!u.equals(usuario)) {
                     idAmigo = u.getIdUsuario().toString();
                     this.amigo = this.datosUsuarioFacade.find(new BigDecimal(idAmigo));
-                    this.obtenerMensajesAmigo(amigo);
                 }
             }
         }
+        if (listaMensajes.isEmpty() && idAmigo == null && !listaAmigos.isEmpty()){
+            this.amigo = this.listaAmigos.get(0);
+        }
+        
+        this.obtenerMensajesAmigo(amigo);
 
         for (Mensaje mensaje : usuario.getMensajeCollection()) {
             if (!mensaje.getMensaje().startsWith(usuario.getEmail()) && mensaje.getLeido() == '0') {
@@ -180,8 +184,10 @@ public class MensajesBean {
         Collections.sort(listaMensajesAmigo);
     }
 
-    public void cambiarAmigo(DatosUsuario amigo) {
+    public String cambiarAmigo(DatosUsuario amigo) {
         this.amigo = amigo;
+        this.init();
+        return "bandejaentrada";
     }
 
     public Boolean esMensajeDeAmigo(Mensaje mensaje) {
@@ -189,9 +195,7 @@ public class MensajesBean {
     }
 
     public String doEnviarMensaje() {
-
-        
-        if (amigo != null && mensaje != null && !mensaje.equals("") && usuario != null) {
+        if (amigo != null && this.getMensaje() != null && !mensaje.equals("") && usuario != null) {
             Mensaje mensajeAEnviar = this.mensajeFacade.crearMensaje(usuario.getEmail() + mensaje, usuario, amigo);
             mensajeAEnviar.setLeido('0');
             this.mensajeFacade.create(mensajeAEnviar);
@@ -201,10 +205,22 @@ public class MensajesBean {
             this.usuarioBean.setUsuario(usuario);
             this.datosUsuarioFacade.edit(amigo);
         }
-        
+
         this.setMensaje("");
         this.init();
-        
+
         return "bandejaentrada";
+    }
+
+    public Boolean tieneMensaje(DatosUsuario amigo) {
+        boolean tieneMensajes = false;
+        for (Mensaje m : usuario.getMensajeCollection()) {
+            boolean empieza = !m.getMensaje().startsWith(usuario.getEmail());
+            if (m.getLeido() == '0' && empieza && m.getDatosUsuarioCollection().contains(amigo)) {
+                tieneMensajes = true;
+                break;
+            }
+        }
+        return tieneMensajes;
     }
 }
