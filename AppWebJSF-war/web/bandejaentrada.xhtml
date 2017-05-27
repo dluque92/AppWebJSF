@@ -103,52 +103,52 @@
                         en la izquierda -->        
                         <h:dataTable value="#{mensajesBean.listaAmigos}" var="amigo">
                             <h:column>
-                                <div class="list-group-item">
-                                    #{amigo.apellidos}
-                                    <h:commandLink action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre}"/>
-                                </div>
+
+                                <h:commandLink styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre} #{amigo.apellidos}"/>
                             </h:column>
                         </h:dataTable>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-8">
-                <div class="jumbotron" style="border-radius: 8px; border-style: solid; border-width: 0.01px; width: 1000px; padding: 0px !important;">
-                    <div id="msg-end-scroll" class="jumbotron" style="margin-top: 0.5em; border-radius: 0px; overflow-y: auto; height:350px;">
 
-                        <ui:repeat value="#{mensajesBean.listaMensajesAmigo}" var="mensaje">
-                            <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
-                            <h:panelGroup rendered="#{mensajesBean.esMensajeDeAmigo(mensaje)}">
-                                <div id="friend" class="msg-box">
-                                    <div class="msg">
-                                        <small class="pull-right time"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                        <h4 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h4>
-                                        <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.email.length())}</small>
+                <div class="col-sm-8">
+                    <div class="jumbotron" style="border-radius: 8px; border-style: solid; border-width: 0.01px; width: 1000px; padding: 0px !important;">
+                        <div id="msg-end-scroll" class="jumbotron" style="margin-top: 0.5em; border-radius: 0px; overflow-y: auto; height:350px;">
+
+                            <ui:repeat value="#{mensajesBean.listaMensajesAmigo}" var="mensaje">
+                                <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
+                                <h:panelGroup rendered="#{mensajesBean.esMensajeDeAmigo(mensaje)}">
+                                    <div id="friend" class="msg-box">
+                                        <div class="msg">
+                                            <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                            <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
+                                            <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.email.length())}</small>
+                                        </div>
+                                    </div> 
+                                </h:panelGroup>
+                                <!--</h:outputText>-->
+
+                                <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
+                                <h:panelGroup rendered="#{!mensajesBean.esMensajeDeAmigo(mensaje)}">
+                                    <div id="user" class="msg-box">
+                                        <div class="msg">
+                                            <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                            <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
+                                            <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.email.length())}</small>
+                                        </div>
                                     </div>
-                                </div> 
-                            </h:panelGroup>
-                            <!--</h:outputText>-->
+                                </h:panelGroup>
+                                <!--</h:outputText>-->
+                            </ui:repeat>
 
-                            <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
-                            <h:panelGroup rendered="#{!mensajesBean.esMensajeDeAmigo(mensaje)}">
-                                <div id="user" class="msg-box">
-                                    <div class="msg">
-                                        <small class="pull-right time"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                        <h4 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h4>
-                                        <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.email.length())}</small>
-                                    </div>
-                                </div>
-                            </h:panelGroup>
-                            <!--</h:outputText>-->
-                        </ui:repeat>
-                    </div>
-                   
-                    <div class="send-wrap ">
-                        <h:inputTextarea value="#{mensajesBean.mensaje}" class="form-control send-message" rows="3" p:placeholder="Escribe un mensaje..."/>
-                    </div>
-                    <div class="btn-panel">
-                        <h:commandButton action="#{mensajesBean.doEnviarMensaje()}" styleClass="btn btn-success" role="button" value="Enviar mensaje"/>
+
+                            <div class="send-wrap ">
+                                <h:inputTextarea value="#{mensajesBean.mensaje}" class="form-control send-message" rows="3" p:placeholder="Escribe un mensaje..."/>
+                            </div>
+                            <div class="btn-panel">
+                                <h:commandButton action="#{mensajesBean.doEnviarMensaje()}" styleClass="btn btn-success" role="button" value="Enviar mensaje"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
