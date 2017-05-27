@@ -101,41 +101,46 @@
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
-        <h:form enctype="multipart/form-data">
-            <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
-                <div class="container-fluid">
-                    <div class="navbar-header">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <h:form>
                         <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <div class="navbar-form navbar-left">
-                            <div class="form-group">
-                                <h:inputText value="#{buscarBean.busqueda}"/>
-                            </div>
-                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
+                    </h:form>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <h:form>
+                    <div class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <h:inputText value="#{buscarBean.busqueda}"/>
                         </div>
-
-                        <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
+                        <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
+                    </div>
+                    </h:form>
+                    <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
+                        <h:form>
                             <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
                             <li><h:link styleClass="fa fa-envelope" outcome="bandejaentrada"/></li>
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
-                        </ul>
-                    </div>
+                        </h:form>
+                    </ul>
                 </div>
-            </nav>
-            <div class="middlePage" style="margin-top:  22px;">
-                <div class="page-header">
-                    <h1 class="logo">JobsNow <small>Welcome to our place!</small></h1>
+            </div>
+        </nav>
+        <div class="middlePage" style="margin-top:  22px;">
+            <div class="page-header">
+                <h1 class="logo">JobsNow <small>Welcome to our place!</small></h1>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Editar Perfil</h3>
                 </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Editar Perfil</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-7" style="border-left:1px solid #ccc; height:715px">
-                                <fieldset>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-7" style="border-left:1px solid #ccc; height:715px">
+                            <fieldset>
+                                <h:form enctype="multipart/form-data">
                                     <div class="spacing"><small>Nombre</small></div>
                                     <h:inputText styleClass="form-control input-md" p:placeholder="Nombre" required="true" requiredMessage="Introduce el nombre" value="#{usuarioModificarBean.usuarioEnSesion.nombre}" />
 
@@ -166,98 +171,102 @@
                                     <h:inputFile value="#{usuarioModificarBean.archivo}"/>
                                     <br/>
                                     <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" />
-
-                                </fieldset>
-                            </div>
+                                </h:form>
+                            </fieldset>
                         </div>
-                        <h4>Experiencia:</h4>
-                        <h:dataTable styleClass="table table-strip" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
-                            <h:column>
-                                <f:facet name="header">
-                                    Empresa
-                                </f:facet>
-                                #{experiencia.empresa}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Puesto
-                                </f:facet>
-                                #{experiencia.puesto}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Fecha de comienzo
-                                </f:facet>
-                                #{experiencia.fechaComienzoString}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Fecha de finalización
-                                </f:facet>
-                                #{experiencia.fechaFinalizacionString}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Web de la empresa
-                                </f:facet>
-                                #{experiencia.webEmpresa}
-                            </h:column>
-                        </h:dataTable>
+                    </div>
+                    <h4>Experiencia:</h4>
+                    <h:dataTable styleClass="table table-strip" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
+                        <h:column>
+                            <f:facet name="header">
+                                Empresa
+                            </f:facet>
+                            #{experiencia.empresa}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Puesto
+                            </f:facet>
+                            #{experiencia.puesto}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Fecha de comienzo
+                            </f:facet>
+                            #{experiencia.fechaComienzoString}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Fecha de finalización
+                            </f:facet>
+                            #{experiencia.fechaFinalizacionString}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Web de la empresa
+                            </f:facet>
+                            #{experiencia.webEmpresa}
+                        </h:column>
+                    </h:dataTable>
 
-                        <h4>Aficiones:</h4>
-                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
-                            <h:column>
-                                <f:facet name="header">
-                                    Nombre
-                                </f:facet>
-                                #{aficion.nombre}
-                            </h:column>
-                            <h:column>
-                                 <h:commandButton action="#{aficionBean.doBorrar(aficion)}" value="Borrar" class="btn btn-default"/>
-                            </h:column>
-                        </h:dataTable>
+                    <h4>Aficiones:</h4>
+                    <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
+                        <h:column>
+                            <f:facet name="header">
+                                Nombre
+                            </f:facet>
+                            #{aficion.nombre}
+                        </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:commandButton action="#{aficionBean.doBorrar(aficion)}" value="Borrar" class="btn btn-default"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                    <h:form>
                         <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
-                        
                         <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default"/>
-                        <h4>Estudios:</h4>
-                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
-                            <h:column>
-                                <f:facet name="header">
-                                    Nombre
-                                </f:facet>
-                                #{estudio.nombre}
+                    </h:form>
 
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Descripción
-                                </f:facet>
-                                #{estudio.descripcion}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Fecha de Comienzo
-                                </f:facet>
-                                #{estudio.fechaComienzoString}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Fecha de finalización
-                                </f:facet>
-                                #{estudio.fechaFinString}
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    Ubicación
-                                </f:facet>
-                                #{estudio.ubicacion}
-                            </h:column>
-                            <h:column>
-                                <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-default" >
-                                    <!-- <span class="glyphicon glyphicon-remove"></span> -->
-                                </h:commandButton>
-                            </h:column>
-                        </h:dataTable>
+                    <h4>Estudios:</h4>
+                    <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+                        <h:column>
+                            <f:facet name="header">
+                                Nombre
+                            </f:facet>
+                            #{estudio.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Descripción
+                            </f:facet>
+                            #{estudio.descripcion}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Fecha de Comienzo
+                            </f:facet>
+                            #{estudio.fechaComienzoString}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Fecha de finalización
+                            </f:facet>
+                            #{estudio.fechaFinString}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Ubicación
+                            </f:facet>
+                            #{estudio.ubicacion}
+                        </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-default" />
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                    <h:form>
                         <h:inputText value="#{estudioBean.nuevoEstudio.nombre}"></h:inputText>
                         <h:inputText value="#{estudioBean.nuevoEstudio.descripcion}"></h:inputText>
                         <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaComienzo}" >
@@ -267,13 +276,12 @@
                             <f:convertDateTime pattern="yyyy-MM-dd"/> 
                         </h:inputText>
                         <h:inputText value="#{estudioBean.nuevoEstudio.ubicacion}"></h:inputText>
-                        <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default">
-                            <!-- <span class="glyphicon glyphicon-remove"></span> -->
-                        </h:commandButton>
-                    </div>
+                        <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default"/>
+                    </h:form>
                 </div>
             </div>
-        </h:form>
+        </div>
+
     </h:body>
 </html>
 

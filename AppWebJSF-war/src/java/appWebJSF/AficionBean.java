@@ -28,16 +28,17 @@ public class AficionBean {
     @EJB
     private AficionFacade aficionFacade;
     
+    @Inject 
+    private UsuarioBean usuarioBean;
+    
+    private Aficion nuevaAficion;
     /**
      * Creates a new instance of AficionBean
      */
     public AficionBean() {
     }
     
-    @Inject 
-    private UsuarioBean usuarioBean;
     
-    private Aficion nuevaAficion;
 
     public Aficion getNuevaAficion() {
         return nuevaAficion;
@@ -48,7 +49,7 @@ public class AficionBean {
     }
     
     public String doBorrar(Aficion aficion){
-        this.usuarioBean.getUsuario().getEstudioCollection().remove(aficion);
+        this.usuarioBean.getUsuario().getAficionCollection().remove(aficion);
         
         this.aficionFacade.remove(aficion);
         
@@ -58,7 +59,7 @@ public class AficionBean {
     }
     
     public String doCrear(){
-        if(this.nuevaAficion!=null){
+        if(this.nuevaAficion != null){
             this.aficionFacade.create(nuevaAficion);
             this.usuarioBean.getUsuario().getAficionCollection().add(nuevaAficion);
             this.datosUsuarioFacade.edit(this.usuarioBean.getUsuario());
