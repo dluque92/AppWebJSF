@@ -111,12 +111,12 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <h:form>
-                    <div class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <h:inputText value="#{buscarBean.busqueda}"/>
+                        <div class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <h:inputText value="#{buscarBean.busqueda}"/>
+                            </div>
+                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
                         </div>
-                        <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
-                    </div>
                     </h:form>
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
                         <h:form>
@@ -207,7 +207,24 @@
                             </f:facet>
                             #{experiencia.webEmpresa}
                         </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:commandButton action="#{experienciaBean.doBorrar(experiencia)}" value="Borrar" class="btn btn-default"/>
+                            </h:form>
+                        </h:column>
                     </h:dataTable>
+                    <h:form>
+                        <h:inputText value="#{experienciaBean.nuevaExperiencia.empresa}"></h:inputText>
+                        <h:inputText value="#{experienciaBean.nuevaExperiencia.puesto}"></h:inputText>
+                        <h:inputText p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaComienzo}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                        </h:inputText>
+                        <h:inputText p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaFinalizacion}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                        </h:inputText>
+                        <h:inputText value="#{experienciaBean.nuevaExperiencia.webEmpresa}"></h:inputText>
+                        <h:commandButton action="#{experienciaBean.doCrear()}" value="Insertar" class="btn btn-default"/>
+                    </h:form>
 
                     <h4>Aficiones:</h4>
                     <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
