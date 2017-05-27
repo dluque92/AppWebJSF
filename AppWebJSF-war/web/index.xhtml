@@ -101,30 +101,34 @@
         </style>
     </h:head>
     <h:body>
-        <h:form>
-            <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
-                <div class="container-fluid">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
+            <div class="container-fluid">
+                <h:form>
                     <div class="navbar-header">
                         <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
                     </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                </h:form>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <h:form>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
                                 <h:inputText value="#{buscarBean.busqueda}"/>
                             </div>
                             <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
                         </div>
-
+                    </h:form>
+                    <h:form>
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
                             <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
                             <li><h:link styleClass="fa fa-envelope" outcome="bandejaentrada"/></li>
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
                         </ul>
-                    </div>
+                    </h:form>
                 </div>
-            </nav>
-
+            </div>
+        </nav>
+        <h:form>
             <div class="container">
                 <div class="jumbotron vertical-center">
                     <div class="row bgimg">
@@ -153,7 +157,7 @@
                         </h:column>
                     </h:dataTable>
                     <h4>Estudios:</h4>
-                    
+
                     <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
                         <h:column>
                             <f:facet name="header">
@@ -219,11 +223,11 @@
                             #{experiencia.webEmpresa}
                         </h:column>
                     </h:dataTable>
-                <h4>Amigos</h4>
+                    <h4>Amigos</h4>
                     <div class="list-unstyled" style="padding:1em; display: inline-block">
                         <ui:repeat value="#{UsuarioBean.amigosAmostrar}" var="amigo" >
                             <div class="col-sm-1 col-md-1" style="padding-right: 3em">  
-                                
+
                                 <h:commandLink action="#{buscarBean.buscar(amigo)}" style="font-size: 12px;left: 50%">
                                     <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(amigo)}"/><br/>
                                     #{amigo.nombre} #{amigo.apellidos}
