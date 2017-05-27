@@ -212,8 +212,13 @@
                                 </f:facet>
                                 #{aficion.nombre}
                             </h:column>
+                            <h:column>
+                                 <h:commandButton action="#{aficionBean.doBorrar(aficion)}" value="Borrar" class="btn btn-default"/>
+                            </h:column>
                         </h:dataTable>
-
+                        <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
+                        
+                        <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default"/>
                         <h4>Estudios:</h4>
                         <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
                             <h:column>
