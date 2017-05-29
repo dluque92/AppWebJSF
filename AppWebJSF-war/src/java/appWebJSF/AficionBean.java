@@ -8,6 +8,8 @@ package appWebJSF;
 import appWebJSF.ejb.AficionFacade;
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.Aficion;
+import appWebJSF.entity.DatosUsuario;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -70,12 +72,54 @@ public class AficionBean {
         return "editar";
     }
     
+     public String doEditar(Aficion aficion) {
+
+        // this.usuarioBean.getUsuario().getAficionCollection().remove(aficion);
+
+        
+        DatosUsuario usuario = this.usuarioBean.getUsuario();
+        List<Aficion> listaAficiones = (List<Aficion>) usuario.getAficionCollection();
+        int i=0;
+        for (Aficion af : listaAficiones) {
+            if (af.getIdAficion().equals(aficion.getIdAficion())) {
+                listaAficiones.remove(aficion);
+                break;
+            }else{
+                i++;
+            }
+        }
+        aficion.setCanEdit(true);
+        listaAficiones.add(i,aficion);
+        usuario.setAficionCollection(listaAficiones);
+        this.usuarioBean.setUsuario(usuario);
+        return "editar";
+    }
+    
+    public String doGuardar(Aficion aficion){
+        //Moficamos la aficion en la base de datos
+        this.aficionFacade.edit(aficion);
+        //Modificamos la aficion en local
+        DatosUsuario usuario = this.usuarioBean.getUsuario();
+        List<Aficion> listaAficiones = (List<Aficion>) usuario.getAficionCollection();
+        int i=0;
+        for (Aficion af : listaAficiones) {
+            if (af.getIdAficion().equals(aficion.getIdAficion())) {
+                listaAficiones.remove(aficion);
+                break;
+            }else{
+                i++;
+            }
+        }
+        aficion.setCanEdit(false);
+        listaAficiones.add(i,aficion);
+        usuario.setAficionCollection(listaAficiones);
+        this.usuarioBean.setUsuario(usuario);
+        return "editar";
+    }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         this.nuevaAficion = new Aficion();
         this.nuevaAficion.setDatosUsuarioIdUsuario(usuarioBean.getUsuario());
     }
-    
-    
-    
 }

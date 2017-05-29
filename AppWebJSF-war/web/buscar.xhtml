@@ -48,7 +48,6 @@
         </script>
     </h:head>
     <h:body>
-
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
                 <h:form>
@@ -60,9 +59,9 @@
                     <h:form>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
-                                <h:inputText value="#{buscarBean.busqueda}"/>
+                                <h:inputText value="#{UsuarioBean.busqueda}"/>
                             </div>
-                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
+                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{UsuarioBean.hacerBusqueda()}"/>
                         </div>
                     </h:form>
                     <h:form>
@@ -75,12 +74,13 @@
                 </div>
             </div>
         </nav>
-        <h:form>
-            <div class="container">
-                <div class="jumbotron vertical-center">
-                    <h3>Usuarios cuyo nombre contiene: #{buscarBean.busqueda}</h3>
+
+        <div class="container">
+            <div class="jumbotron vertical-center">
+                <h3>Usuarios cuyo nombre contiene: #{UsuarioBean.busqueda}</h3>
+                <h:form>
                     <div class="list-unstyled">
-                        <ui:repeat value="#{buscarBean.usuariosPorNombre}" var="usuario">
+                        <ui:repeat value="#{UsuarioBean.usuariosPorNombre}" var="usuario">
                             <h:column>
                                 <!-- el metodo visita llame al buscar usuario -->
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
@@ -88,34 +88,33 @@
                         </ui:repeat>
                     </div>
 
-                    <h3>Usuarios que estudian o han estudiado en: #{buscarBean.busqueda}</h3>
+                <h3>Usuarios que estudian o han estudiado en: #{UsuarioBean.busqueda}</h3>
                     <div class="list-unstyled">
-                        <h:dataTable value="#{buscarBean.usuarioPorEstudio}" var="usuario">
+                        <h:dataTable value="#{UsuarioBean.usuarioPorEstudio}" var="usuario">
                             <h:column>
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
                             </h:column>
                         </h:dataTable>
                     </div>
-                    <h3>Usuarios trabajan o han trabajado en: #{buscarBean.busqueda}</h3>
+                <h3>Usuarios trabajan o han trabajado en: #{UsuarioBean.busqueda}</h3>
                     <div class="list-unstyled">
-                        <h:dataTable value="#{buscarBean.usuariosPorExperiencia}" var="usuario">
+                        <h:dataTable value="#{UsuarioBean.usuariosPorExperiencia}" var="usuario">
                             <h:column>
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
                             </h:column>
                         </h:dataTable>
                     </div>
-                    <h3>Usuarios que son aficionados a: #{buscarBean.busqueda}</h3>
+                <h3>Usuarios que son aficionados a: #{UsuarioBean.busqueda}</h3>
                     <div class="list-unstyled">
-                        <h:dataTable value="#{buscarBean.usuariosPorAficion}" var="usuario">
+                        <h:dataTable value="#{UsuarioBean.usuariosPorAficion}" var="usuario">
                             <h:column>
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
                             </h:column>
                         </h:dataTable>
                     </div>
-                </div>
+                </h:form>
             </div>
-
-        </h:form>
+        </div>
     </h:body>
 </html>
 

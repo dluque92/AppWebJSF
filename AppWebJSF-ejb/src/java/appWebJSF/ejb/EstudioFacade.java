@@ -41,4 +41,11 @@ public class EstudioFacade extends AbstractFacade<Estudio> {
         return estudio;
     }
     
+    public BigDecimal crearID(){
+        Query q;
+        q = this.em.createNativeQuery("select SEQ_ID_ESTUDIO.nextval from dual");
+        BigDecimal num = (BigDecimal) q.getResultList().get(0);
+        return num;
+    }
+    
 }

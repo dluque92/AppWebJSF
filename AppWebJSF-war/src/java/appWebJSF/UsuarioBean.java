@@ -30,12 +30,16 @@ public class UsuarioBean implements Serializable {
     @EJB
     private DatosUsuarioFacade datosUsuarioFacade;
 
+    private String busqueda;
     private String email = "";
     private String password = "";
     private DatosUsuario usuario;
     private Boolean error;
     private List<DatosUsuario> amigosAmostrar;
-    
+    private List<DatosUsuario> usuariosPorNombre = null;
+    private List<DatosUsuario> usuariosPorAficion = null;
+    private List<DatosUsuario> usuariosPorExperiencia = null;
+    private List<DatosUsuario> usuarioPorEstudio = null;
     
     public List<DatosUsuario> getAmigosAmostrar() {
         List<DatosUsuario> misAmigos = new ArrayList();
@@ -132,5 +136,67 @@ public class UsuarioBean implements Serializable {
 
     public void cargarUsuario() {
         this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
+    }
+    
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(String busqueda) {
+        this.busqueda = busqueda;
+    }
+    
+    public List<DatosUsuario> getUsuariosPorNombre() {
+        return usuariosPorNombre;
+    }
+
+    public void setUsuariosPorNombre(List<DatosUsuario> usuariosPorNombre) {
+        this.usuariosPorNombre = usuariosPorNombre;
+    }
+
+    public List<DatosUsuario> getUsuariosPorAficion() {
+        return usuariosPorAficion;
+    }
+
+    public void setUsuariosPorAficion(List<DatosUsuario> usuariosPorAficion) {
+        this.usuariosPorAficion = usuariosPorAficion;
+    }
+
+    public List<DatosUsuario> getUsuariosPorExperiencia() {
+        return usuariosPorExperiencia;
+    }
+
+    public void setUsuariosPorExperiencia(List<DatosUsuario> usuariosPorExperiencia) {
+        this.usuariosPorExperiencia = usuariosPorExperiencia;
+    }
+
+    public List<DatosUsuario> getUsuarioPorEstudio() {
+        return usuarioPorEstudio;
+    }
+
+    public void setUsuarioPorEstudio(List<DatosUsuario> usuarioPorEstudio) {
+        this.usuarioPorEstudio = usuarioPorEstudio;
+    }
+    
+    public String getTwitter(){
+        return "http://www.twitter.com/"+ usuario.getTwitter();
+    }
+    
+    public String getInstagram(){
+        return "http://www.instagram.com/"+usuario.getInstagram();
+    }
+    
+    public String getWeb(){
+        return "http://www."+ usuario.getWeb();
+    }
+    
+    public String hacerBusqueda(){
+        cargarUsuario();
+        setUsuarioPorEstudio(this.datosUsuarioFacade.findByEstudios(busqueda, getUsuario().getIdUsuario()));
+        setUsuariosPorAficion(this.datosUsuarioFacade.findByAficion(busqueda, getUsuario().getIdUsuario()));
+        setUsuariosPorNombre(this.datosUsuarioFacade.findByName(busqueda, getUsuario().getIdUsuario()));
+        setUsuariosPorExperiencia(this.datosUsuarioFacade.findByExperiencia(busqueda, getUsuario().getIdUsuario()));        
+        busqueda="";
+        return "buscar";
     }
 }

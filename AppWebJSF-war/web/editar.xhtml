@@ -101,30 +101,29 @@
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
-
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <h:form>
+                <h:form>
+                    <div class="navbar-header">
                         <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
-                    </h:form>
-                </div>
+                    </div>
+                </h:form>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <h:form>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
-                                <h:inputText value="#{buscarBean.busqueda}"/>
+                                <h:inputText value="#{UsuarioBean.busqueda}" />
                             </div>
-                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
+                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{UsuarioBean.hacerBusqueda()}"/>
                         </div>
                     </h:form>
-                    <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
-                        <h:form>
+                    <h:form>
+                        <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
                             <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
                             <li><h:link styleClass="fa fa-envelope" outcome="bandejaentrada"/></li>
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
-                        </h:form>
-                    </ul>
+                        </ul>
+                    </h:form>
                 </div>
             </div>
         </nav>
@@ -232,7 +231,14 @@
                             <f:facet name="header">
                                 Nombre
                             </f:facet>
-                            #{aficion.nombre}
+                            <h:outputText value = "#{aficion.nombre}" rendered = "#{!aficion.canEdit}" />
+                        </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:inputText value = "#{aficion.nombre}" rendered = "#{aficion.canEdit}" style="margin-right:50px;"/>
+                                <h:commandButton action="#{aficionBean.doGuardar(aficion)}" rendered = "#{aficion.canEdit}" value="Guardar" class="btn btn-success"/>
+                                <h:commandButton action="#{aficionBean.doEditar(aficion)}" value="Editar" class="btn btn-warning" rendered = "#{!aficion.canEdit}"/>
+                            </h:form>
                         </h:column>
                         <h:column>
                             <h:form>
@@ -298,7 +304,6 @@
                 </div>
             </div>
         </div>
-
     </h:body>
 </html>
 

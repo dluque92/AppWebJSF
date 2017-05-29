@@ -113,9 +113,9 @@
                     <h:form>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
-                                <h:inputText value="#{buscarBean.busqueda}"/>
+                                <h:inputText value="#{UsuarioBean.busqueda}" />
                             </div>
-                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{buscarBean.hacerBusqueda()}"/>
+                            <h:commandLink styleClass="btn btn-default fa fa-search" action="#{UsuarioBean.hacerBusqueda()}"/>
                         </div>
                     </h:form>
                     <h:form>
@@ -133,7 +133,20 @@
                 <div class="jumbotron vertical-center">
                     <div class="row bgimg">
                         <div class="col-sm-3 col-md-3">  
-                            <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/><br/>
+                            <!--    <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#(FaltaCorchete)UsuarioBean.getFoto(UsuarioBean.usuario)}"/><br/> -->
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <div class="social-links">
+                                <h:panelGrid rendered="#{UsuarioBean.usuario.twitter.length() > 0}">
+                                    <a href="#{UsuarioBean.getTwitter()}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+                                </h:panelGrid>
+                                <h:panelGrid rendered="#{UsuarioBean.usuario.instagram.length() > 0}">
+                                    <a href="#{UsuarioBean.getInstagram()}" target="_blank"><i class="fa fa-instagram fa-lg"></i></a>
+                                </h:panelGrid>
+                                <h:panelGrid rendered="#{UsuarioBean.usuario.web.length() > 0}">
+                                    <a href="#{UsuarioBean.getWeb()}" target="_blank"><i class="fa fa-link fa-lg"></i></a>
+                                </h:panelGrid>
+                            </div>
                         </div>
                         <div class="col-sm-9 col-md-9">
                             <h3>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</h3><br/>
@@ -229,7 +242,7 @@
                             <div class="col-sm-1 col-md-1" style="padding-right: 3em">  
 
                                 <h:commandLink action="#{buscarBean.buscar(amigo)}" style="font-size: 12px;left: 50%">
-                                    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(amigo)}"/><br/>
+                                    <!--    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#(FaltaCorchete)UsuarioBean.getFoto(amigo)}"/><br/> -->
                                     #{amigo.nombre} #{amigo.apellidos}
                                 </h:commandLink>
                             </div> 
