@@ -30,16 +30,17 @@ public class UsuarioModificarBean {
     @EJB
     private DatosUsuarioFacade datosUsuarioFacade;
 
-    @Inject 
+    @Inject
     private UsuarioBean usuarioBean;
     private String passAntigua;
-    private boolean badPasswordAntigua=false;
-    private boolean badPasswordRepetida=false;
+    private boolean badPasswordAntigua = false;
+    private boolean badPasswordRepetida = false;
     private String passNueva;
     private String passRepetida;
     private Part archivo;
-    
+
     protected DatosUsuario usuarioEnSesion;
+
     public Part getArchivo() {
         return archivo;
     }
@@ -95,62 +96,61 @@ public class UsuarioModificarBean {
     public void setUsuarioEnSesion(DatosUsuario usuarioEnSesion) {
         this.usuarioEnSesion = usuarioEnSesion;
     }
-    
+
     /**
      * Creates a new instance of UsuarioModificarBean
      */
     public UsuarioModificarBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         //Vamos a usar el atributo usuarioEnSesion Para mostrar los datos del usuario en editar.xhtml
-        usuarioBean.cargarUsuario();
+        //usuarioBean.cargarUsuario();
         //En el CustomerModificarBean
         this.usuarioEnSesion = usuarioBean.getUsuario();
     }
-    
-    public String doGuardar(){
+
+    public String doGuardar() {
         //Como las variables son bidireccionales, entonces 
         //La variable "usuarioEnSesion" tiene todos los datos que se han modificado
-        if(!passAntigua.isEmpty()){
-            if(passAntigua.equals(this.usuarioEnSesion.getPassword())){
-                if(this.passNueva.equals(this.passRepetida)){
+        if (!passAntigua.isEmpty()) {
+            if (passAntigua.equals(this.usuarioEnSesion.getPassword())) {
+                if (this.passNueva.equals(this.passRepetida)) {
                     this.usuarioEnSesion.setPassword(passNueva);
-                }else{
-                    badPasswordRepetida=true;
+                } else {
+                    badPasswordRepetida = true;
                 }
-            }else{
-                badPasswordAntigua=true;
+            } else {
+                badPasswordAntigua = true;
             }
         }
-        
-        String nombreFoto;
-            if (archivo != null) {
-                nombreFoto = getUsuarioEnSesion().getEmail() + ".jpg";
-                try {
-                    InputStream fileContent = archivo.getInputStream();
-                    DropboxController.overwriteFile(nombreFoto, fileContent);
-                }catch (IOException ex) {
-                    //Fallo al subir la foto
-                }
-            //Fallo en Dropbox
-            
 
+        String nombreFoto;
+        if (archivo != null) {
+            nombreFoto = getUsuarioEnSesion().getEmail() + ".jpg";
+            try {
+                InputStream fileContent = archivo.getInputStream();
+                DropboxController.overwriteFile(nombreFoto, fileContent);
+            } catch (IOException ex) {
+                //Fallo al subir la foto
             }
-        
+            //Fallo en Dropbox
+
+        }
+
         this.datosUsuarioFacade.edit(this.usuarioEnSesion);
-        
+
         //En el CustomerBean se hace init() para ver que los datos se han actualizado
         //En cambio nosotros lo tenemos que hacer a mano
         //Puesto que en el init() de UsuarioBean no se actualiza el Usuario
         this.usuarioBean.setUsuario(usuarioEnSesion);
         //Después de guardar los cambios vuelve a index
-        if(badPasswordAntigua || badPasswordRepetida){            
-            return "editar";           
-        }else{           
+        if (badPasswordAntigua || badPasswordRepetida) {
+            return "editar";
+        } else {
             return "index";
         }
-        
+
     }
 }

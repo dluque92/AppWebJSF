@@ -30,6 +30,7 @@ public class UsuarioBean implements Serializable {
     @EJB
     private DatosUsuarioFacade datosUsuarioFacade;
 
+    private DatosUsuario amigoAListarMensajes;
     private String busqueda;
     private String email = "";
     private String password = "";
@@ -62,6 +63,14 @@ public class UsuarioBean implements Serializable {
     @PostConstruct
     public void init(){
         error=false;
+    }
+    
+    public DatosUsuario getAmigoAListarMensajes() {
+        return amigoAListarMensajes;
+    }
+
+    public void setAmigoAListarMensajes(DatosUsuario amigoAListarMensajes) {
+        this.amigoAListarMensajes = amigoAListarMensajes;
     }
     
     public String getFoto(DatosUsuario user){

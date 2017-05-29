@@ -127,7 +127,7 @@
                 </div>
             </div>
         </nav>
-        <div class="middlePage" style="margin-top:  22px;">
+         <div class="middlePage" style="margin-top:  22px;">
             <div class="page-header">
                 <h1 class="logo">JobsNow <small>Welcome to our place!</small></h1>
             </div>
@@ -226,84 +226,103 @@
                     </h:form>
 
                     <h4>Aficiones:</h4>
-                    <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
-                        <h:column>
-                            <f:facet name="header">
-                                Nombre
-                            </f:facet>
-                            <h:outputText value = "#{aficion.nombre}" rendered = "#{!aficion.canEdit}" />
-                        </h:column>
-                        <h:column>
-                            <h:form>
-                                <h:inputText value = "#{aficion.nombre}" rendered = "#{aficion.canEdit}" style="margin-right:50px;"/>
-                                <h:commandButton action="#{aficionBean.doGuardar(aficion)}" rendered = "#{aficion.canEdit}" value="Guardar" class="btn btn-success"/>
-                                <h:commandButton action="#{aficionBean.doEditar(aficion)}" value="Editar" class="btn btn-warning" rendered = "#{!aficion.canEdit}"/>
-                            </h:form>
-                        </h:column>
-                        <h:column>
-                            <h:form>
-                                <h:commandButton action="#{aficionBean.doBorrar(aficion)}" value="Borrar" class="btn btn-default"/>
-                            </h:form>
-                        </h:column>
-                    </h:dataTable>
-                    <h:form>
-                        <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
-                        <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default"/>
-                    </h:form>
+                    <h:form id="form-aficion">
+                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
 
-                    <h4>Estudios:</h4>
-                    <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
-                        <h:column>
-                            <f:facet name="header">
-                                Nombre
-                            </f:facet>
-                            #{estudio.nombre}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Descripción
-                            </f:facet>
-                            #{estudio.descripcion}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de Comienzo
-                            </f:facet>
-                            #{estudio.fechaComienzoString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de finalización
-                            </f:facet>
-                            #{estudio.fechaFinString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Ubicación
-                            </f:facet>
-                            #{estudio.ubicacion}
-                        </h:column>
-                        <h:column>
-                            <h:form>
-                                <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-default" />
-                            </h:form>
+                            <h:column>
+
+                                <f:facet name="header">
+                                    Nombre
+                                </f:facet>
+                                <h:outputText value = "#{aficion.nombre}" rendered = "#{!aficion.canEdit}" />
+                                <h:inputText value = "#{aficion.nombre}" rendered = "#{aficion.canEdit}"/>
+                            </h:column>
+
+                            <h:column>
+
+                                <h:commandButton action="#{aficionBean.doGuardar(aficion)}" rendered = "#{aficion.canEdit}" value="Guardar" class="btn btn-success" >
+                                    <f:ajax  execute="@form" render="@form" />
+                                </h:commandButton>
+
+                                <h:commandButton action="#{aficionBean.doEditar(aficion)}" value="Editar" class="btn btn-warning" rendered = "#{!aficion.canEdit}">
+                                    <f:ajax  render="@form" />
+                                </h:commandButton>
+
+                            </h:column>
+
+                            <h:column>
+
+                                <h:commandButton action="#{aficionBean.doBorrar(aficion)}" value="Borrar" class="btn btn-danger ">
+                                    <f:ajax render="@form" />
+                                </h:commandButton>
+
                         </h:column>
                     </h:dataTable>
-                    <h:form>
-                        <h:inputText value="#{estudioBean.nuevoEstudio.nombre}"></h:inputText>
-                        <h:inputText value="#{estudioBean.nuevoEstudio.descripcion}"></h:inputText>
-                        <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaComienzo}" >
-                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
-                        </h:inputText>
-                        <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaFinalizacion}" >
-                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
-                        </h:inputText>
-                        <h:inputText value="#{estudioBean.nuevoEstudio.ubicacion}"></h:inputText>
-                        <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default"/>
-                    </h:form>
-                </div>
+                </h:form>
+                <h:form>
+                    <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
+                    
+                    <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default">
+                        <f:ajax render="form-aficion" execute="@form" />
+                    </h:commandButton>
+                </h:form>
+
+                <h4>Estudios:</h4>
+                <h:form id="form-estudio">
+                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+                    <h:column>
+                        <f:facet name="header">
+                            Nombre
+                        </f:facet>
+                        #{estudio.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Descripción
+                        </f:facet>
+                        #{estudio.descripcion}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha de Comienzo
+                        </f:facet>
+                        #{estudio.fechaComienzoString}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha de finalización
+                        </f:facet>
+                        #{estudio.fechaFinString}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Ubicación
+                        </f:facet>
+                        #{estudio.ubicacion}
+                    </h:column>
+                    <h:column>
+                            <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-default" />
+                    </h:column>
+                </h:dataTable>
+                </h:form>
+                
+                <h:form>
+                    <h:inputText value="#{estudioBean.nuevoEstudio.nombre}"></h:inputText>
+                    <h:inputText value="#{estudioBean.nuevoEstudio.descripcion}"></h:inputText>
+                    <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaComienzo}" >
+                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                    </h:inputText>
+                    <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaFinalizacion}" >
+                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                    </h:inputText>
+                    <h:inputText value="#{estudioBean.nuevoEstudio.ubicacion}"></h:inputText>
+                    <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default">
+                        <f:ajax execute="@form" render="form-estudio"/>
+                    </h:commandButton>
+                </h:form>
             </div>
         </div>
-    </h:body>
-</html>
+    </div>
 
+</h:body>
+</html>

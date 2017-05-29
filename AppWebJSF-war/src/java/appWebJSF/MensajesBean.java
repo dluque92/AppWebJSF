@@ -46,7 +46,7 @@ public class MensajesBean {
     }
 
     private DatosUsuario usuario;
-    private DatosUsuario amigo;
+    //private DatosUsuario amigo;
     private List<Mensaje> listaMensajes;
     private List<DatosUsuario> listaAmigos;
     private String idAmigo;
@@ -87,11 +87,11 @@ public class MensajesBean {
     }
 
     public DatosUsuario getAmigo() {
-        return amigo;
+        return this.usuarioBean.getAmigoAListarMensajes();
     }
 
     public void setAmigo(DatosUsuario amigo) {
-        this.amigo = amigo;
+        this.usuarioBean.setAmigoAListarMensajes(amigo);
     }
 
     public List<Mensaje> getListaMensajesAmigo() {
@@ -145,21 +145,21 @@ public class MensajesBean {
         usuario = usuarioBean.getUsuario();
         listaMensajes = (List<Mensaje>) usuario.getMensajeCollection();
         listaAmigos = (List<DatosUsuario>) usuario.getMisAmigos();
-        //amigo = listaAmigos.get(0);
-        if (idAmigo == null && listaMensajes != null && !listaMensajes.isEmpty() && listaAmigos != null) {
+        if (this.getAmigo() == null && listaMensajes != null && !listaMensajes.isEmpty() && listaAmigos != null) {
             Collections.sort(listaMensajes);
             for (DatosUsuario u : listaMensajes.get(listaMensajes.size() - 1).getDatosUsuarioCollection()) {
                 if (!u.equals(usuario)) {
                     idAmigo = u.getIdUsuario().toString();
-                    this.amigo = this.datosUsuarioFacade.find(new BigDecimal(idAmigo));
+                    this.setAmigo(this.datosUsuarioFacade.find(new BigDecimal(idAmigo))); 
                 }
             }
         }
-        if (listaMensajes.isEmpty() && idAmigo == null && !listaAmigos.isEmpty()){
-            this.amigo = this.listaAmigos.get(0);
+        if (listaMensajes.isEmpty() && this.getAmigo() == null && !listaAmigos.isEmpty()){
+            //this.amigo = this.listaAmigos.get(0);
+            this.setAmigo(this.listaAmigos.get(0));
         }
         
-        this.obtenerMensajesAmigo(amigo);
+        this.obtenerMensajesAmigo(this.usuarioBean.getAmigoAListarMensajes());
 
         for (Mensaje mensaje : usuario.getMensajeCollection()) {
             if (!mensaje.getMensaje().startsWith(usuario.getEmail()) && mensaje.getLeido() == '0') {
@@ -185,25 +185,27 @@ public class MensajesBean {
     }
 
     public String cambiarAmigo(DatosUsuario amigo) {
-        this.amigo = amigo;
+        //this.amigo = amigo;
+        this.setAmigo(amigo);
         this.init();
         return "bandejaentrada";
     }
 
     public Boolean esMensajeDeAmigo(Mensaje mensaje) {
-        return amigo.getEmail().equals(mensaje.getMensaje().substring(0, amigo.getEmail().length()));
+       // return this.getAmigo().getEmail().equals(mensaje.getMensaje().substring(0, this.getAmigo().getEmail().length()));
+        return mensaje.getMensaje().startsWith(this.getAmigo().getEmail());
     }
 
     public String doEnviarMensaje() {
-        if (amigo != null && this.getMensaje() != null && !mensaje.equals("") && usuario != null) {
-            Mensaje mensajeAEnviar = this.mensajeFacade.crearMensaje(usuario.getEmail() + mensaje, usuario, amigo);
+        if (this.getAmigo() != null && this.getMensaje() != null && !mensaje.equals("") && usuario != null) {
+            Mensaje mensajeAEnviar = this.mensajeFacade.crearMensaje(usuario.getEmail() + mensaje, usuario, this.getAmigo());
             mensajeAEnviar.setLeido('0');
             this.mensajeFacade.create(mensajeAEnviar);
             usuario.getMensajeCollection().add(mensajeAEnviar);
-            amigo.getMensajeCollection().add(mensajeAEnviar);
+            this.getAmigo().getMensajeCollection().add(mensajeAEnviar);
             this.datosUsuarioFacade.edit(usuario);
             this.usuarioBean.setUsuario(usuario);
-            this.datosUsuarioFacade.edit(amigo);
+            this.datosUsuarioFacade.edit(this.getAmigo());
         }
 
         this.setMensaje("");
