@@ -8,10 +8,8 @@ package appWebJSF;
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import dropbox.DropboxController;
-import dropbox.DropboxControllerException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -138,17 +136,17 @@ public class UsuarioModificarBean {
             //Fallo en Dropbox
 
         }
-
-        this.datosUsuarioFacade.edit(this.usuarioEnSesion);
-
-        //En el CustomerBean se hace init() para ver que los datos se han actualizado
-        //En cambio nosotros lo tenemos que hacer a mano
-        //Puesto que en el init() de UsuarioBean no se actualiza el Usuario
-        this.usuarioBean.setUsuario(usuarioEnSesion);
-        //Después de guardar los cambios vuelve a index
+        
         if (badPasswordAntigua || badPasswordRepetida) {
             return "editar";
         } else {
+            this.datosUsuarioFacade.edit(this.usuarioEnSesion);
+
+            //En el CustomerBean se hace init() para ver que los datos se han actualizado
+            //En cambio nosotros lo tenemos que hacer a mano
+            //Puesto que en el init() de UsuarioBean no se actualiza el Usuario
+            this.usuarioBean.setUsuario(usuarioEnSesion);
+            //Después de guardar los cambios vuelve a index
             return "index";
         }
 
