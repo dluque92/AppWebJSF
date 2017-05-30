@@ -129,9 +129,6 @@ public class UsuarioBean implements Serializable {
         } else {
             cargarUsuario();
             getFoto(usuario);
-            for (DatosUsuario u : usuario.getMisAmigos()) {
-                getFoto(u);
-            }
             if (usuario == null) {
                 error = true;
                 limpiarCampos();

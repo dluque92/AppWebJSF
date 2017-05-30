@@ -83,32 +83,44 @@
                         <ui:repeat value="#{UsuarioBean.usuariosPorNombre}" var="usuario">
                             <h:column>
                                 <!-- el metodo visita llame al buscar usuario -->
-                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
+                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                </h:commandLink>
                             </h:column>
                         </ui:repeat>
                     </div>
 
-                <h3>Usuarios que estudian o han estudiado en: #{UsuarioBean.busqueda}</h3>
+                    <h3>Usuarios que estudian o han estudiado en: #{UsuarioBean.busqueda}</h3>
                     <div class="list-unstyled">
                         <h:dataTable value="#{UsuarioBean.usuarioPorEstudio}" var="usuario">
                             <h:column>
-                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
+                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                </h:commandLink>
                             </h:column>
                         </h:dataTable>
                     </div>
-                <h3>Usuarios trabajan o han trabajado en: #{UsuarioBean.busqueda}</h3>
+                    <h3>Usuarios trabajan o han trabajado en: #{UsuarioBean.busqueda}</h3>
                     <div class="list-unstyled">
                         <h:dataTable value="#{UsuarioBean.usuariosPorExperiencia}" var="usuario">
                             <h:column>
-                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
+                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                </h:commandLink>
                             </h:column>
                         </h:dataTable>
                     </div>
-                <h3>Usuarios que son aficionados a: #{UsuarioBean.busqueda}</h3>
+                    <h3>Usuarios que son aficionados a: #{UsuarioBean.busqueda}</h3>
                     <div class="list-unstyled">
                         <h:dataTable value="#{UsuarioBean.usuariosPorAficion}" var="usuario">
                             <h:column>
-                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}" value="#{usuario.nombre} #{usuario.apellidos}"/>
+                                <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
+                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                </h:commandLink>
                             </h:column>
                         </h:dataTable>
                     </div>
