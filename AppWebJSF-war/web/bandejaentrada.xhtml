@@ -132,7 +132,7 @@
                                         <div class="msg">
                                             <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
                                             <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
-                                            <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.email.length())}</small>
+                                            <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.idUsuario.toString().length())}</small>
                                         </div>
                                     </div> 
                                 </h:panelGroup>
@@ -144,7 +144,7 @@
                                         <div class="msg">
                                             <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
                                             <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
-                                            <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.email.length())}</small>
+                                            <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.idUsuario.toString().length())}</small>
                                         </div>
                                     </div>
                                 </h:panelGroup>

@@ -162,7 +162,7 @@ public class MensajesBean {
         this.obtenerMensajesAmigo(this.usuarioBean.getAmigoAListarMensajes());
 
         for (Mensaje mensaje : usuario.getMensajeCollection()) {
-            if (!mensaje.getMensaje().startsWith(usuario.getEmail()) && mensaje.getLeido() == '0') {
+            if (!mensaje.getMensaje().startsWith(usuario.getIdUsuario().toString()) && mensaje.getLeido() == '0') {
                 this.setMensajeDisponible(true);
             }
         }
@@ -175,8 +175,8 @@ public class MensajesBean {
             if (coleccionParticipantes.contains(usuario) && coleccionParticipantes.contains(amigo)) {
                 listaMensajesAmigo.add(mensaje);
             }
-            if (!mensaje.getMensaje().startsWith(usuario.getEmail())
-                    && amigo != null && mensaje.getMensaje().startsWith(amigo.getEmail())) {
+            if (!mensaje.getMensaje().startsWith(usuario.getIdUsuario().toString())
+                    && amigo != null && mensaje.getMensaje().startsWith(amigo.getIdUsuario().toString())) {
                 mensaje.setLeido('1');
                 this.mensajeFacade.edit(mensaje);
             }
@@ -193,12 +193,12 @@ public class MensajesBean {
 
     public Boolean esMensajeDeAmigo(Mensaje mensaje) {
        // return this.getAmigo().getEmail().equals(mensaje.getMensaje().substring(0, this.getAmigo().getEmail().length()));
-        return mensaje.getMensaje().startsWith(this.getAmigo().getEmail());
+        return mensaje.getMensaje().startsWith(this.getAmigo().getIdUsuario().toString());
     }
 
     public String doEnviarMensaje() {
         if (this.getAmigo() != null && this.getMensaje() != null && !mensaje.equals("") && usuario != null) {
-            Mensaje mensajeAEnviar = this.mensajeFacade.crearMensaje(usuario.getEmail() + mensaje, usuario, this.getAmigo());
+            Mensaje mensajeAEnviar = this.mensajeFacade.crearMensaje(usuario.getIdUsuario().toString()+ mensaje, usuario, this.getAmigo());
             mensajeAEnviar.setLeido('0');
             this.mensajeFacade.create(mensajeAEnviar);
             usuario.getMensajeCollection().add(mensajeAEnviar);
@@ -217,7 +217,7 @@ public class MensajesBean {
     public Boolean tieneMensaje(DatosUsuario amigo) {
         boolean tieneMensajes = false;
         for (Mensaje m : usuario.getMensajeCollection()) {
-            boolean empieza = !m.getMensaje().startsWith(usuario.getEmail());
+            boolean empieza = !m.getMensaje().startsWith(usuario.getIdUsuario().toString());
             if (m.getLeido() == '0' && empieza && m.getDatosUsuarioCollection().contains(amigo)) {
                 tieneMensajes = true;
                 break;
