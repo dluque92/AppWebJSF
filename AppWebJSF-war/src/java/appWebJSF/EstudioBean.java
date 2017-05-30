@@ -7,14 +7,12 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.ejb.EstudioFacade;
-import appWebJSF.entity.Aficion;
 import appWebJSF.entity.DatosUsuario;
 import appWebJSF.entity.Estudio;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 

@@ -133,7 +133,7 @@
                 <div class="jumbotron vertical-center">
                     <div class="row bgimg">
                         <div class="col-sm-3 col-md-3">  
-                            <!--    <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#(FaltaCorchete)UsuarioBean.getFoto(UsuarioBean.usuario)}"/><br/> -->
+                            <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/><br/>
                         </div>
                         <div class="col-sm-3 col-md-3">
                             <div class="social-links">
@@ -242,7 +242,7 @@
                             <div class="col-sm-1 col-md-1" style="padding-right: 3em">  
 
                                 <h:commandLink action="#{buscarBean.buscar(amigo)}" style="font-size: 12px;left: 50%">
-                                    <!--    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#(FaltaCorchete)UsuarioBean.getFoto(amigo)}"/><br/> -->
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(amigo)}"/><br/>
                                     #{amigo.nombre} #{amigo.apellidos}
                                 </h:commandLink>
                             </div> 

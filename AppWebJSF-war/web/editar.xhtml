@@ -127,7 +127,7 @@
                 </div>
             </div>
         </nav>
-        <div class="middlePage" style="margin-top:  22px;">
+        <div class="middlePage" style="margin-top:  22px; width: 80%">
             <div class="page-header">
                 <h1 class="logo">JobsNow <small>Welcome to our place!</small></h1>
             </div>
@@ -135,43 +135,54 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Editar Perfil</h3>
                 </div>
+
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-7" style="border-left:1px solid #ccc; height:715px">
-                            <fieldset>
-                                <h:form enctype="multipart/form-data">
-                                    <div class="spacing"><small>Nombre</small></div>
-                                    <h:inputText styleClass="form-control input-md" p:placeholder="Nombre" required="true" requiredMessage="Introduce el nombre" value="#{usuarioModificarBean.usuarioEnSesion.nombre}" />
+                    <div class="container">
+                        <div class="row">
+                            <h:form enctype="multipart/form-data">
+                                <div class="col-md-6" style="border-left:1px solid #ccc; height:715px; width: 40%">
+                                    <fieldset>
 
-                                    <div class="spacing"><small>Apellidos</small></div>
-                                    <h:inputText styleClass="form-control input-md" required="true" requiredMessage="Introduce los apellidos" p:placeholder="Apellidos" value="#{usuarioModificarBean.usuarioEnSesion.apellidos}" /> 
+                                        <div class="spacing"><small>Nombre</small></div>
+                                        <h:inputText styleClass="form-control input-md" p:placeholder="Nombre" required="true" requiredMessage="Introduce el nombre" value="#{usuarioModificarBean.usuarioEnSesion.nombre}" />
 
-                                    <div class="spacing"><small>Email</small></div>
-                                    <h:inputText styleClass="form-control input-md" required="true" p:placeholder="Email" value="#{usuarioModificarBean.usuarioEnSesion.email}" 
-                                                 requiredMessage="Ingresa tu email."
-                                                 validatorMessage="Email inválido">
-                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                    </h:inputText>
-                                    <div class="spacing"><small>Contraseña Antigua:</small></div>
-                                    <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passAntigua }"/>
-                                    <h:outputText style="color: red; font: bolder" value="Contraseña Incorrecta" rendered="#{usuarioModificarBean.badPasswordAntigua}"/>
-                                    <div class="spacing"><small>Nueva Contraseña:</small></div>
-                                    <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passNueva}"/>
-                                    <div class="spacing"><small>Repetir Contraseña:</small></div>
-                                    <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passRepetida}"/>
-                                    <h:outputText style="color: red; font: bolder" value="Contraseña No Coincide" rendered="#{usuarioModificarBean.badPasswordRepetida}" />
-                                    <div class="spacing"><small>Twitter</small></div>
-                                    <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.twitter}" />
-                                    <div class="spacing"><small>Instagram</small></div>
-                                    <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.instagram}" />
-                                    <div class="spacing"><small>Web</small></div>
-                                    <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.web}" />
-                                    <div class="spacing"><small>Foto de Perfil</small></div>
-                                    <h:inputFile value="#{usuarioModificarBean.archivo}"/>
-                                    <br/>
-                                    <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" />
-                                </h:form>
-                            </fieldset>
+                                        <div class="spacing"><small>Apellidos</small></div>
+                                        <h:inputText styleClass="form-control input-md" required="true" requiredMessage="Introduce los apellidos" p:placeholder="Apellidos" value="#{usuarioModificarBean.usuarioEnSesion.apellidos}" /> 
+
+                                        <div class="spacing"><small>Email</small></div>
+                                        <h:inputText styleClass="form-control input-md" required="true" p:placeholder="Email" value="#{usuarioModificarBean.usuarioEnSesion.email}" 
+                                                     requiredMessage="Ingresa tu email."
+                                                     validatorMessage="Email inválido">
+                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                        </h:inputText>
+                                        <div class="spacing"><small>Contraseña Antigua:</small></div>
+                                        <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passAntigua }"/>
+                                        <h:outputText style="color: red; font: bolder" value="Contraseña Incorrecta" rendered="#{usuarioModificarBean.badPasswordAntigua}"/>
+                                        <div class="spacing"><small>Nueva Contraseña:</small></div>
+                                        <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passNueva}"/>
+                                        <div class="spacing"><small>Repetir Contraseña:</small></div>
+                                        <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passRepetida}"/>
+                                        <h:outputText style="color: red; font: bolder" value="Contraseña No Coincide" rendered="#{usuarioModificarBean.badPasswordRepetida}" />
+                                        <div class="spacing"><small>Twitter</small></div>
+                                        <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.twitter}" />
+                                        <div class="spacing"><small>Instagram</small></div>
+                                        <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.instagram}" />
+                                        <div class="spacing"><small>Web</small></div>
+                                        <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.web}" />
+
+                                        <br/>
+                                        <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6" style="text-align: center;">
+                                    <p>  <div class="spacing"><h4>Foto de Perfil</h4></div>
+                                        <div>
+                                            <h:graphicImage styleClass="img-circle" alt="User Image" style="margin-bottom: 1em;" width="300" height="300" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/>
+                                        </div>
+                                        <h:inputFile value="#{usuarioModificarBean.archivo}" style="margin: 0 auto;"/>
+                                    </p>
+                                </div>
+                            </h:form>
                         </div>
                     </div>
                     <h4>Experiencia:</h4>
@@ -239,7 +250,7 @@
                             </h:dataTable>
                         </div>
                     </h:form>
-                    <h:form>
+                    <h:form id="datosExperiencia">
                         <h:inputText value="#{experienciaBean.nuevaExperiencia.empresa}"></h:inputText>
 
                         <h:inputText value="#{experienciaBean.nuevaExperiencia.puesto}"></h:inputText>
@@ -252,10 +263,10 @@
                             <f:convertDateTime pattern="yyyy-MM-dd"/> 
                         </h:inputText>
 
-                        <h:inputText value="#{experienciaBean.nuevaExperiencia.webEmpresa}"></h:inputText>
+                        <h:inputText id="nuevaExperiencia" value="#{experienciaBean.nuevaExperiencia.webEmpresa}"></h:inputText>
 
                         <h:commandButton action="#{experienciaBean.doCrear()}" value="Insertar" class="btn btn-default">
-                            <f:ajax execute="@form" render="form-experiencia"/>
+                            <f:ajax execute="@form" render="form-experiencia datosExperiencia"/>
                         </h:commandButton>
                     </h:form>
 
@@ -368,7 +379,7 @@
                         </div>
                     </h:form>
 
-                    <h:form>
+                    <h:form id="nuevoEstudio">
                         <h:inputText value="#{estudioBean.nuevoEstudio.nombre}"></h:inputText>
                         <h:inputText value="#{estudioBean.nuevoEstudio.descripcion}"></h:inputText>
                         <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaComienzo}" >
@@ -379,7 +390,7 @@
                         </h:inputText>
                         <h:inputText value="#{estudioBean.nuevoEstudio.ubicacion}"></h:inputText>
                         <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default">
-                            <f:ajax execute="@form" render="form-estudio"/>
+                            <f:ajax execute="@form" render="form-estudio nuevoEstudio"/>
                         </h:commandButton>
                     </h:form>
                 </div>

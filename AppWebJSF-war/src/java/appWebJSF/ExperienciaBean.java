@@ -13,7 +13,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
@@ -71,7 +70,7 @@ public class ExperienciaBean {
             init();
             usuarioBean.cargarUsuario();
         }
-        
+        this.nuevaExperiencia = new Experiencia();
         return "editar";
     }
     
@@ -124,6 +123,7 @@ public class ExperienciaBean {
         listaEstudios.add(i,experiencia);
         usuario.setExperienciaCollection(listaEstudios);
         this.usuarioBean.setUsuario(usuario);
+        
         return "editar";
     }
 }
