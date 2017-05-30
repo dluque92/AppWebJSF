@@ -85,7 +85,7 @@
                                 <!-- el metodo visita llame al buscar usuario -->
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
                                     <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
-                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                    #{usuario.nombre} #{usuario.apellidos}
                                 </h:commandLink>
                             </h:column>
                         </ui:repeat>
@@ -97,7 +97,7 @@
                             <h:column>
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
                                     <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
-                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                    #{usuario.nombre} #{usuario.apellidos}
                                 </h:commandLink>
                             </h:column>
                         </h:dataTable>
@@ -108,7 +108,7 @@
                             <h:column>
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
                                     <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
-                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                    #{usuario.nombre} #{usuario.apellidos}
                                 </h:commandLink>
                             </h:column>
                         </h:dataTable>
@@ -119,7 +119,7 @@
                             <h:column>
                                 <h:commandLink styleClass="list-group-item" action="#{buscarBean.buscar(usuario)}">
                                     <h:graphicImage styleClass="img-circle" alt="User Image" width="50" height="50" value="#{UsuarioBean.getFoto(usuario)}"/>
-                                    <h4>#{usuario.nombre} #{usuario.apellidos}</h4>
+                                    #{usuario.nombre} #{usuario.apellidos}
                                 </h:commandLink>
                             </h:column>
                         </h:dataTable>
