@@ -9,7 +9,6 @@ import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import dropbox.DropboxController;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,20 +34,20 @@ public class UsuarioBean implements Serializable {
     private String email = "";
     private String password = "";
     private DatosUsuario usuario;
-    private Boolean error;
+    private Boolean error = false;
     private List<DatosUsuario> amigosAmostrar;
     private List<DatosUsuario> usuariosPorNombre = null;
     private List<DatosUsuario> usuariosPorAficion = null;
     private List<DatosUsuario> usuariosPorExperiencia = null;
     private List<DatosUsuario> usuarioPorEstudio = null;
-    
+
     public List<DatosUsuario> getAmigosAmostrar() {
         List<DatosUsuario> misAmigos = new ArrayList();
         misAmigos.addAll(usuario.getMisAmigos());
         if (usuario.getMisAmigos().size() > 5) {
             Random alea = new Random();
             amigosAmostrar = new ArrayList<>(5);
-            while (amigosAmostrar.size()<5) {
+            while (amigosAmostrar.size() < 5) {
                 DatosUsuario u = misAmigos.get(alea.nextInt(usuario.getMisAmigos().size()));
                 if (!amigosAmostrar.contains(u)) {
                     amigosAmostrar.add(u);
@@ -59,12 +58,7 @@ public class UsuarioBean implements Serializable {
             return misAmigos;
         }
     }
-    
-    @PostConstruct
-    public void init(){
-        error=false;
-    }
-    
+
     public DatosUsuario getAmigoAListarMensajes() {
         return amigoAListarMensajes;
     }
@@ -72,11 +66,11 @@ public class UsuarioBean implements Serializable {
     public void setAmigoAListarMensajes(DatosUsuario amigoAListarMensajes) {
         this.amigoAListarMensajes = amigoAListarMensajes;
     }
-    
-    public String getFoto(DatosUsuario user){
+
+    public String getFoto(DatosUsuario user) {
         return DropboxController.getUrl(user.getFoto());
     }
-    
+
     public DatosUsuario getUsuario() {
         return usuario;
     }
@@ -92,7 +86,7 @@ public class UsuarioBean implements Serializable {
     public void setError(Boolean error) {
         this.error = error;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -119,16 +113,17 @@ public class UsuarioBean implements Serializable {
         } else {
             cargarUsuario();
             if (usuario == null) {
-                error=true;
+                error = true;
                 limpiarCampos();
                 return "login";
             } else {
+                error = false;
                 return "index";
             }
         }
     }
-    
-    public String doLogout(){
+
+    public String doLogout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login.xhtml?faces-redirect=true";
     }
@@ -137,8 +132,8 @@ public class UsuarioBean implements Serializable {
         email = "";
         password = "";
     }
-    
-    public String volverAIndex(){
+
+    public String volverAIndex() {
         cargarUsuario();
         return "index";
     }
@@ -146,7 +141,7 @@ public class UsuarioBean implements Serializable {
     public void cargarUsuario() {
         this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
     }
-    
+
     public String getBusqueda() {
         return busqueda;
     }
@@ -154,7 +149,7 @@ public class UsuarioBean implements Serializable {
     public void setBusqueda(String busqueda) {
         this.busqueda = busqueda;
     }
-    
+
     public List<DatosUsuario> getUsuariosPorNombre() {
         return usuariosPorNombre;
     }
@@ -186,26 +181,26 @@ public class UsuarioBean implements Serializable {
     public void setUsuarioPorEstudio(List<DatosUsuario> usuarioPorEstudio) {
         this.usuarioPorEstudio = usuarioPorEstudio;
     }
-    
-    public String getTwitter(){
-        return "http://www.twitter.com/"+ usuario.getTwitter();
+
+    public String getTwitter() {
+        return "http://www.twitter.com/" + usuario.getTwitter();
     }
-    
-    public String getInstagram(){
-        return "http://www.instagram.com/"+usuario.getInstagram();
+
+    public String getInstagram() {
+        return "http://www.instagram.com/" + usuario.getInstagram();
     }
-    
-    public String getWeb(){
-        return "http://www."+ usuario.getWeb();
+
+    public String getWeb() {
+        return "http://www." + usuario.getWeb();
     }
-    
-    public String hacerBusqueda(){
+
+    public String hacerBusqueda() {
         cargarUsuario();
         setUsuarioPorEstudio(this.datosUsuarioFacade.findByEstudios(busqueda, getUsuario().getIdUsuario()));
         setUsuariosPorAficion(this.datosUsuarioFacade.findByAficion(busqueda, getUsuario().getIdUsuario()));
         setUsuariosPorNombre(this.datosUsuarioFacade.findByName(busqueda, getUsuario().getIdUsuario()));
-        setUsuariosPorExperiencia(this.datosUsuarioFacade.findByExperiencia(busqueda, getUsuario().getIdUsuario()));        
-        busqueda="";
+        setUsuariosPorExperiencia(this.datosUsuarioFacade.findByExperiencia(busqueda, getUsuario().getIdUsuario()));
+        busqueda = "";
         return "buscar";
     }
 }

@@ -39,14 +39,19 @@
                                     <h:inputText styleClass="form-control input-md" required="true" requiredMessage="Introduce los apellidos" p:placeholder="Apellidos" value="#{registrarBean.apellidos}"/>
                                     <div class="spacing"><small>Email</small></div>
                                     <h:inputText styleClass="form-control input-md" required="true" p:placeholder="Email" value="#{registrarBean.email}" 
-                                                 requiredMessage="Ingresa tu email."
-                                                 validatorMessage="Email inválido">
+                                                 requiredMessage="Ingresa un email válido."
+                                                 validatorMessage="Email inválido"
+                                                 id="email" label="Email">
                                         <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                    </h:inputText> 
+                                    </h:inputText>
+                                    <h:message for="email" style="color: red" errorClass="errorMessage"></h:message>
                                     <div class="spacing"><small>Contraseña:</small></div>
-                                    <h:inputSecret styleClass="form-control input-md" required="true" requiredMessage="Introduce contraseña" value="#{registrarBean.password}"/> 
+                                    <h:inputSecret styleClass="form-control input-md" required="true" id="pass" label="Pass" requiredMessage="Introduce contraseña" value="#{registrarBean.password}"/> 
+                                    <h:message for="pass" style="color: red" errorClass="errorMessage"></h:message>
                                     <div class="spacing"><small>Repetir Contraseña:</small></div>
-                                    <h:inputSecret styleClass="form-control input-md" required="true" requiredMessage="Repite la contraseña" value="#{registrarBean.password2}"/>  
+                                    <h:inputSecret styleClass="form-control input-md" required="true" id="pass2" label="Pass2" requiredMessage="Repite la contraseña" value="#{registrarBean.password2}"/>  
+                                    <h:message for="pass2" style="color: red" errorClass="errorMessage"></h:message>
+                                    <h:outputText rendered="#{UsuarioBean.error}" style="color: red"><p>Las contraseñas introducidas no coinciden</p></h:outputText>
                                     <div class="spacing"><small>Twitter:</small></div>
                                     <h:inputText styleClass="form-control input-md" value="#{registrarBean.twitter}"/>
                                     <div class="spacing"><small>Instagram:</small></div>

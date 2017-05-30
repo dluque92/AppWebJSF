@@ -12,12 +12,10 @@ import dropbox.DropboxControllerException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.servlet.http.Part;
 
 /**
@@ -31,6 +29,17 @@ public class RegistrarBean {
     @EJB
     private DatosUsuarioFacade datosUsuarioFacade;
 
+    @Inject
+    UsuarioBean usuarioBean;
+
+    public UsuarioBean getUsuarioBean() {
+        return usuarioBean;
+    }
+
+    public void setUsuarioBean(UsuarioBean usuarioBean) {
+        this.usuarioBean = usuarioBean;
+    }
+    
     private String nombre;
     private String apellidos;
     private String email;
@@ -40,7 +49,7 @@ public class RegistrarBean {
     private String instagram;
     private String web;
     private Part archivo;
-
+    
     public Part getArchivo() {
         return archivo;
     }
@@ -118,8 +127,10 @@ public class RegistrarBean {
 
     public String doRegistrar() {
         if (this.datosUsuarioFacade.emailUsado(email) || !password.equals(password2)) {
+            this.usuarioBean.setError(true);
             return "registrar";
         } else {
+            this.usuarioBean.setError(false);
             DatosUsuario usuario = this.datosUsuarioFacade.crearUsuario(email, password, nombre, apellidos);
             if (twitter != null && !twitter.isEmpty()) {
                 usuario.setTwitter(twitter);

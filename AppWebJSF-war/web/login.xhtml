@@ -92,7 +92,7 @@
     <h:body>
 
 
-        <div class="middlePage">
+        <div class="middlePage" style="margin-top: 2em">
             <div class="page-header">
                 <h1 class="logo">JobsNow <small>Encuentra trabajo ya!</small></h1>
             </div>
@@ -111,13 +111,17 @@
                         <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
                             <fieldset>
                                 <h:form>
-                                    <h:inputText required="true" value="#{UsuarioBean.email}" requiredMessage="Ingresa tu email." validatorMessage="Email o contraseña inválido">
-                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                    </h:inputText><br/>
+                                    <h6>Usuario</h6>
+                                    <h:outputScript rendered="#{UsuarioBean.error}">
+                                            alert("Usuario o contraseña incorrecto");
+                                    </h:outputScript>
+                                    <h:inputText value="#{UsuarioBean.email}"/>
                                     <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1" /><small> Recuerdame</small></div>
-                                    <h:inputSecret required="true" value="#{UsuarioBean.password}" requiredMessage="Introduce una contraseña."/><br/>                                
+                                    <h6>Contraseña</h6>
+                                    <h:inputSecret value="#{UsuarioBean.password}"/>
                                     <div class="spacing"><a href="#"><small>¿Has olvidado tu contraseña?</small></a><br/></div>
                                     <h:commandButton value="Entrar" action="#{UsuarioBean.doLogin()}" class="btn btn-info btn-sm pull-right"/>
+                                    
                                 </h:form>
                                 <h:form>
                                     <h:commandButton value="Registrar" action="registrar" class="btn btn-default btn-sm pull-left"/>
