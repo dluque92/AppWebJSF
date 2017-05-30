@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <!--
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -64,7 +65,7 @@
                 color: #111111;
             }
         </style>
-        <script>
+        <script type="text/javascript">
             window.onload = function () {
                 var objDiv = document.getElementById("msg-end-scroll");
                 objDiv.scrollTop = objDiv.scrollHeight;
@@ -109,7 +110,9 @@
                         en la izquierda -->        
                         <ui:repeat value="#{mensajesBean.listaAmigos}" var="amigo">
                             <h:column>
-                                <h:commandLink rendered="#{!mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre} #{amigo.apellidos}"/>
+                                <h:commandLink rendered="#{!mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre} #{amigo.apellidos}">
+                                    <f:ajax render="cuadroMensajes"/>
+                                </h:commandLink>
                                 <h:commandLink rendered="#{mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre} #{amigo.apellidos}"><i class="fa fa-exclamation-circle" style="color:orangered; "></i></h:commandLink>
                             </h:column>
                         </ui:repeat>
@@ -117,43 +120,47 @@
                 </div>  
             </h:form>
 
-            <div class="col-sm-8">
-                <div class="jumbotron" style="border-radius: 8px; border-style: solid; border-width: 0.01px; width: 900px; padding: 0px !important;">
+            <div id="div1" class="col-sm-8">
+                <div id="div2" class="jumbotron" style="border-radius: 8px; border-style: solid; border-width: 0.01px; width: 900px; padding: 0px !important;">
                     <div id="msg-end-scroll" class="jumbotron" style="margin-top: 0.5em; border-radius: 0px; overflow-y: auto; height:350px;">
 
-                        <ui:repeat value="#{mensajesBean.listaMensajesAmigo}" var="mensaje">
-                            <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
-                            <h:panelGroup rendered="#{mensajesBean.esMensajeDeAmigo(mensaje)}">
-                                <div id="friend" class="msg-box">
-                                    <div class="msg">
-                                        <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                        <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
-                                        <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.email.length())}</small>
-                                    </div>
-                                </div> 
-                            </h:panelGroup>
-                            <!--</h:outputText>-->
+                        <h:panelGroup id="cuadroMensajes">
+                            <ui:repeat value="#{mensajesBean.listaMensajesAmigo}" var="mensaje">
+                                <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
+                                <h:panelGroup id="esMensajeDeAmigo1" rendered="#{mensajesBean.esMensajeDeAmigo(mensaje)}">
+                                    <div id="friend" class="msg-box">
+                                        <div class="msg">
+                                            <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                            <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
+                                            <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.email.length())}</small>
+                                        </div>
+                                    </div> 
+                                </h:panelGroup>
+                                <!--</h:outputText>-->
 
-                            <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
-                            <h:panelGroup rendered="#{!mensajesBean.esMensajeDeAmigo(mensaje)}">
-                                <div id="user" class="msg-box">
-                                    <div class="msg">
-                                        <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                        <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
-                                        <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.email.length())}</small>
+                                <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
+                                <h:panelGroup id="esMensajeDeAmigo2" rendered="#{!mensajesBean.esMensajeDeAmigo(mensaje)}">
+                                    <div id="user" class="msg-box">
+                                        <div class="msg">
+                                            <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                            <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
+                                            <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.email.length())}</small>
+                                        </div>
                                     </div>
-                                </div>
-                            </h:panelGroup>
-                            <!--</h:outputText>-->
-                        </ui:repeat>
+                                </h:panelGroup>
+                                <!--</h:outputText>-->
+                            </ui:repeat>
+                        </h:panelGroup>
                     </div>
                 </div>
                 <h:form>
                     <div class="send-wrap ">
-                        <h:inputTextarea value="#{mensajesBean.mensaje}" class="form-control send-message" rows="3" p:placeholder="Escribe un mensaje..."/>
+                        <h:inputTextarea id="campoMensaje" value="#{mensajesBean.mensaje}" class="form-control send-message" rows="3" p:placeholder="Escribe un mensaje..."/>
                     </div>
                     <div class="btn-panel">
-                        <h:commandButton action="#{mensajesBean.doEnviarMensaje()}" styleClass="btn btn-success" role="button" value="Enviar mensaje"/>
+                        <h:commandButton action="#{mensajesBean.doEnviarMensaje()}" styleClass="btn btn-success" role="button" value="Enviar mensaje">
+                            <f:ajax execute="campoMensaje" render="cuadroMensajes campoMensaje"/>
+                        </h:commandButton>
                     </div>
                 </h:form>
 
