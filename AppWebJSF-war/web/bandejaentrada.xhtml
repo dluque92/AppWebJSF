@@ -110,7 +110,9 @@
                         en la izquierda -->        
                         <ui:repeat value="#{mensajesBean.listaAmigos}" var="amigo">
                             <h:column>
-                                <h:commandLink rendered="#{!mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre} #{amigo.apellidos}">
+                                <h:commandLink rendered="#{!mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}">
+                                    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="35" height="35" value="#{UsuarioBean.getFoto(amigo)}"/>
+                                    #{amigo.nombre} #{amigo.apellidos}
                                     <f:ajax render="cuadroMensajes"/>
                                 </h:commandLink>
                                 <h:commandLink rendered="#{mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre} #{amigo.apellidos}"><i class="fa fa-exclamation-circle" style="color:orangered; "></i></h:commandLink>
@@ -129,10 +131,17 @@
                                 <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
                                 <h:panelGroup id="esMensajeDeAmigo1" rendered="#{mensajesBean.esMensajeDeAmigo(mensaje)}">
                                     <div id="friend" class="msg-box">
-                                        <div class="msg">
-                                            <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                            <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
-                                            <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.idUsuario.toString().length())}</small>
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <h:graphicImage styleClass="img-rounded" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(mensajesBean.amigo)}"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="msg">
+                                                    <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                                    <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
+                                                    <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.idUsuario.toString().length())}</small>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div> 
                                 </h:panelGroup>
@@ -141,10 +150,17 @@
                                 <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
                                 <h:panelGroup id="esMensajeDeAmigo2" rendered="#{!mensajesBean.esMensajeDeAmigo(mensaje)}">
                                     <div id="user" class="msg-box">
-                                        <div class="msg">
-                                            <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                            <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
-                                            <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.idUsuario.toString().length())}</small>
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <h:graphicImage styleClass="img-rounded" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="msg">
+                                                    <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                                    <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
+                                                    <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.idUsuario.toString().length())}</small>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </h:panelGroup>

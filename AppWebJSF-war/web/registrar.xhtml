@@ -6,7 +6,7 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>JobsNow</title>
+        <title>Registrate</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
         <!-- Optional theme -->
@@ -20,23 +20,25 @@
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
-        <div class="middlePage" style="margin-top:  0;">
+        <div class="middlePage" style="margin-top:  0; width: 35%">
             <div class="page-header">
-                <h1 class="logo">JobsNow <small>Welcome to our place!</small></h1>
+                <h1 class="logo">JobsNow <small>Encuentra trabajo ya!</small></h1>
             </div>
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Registrate</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="width: 160%">
                     <div class="row">
-                        <div class="col-md-7" style="border-left:1px solid #ccc; height:715px">
+                        <div class="col-md-7" style="border-left:1px solid #ccc; height:750px">
                             <h:form enctype="multipart/form-data">
-                                <fieldset>
+                                <fieldset style="margin-left: 1em">
                                     <div class="spacing"><small>Nombre</small></div>
-                                    <h:inputText styleClass="form-control input-md" p:placeholder="Nombre" required="true" requiredMessage="Introduce el nombre" value="#{registrarBean.nombre}"/>
+                                    <h:inputText id="nombre" label="Nombre" styleClass="form-control input-md" p:placeholder="Nombre" required="true" requiredMessage="Introduce el nombre" value="#{registrarBean.nombre}"/>
+                                    <h:message for="nombre" style="color: red" errorClass="errorMessage"></h:message>
                                     <div class="spacing"><small>Apellidos</small></div>
-                                    <h:inputText styleClass="form-control input-md" required="true" requiredMessage="Introduce los apellidos" p:placeholder="Apellidos" value="#{registrarBean.apellidos}"/>
+                                    <h:inputText id="apellidos" label="Apellidos" styleClass="form-control input-md" required="true" requiredMessage="Introduce los apellidos" p:placeholder="Apellidos" value="#{registrarBean.apellidos}"/>
+                                     <h:message for="apellidos" style="color: red" errorClass="errorMessage"></h:message>
                                     <div class="spacing"><small>Email</small></div>
                                     <h:inputText styleClass="form-control input-md" required="true" p:placeholder="Email" value="#{registrarBean.email}" 
                                                  requiredMessage="Ingresa un email válido."
@@ -51,7 +53,7 @@
                                     <div class="spacing"><small>Repetir Contraseña:</small></div>
                                     <h:inputSecret styleClass="form-control input-md" required="true" id="pass2" label="Pass2" requiredMessage="Repite la contraseña" value="#{registrarBean.password2}"/>  
                                     <h:message for="pass2" style="color: red" errorClass="errorMessage"></h:message>
-                                    <h:outputText rendered="#{UsuarioBean.error}" style="color: red"><p>Las contraseñas introducidas no coinciden</p></h:outputText>
+                                    <h:panelGrid rendered="#{registrarBean.errorPassword}"><p style="color: red">Las contraseñas introducidas no coinciden</p></h:panelGrid>                                
                                     <div class="spacing"><small>Twitter:</small></div>
                                     <h:inputText styleClass="form-control input-md" value="#{registrarBean.twitter}"/>
                                     <div class="spacing"><small>Instagram:</small></div>
@@ -62,6 +64,7 @@
                                     <h:inputFile value="#{registrarBean.archivo}"/>
                                     <br/>
                                     <h:commandButton styleClass="btn btn-info btn-sm pull-right" value="Registrar" action="#{registrarBean.doRegistrar()}"/>
+                                    <h:button styleClass="btn btn-default btn-sm pull-left" value="Cancelar" outcome="login"/>
                                 </fieldset>
                             </h:form>
                         </div>

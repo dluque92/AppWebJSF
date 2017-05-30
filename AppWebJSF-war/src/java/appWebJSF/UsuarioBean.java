@@ -9,8 +9,11 @@ import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
 import dropbox.DropboxController;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -35,11 +38,21 @@ public class UsuarioBean implements Serializable {
     private String password = "";
     private DatosUsuario usuario;
     private Boolean error = false;
+    private Boolean errorRegistrar = false;
     private List<DatosUsuario> amigosAmostrar;
     private List<DatosUsuario> usuariosPorNombre = null;
     private List<DatosUsuario> usuariosPorAficion = null;
     private List<DatosUsuario> usuariosPorExperiencia = null;
     private List<DatosUsuario> usuarioPorEstudio = null;
+    private Map<BigDecimal, String> fotosUsuarios = new HashMap<>();
+
+    public Boolean getErrorRegistrar() {
+        return errorRegistrar;
+    }
+
+    public void setErrorRegistrar(Boolean errorRegistrar) {
+        this.errorRegistrar = errorRegistrar;
+    }
 
     public List<DatosUsuario> getAmigosAmostrar() {
         List<DatosUsuario> misAmigos = new ArrayList();
@@ -68,7 +81,10 @@ public class UsuarioBean implements Serializable {
     }
 
     public String getFoto(DatosUsuario user) {
-        return DropboxController.getUrl(user.getFoto());
+        if (!fotosUsuarios.containsKey(user.getIdUsuario())) {
+            fotosUsuarios.put(user.getIdUsuario(), DropboxController.getUrl(user.getFoto()));
+        }
+        return fotosUsuarios.get(user.getIdUsuario());
     }
 
     public DatosUsuario getUsuario() {
@@ -112,6 +128,10 @@ public class UsuarioBean implements Serializable {
             return "login";
         } else {
             cargarUsuario();
+            getFoto(usuario);
+            for (DatosUsuario u : usuario.getMisAmigos()) {
+                getFoto(u);
+            }
             if (usuario == null) {
                 error = true;
                 limpiarCampos();

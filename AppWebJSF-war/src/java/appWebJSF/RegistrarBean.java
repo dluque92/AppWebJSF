@@ -40,15 +40,15 @@ public class RegistrarBean {
         this.usuarioBean = usuarioBean;
     }
     
-    private String nombre;
-    private String apellidos;
-    private String email;
-    private String password;
-    private String password2;
-    private String twitter;
-    private String instagram;
-    private String web;
-    private Part archivo;
+    private String nombre = "";
+    private String apellidos = "";
+    private String email = "";
+    private String password = "";
+    private String password2 = "";
+    private String twitter = "";
+    private String instagram = "";
+    private String web = "";
+    private Part archivo = null;
     
     public Part getArchivo() {
         return archivo;
@@ -124,13 +124,18 @@ public class RegistrarBean {
     public void setWeb(String web) {
         this.web = web;
     }
-
+    public Boolean getErrorPassword(){
+        return usuarioBean.getErrorRegistrar() && password.length() > 0 && password2.length() > 0;
+    }
+    
     public String doRegistrar() {
         if (this.datosUsuarioFacade.emailUsado(email) || !password.equals(password2)) {
-            this.usuarioBean.setError(true);
+            System.out.println(this.datosUsuarioFacade.emailUsado(email));
+            System.out.println(!password.equals(password2));
+            this.usuarioBean.setErrorRegistrar(true);
             return "registrar";
         } else {
-            this.usuarioBean.setError(false);
+            this.usuarioBean.setErrorRegistrar(false);
             DatosUsuario usuario = this.datosUsuarioFacade.crearUsuario(email, password, nombre, apellidos);
             if (twitter != null && !twitter.isEmpty()) {
                 usuario.setTwitter(twitter);
