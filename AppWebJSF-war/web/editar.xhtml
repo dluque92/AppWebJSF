@@ -127,7 +127,7 @@
                 </div>
             </div>
         </nav>
-         <div class="middlePage" style="margin-top:  22px;">
+        <div class="middlePage" style="margin-top:  22px;">
             <div class="page-header">
                 <h1 class="logo">JobsNow <small>Welcome to our place!</small></h1>
             </div>
@@ -175,54 +175,88 @@
                         </div>
                     </div>
                     <h4>Experiencia:</h4>
-                    <h:dataTable styleClass="table table-strip" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
-                        <h:column>
-                            <f:facet name="header">
-                                Empresa
-                            </f:facet>
-                            #{experiencia.empresa}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Puesto
-                            </f:facet>
-                            #{experiencia.puesto}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de comienzo
-                            </f:facet>
-                            #{experiencia.fechaComienzoString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de finalización
-                            </f:facet>
-                            #{experiencia.fechaFinalizacionString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Web de la empresa
-                            </f:facet>
-                            #{experiencia.webEmpresa}
-                        </h:column>
-                        <h:column>
-                            <h:form>
-                                <h:commandButton action="#{experienciaBean.doBorrar(experiencia)}" value="Borrar" class="btn btn-default"/>
-                            </h:form>
-                        </h:column>
-                    </h:dataTable>
+                    <h:form id="form-experiencia">
+                        <div class="table-responsive">
+                            <h:dataTable styleClass="table table-strip" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
+                                <h:column>
+                                    <f:facet name="header">
+                                        Empresa
+                                    </f:facet>
+                                    <h:outputText value = "#{experiencia.empresa}" rendered = "#{!experiencia.canEdit}" />
+                                    <h:inputText size="8" value = "#{experiencia.empresa}" rendered = "#{experiencia.canEdit}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Puesto
+                                    </f:facet>
+                                    <h:outputText value = "#{experiencia.puesto}" rendered = "#{!experiencia.canEdit}" />
+                                    <h:inputText size="8" value = "#{experiencia.puesto}" rendered = "#{experiencia.canEdit}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Fecha de comienzo
+                                    </f:facet>
+                                    <h:outputText value = "#{experiencia.fechaComienzoString}" rendered = "#{!experiencia.canEdit}" />
+                                    <h:inputText size="8" p:type="date" value="#{experiencia.fechaComienzo}" rendered = "#{experiencia.canEdit}" >
+                                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                                    </h:inputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Fecha de finalización
+                                    </f:facet>
+                                    <h:outputText value = "#{experiencia.fechaFinalizacionString}" rendered = "#{!experiencia.canEdit}" />
+                                    <h:inputText size="8" p:type="date" value="#{experiencia.fechaFinalizacion}" rendered = "#{experiencia.canEdit}" >
+                                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                                    </h:inputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Web de la empresa
+                                    </f:facet>
+                                    <h:outputText value = "#{experiencia.webEmpresa}" rendered = "#{!experiencia.canEdit}" />
+                                    <h:inputText size="8" value = "#{experiencia.webEmpresa}" rendered = "#{experiencia.canEdit}"/>
+                                </h:column>
+                                <h:column>
+
+                                    <h:commandButton action="#{experienciaBean.doGuardar(experiencia)}" rendered = "#{experiencia.canEdit}" value="Guardar" class="btn btn-success" >
+                                        <f:ajax  execute="@form" render="@form" />
+                                    </h:commandButton>
+
+                                    <h:commandButton action="#{experienciaBean.doEditar(experiencia)}" value="Editar" class="btn btn-warning" rendered = "#{!experiencia.canEdit}">
+                                        <f:ajax  render="@form" />
+                                    </h:commandButton>
+
+                                </h:column>
+
+                                <h:column>
+
+                                    <h:commandButton action="#{experienciaBean.doBorrar(experiencia)}" value="Borrar" class="btn btn-danger ">
+                                        <f:ajax render="@form" />
+                                    </h:commandButton>
+
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </h:form>
                     <h:form>
                         <h:inputText value="#{experienciaBean.nuevaExperiencia.empresa}"></h:inputText>
+
                         <h:inputText value="#{experienciaBean.nuevaExperiencia.puesto}"></h:inputText>
+
                         <h:inputText p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaComienzo}" >
                             <f:convertDateTime pattern="yyyy-MM-dd"/> 
                         </h:inputText>
+
                         <h:inputText p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaFinalizacion}" >
                             <f:convertDateTime pattern="yyyy-MM-dd"/> 
                         </h:inputText>
+
                         <h:inputText value="#{experienciaBean.nuevaExperiencia.webEmpresa}"></h:inputText>
-                        <h:commandButton action="#{experienciaBean.doCrear()}" value="Insertar" class="btn btn-default"/>
+
+                        <h:commandButton action="#{experienciaBean.doCrear()}" value="Insertar" class="btn btn-default">
+                            <f:ajax execute="@form" render="form-experiencia"/>
+                        </h:commandButton>
                     </h:form>
 
                     <h4>Aficiones:</h4>
@@ -256,73 +290,101 @@
                                     <f:ajax render="@form" />
                                 </h:commandButton>
 
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
-                <h:form>
-                    <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
-                    
-                    <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default">
-                        <f:ajax render="form-aficion" execute="@form" />
-                    </h:commandButton>
-                </h:form>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                    <h:form>
+                        <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
 
-                <h4>Estudios:</h4>
-                <h:form id="form-estudio">
-                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
-                    <h:column>
-                        <f:facet name="header">
-                            Nombre
-                        </f:facet>
-                        #{estudio.nombre}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Descripción
-                        </f:facet>
-                        #{estudio.descripcion}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Fecha de Comienzo
-                        </f:facet>
-                        #{estudio.fechaComienzoString}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Fecha de finalización
-                        </f:facet>
-                        #{estudio.fechaFinString}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Ubicación
-                        </f:facet>
-                        #{estudio.ubicacion}
-                    </h:column>
-                    <h:column>
-                            <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-default" />
-                    </h:column>
-                </h:dataTable>
-                </h:form>
-                
-                <h:form>
-                    <h:inputText value="#{estudioBean.nuevoEstudio.nombre}"></h:inputText>
-                    <h:inputText value="#{estudioBean.nuevoEstudio.descripcion}"></h:inputText>
-                    <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaComienzo}" >
-                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
-                    </h:inputText>
-                    <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaFinalizacion}" >
-                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
-                    </h:inputText>
-                    <h:inputText value="#{estudioBean.nuevoEstudio.ubicacion}"></h:inputText>
-                    <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default">
-                        <f:ajax execute="@form" render="form-estudio"/>
-                    </h:commandButton>
-                </h:form>
+                        <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default">
+                            <f:ajax render="form-aficion" execute="@form" />
+                        </h:commandButton>
+                    </h:form>
+
+                    <h4>Estudios:</h4>
+                    <h:form id="form-estudio">
+                        <div class="table-responsive">
+                            <h:dataTable styleClass="table" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+                                <h:column>
+                                    <f:facet name="header">
+                                        Nombre
+                                    </f:facet>
+
+                                    <h:outputText value = "#{estudio.nombre}" rendered = "#{!estudio.canEdit}" />
+                                    <h:inputText size="8" value = "#{estudio.nombre}" rendered = "#{estudio.canEdit}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Descripción
+                                    </f:facet>
+                                    <h:outputText value = "#{estudio.descripcion}" rendered = "#{!estudio.canEdit}" />
+                                    <h:inputText size="8" value = "#{estudio.descripcion}" rendered = "#{estudio.canEdit}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Fecha de Comienzo
+                                    </f:facet>
+                                    <h:outputText value = "#{estudio.fechaComienzoString}" rendered = "#{!estudio.canEdit}" />
+                                    <h:inputText size="8" p:type="date" value="#{estudio.fechaComienzo}" rendered = "#{estudio.canEdit}" >
+                                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                                    </h:inputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Fecha de finalización
+                                    </f:facet>
+                                    <h:outputText value = "#{estudio.fechaFinString}" rendered = "#{!estudio.canEdit}" />
+                                    <h:inputText size="8" p:type="date" value="#{estudio.fechaFinalizacion}" rendered = "#{estudio.canEdit}" >
+                                        <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                                    </h:inputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Ubicación
+                                    </f:facet>
+                                    <h:outputText value = "#{estudio.ubicacion}" rendered = "#{!estudio.canEdit}" />
+                                    <h:inputText size="8" value = "#{estudio.ubicacion}" rendered = "#{estudio.canEdit}"/>
+                                </h:column>
+                                <h:column>
+
+                                    <h:commandButton action="#{estudioBean.doGuardar(estudio)}" rendered = "#{estudio.canEdit}" value="Guardar" class="btn btn-success" >
+                                        <f:ajax  execute="@form" render="@form" />
+                                    </h:commandButton>
+
+                                    <h:commandButton action="#{estudioBean.doEditar(estudio)}" value="Editar" class="btn btn-warning" rendered = "#{!estudio.canEdit}">
+                                        <f:ajax  render="@form" />
+                                    </h:commandButton>
+
+                                </h:column>
+
+                                <h:column>
+
+                                    <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-danger ">
+                                        <f:ajax render="@form" />
+                                    </h:commandButton>
+
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </h:form>
+
+                    <h:form>
+                        <h:inputText value="#{estudioBean.nuevoEstudio.nombre}"></h:inputText>
+                        <h:inputText value="#{estudioBean.nuevoEstudio.descripcion}"></h:inputText>
+                        <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaComienzo}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                        </h:inputText>
+                        <h:inputText p:type="date" value="#{estudioBean.nuevoEstudio.fechaFinalizacion}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/> 
+                        </h:inputText>
+                        <h:inputText value="#{estudioBean.nuevoEstudio.ubicacion}"></h:inputText>
+                        <h:commandButton action="#{estudioBean.doCrear()}" value="Insertar" class="btn btn-default">
+                            <f:ajax execute="@form" render="form-estudio"/>
+                        </h:commandButton>
+                    </h:form>
+                </div>
             </div>
         </div>
-    </div>
 
-</h:body>
+    </h:body>
 </html>

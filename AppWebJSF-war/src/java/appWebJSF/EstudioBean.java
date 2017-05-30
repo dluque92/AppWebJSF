@@ -7,7 +7,10 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.ejb.EstudioFacade;
+import appWebJSF.entity.Aficion;
+import appWebJSF.entity.DatosUsuario;
 import appWebJSF.entity.Estudio;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -70,6 +73,52 @@ public class EstudioBean {
             usuarioBean.cargarUsuario();
         }
         
+        return "editar";
+    }
+    
+    public String doEditar(Estudio estudio) {
+
+        // this.usuarioBean.getUsuario().getAficionCollection().remove(estudio);
+
+        
+        DatosUsuario usuario = this.usuarioBean.getUsuario();
+        List<Estudio> listaEstudios = (List<Estudio>) usuario.getEstudioCollection();
+        int i=0;
+        for (Estudio es : listaEstudios) {
+            if (es.getIdEstudio().equals(estudio.getIdEstudio())) {
+                listaEstudios.remove(estudio);
+                break;
+            }else{
+                i++;
+            }
+        }
+        estudio.setCanEdit(true);
+        listaEstudios.add(i,estudio);
+        usuario.setEstudioCollection(listaEstudios);
+        this.usuarioBean.setUsuario(usuario);
+        return "editar";
+    }
+    
+    
+    public String doGuardar(Estudio estudio){
+        //Moficamos la estudio en la base de datos
+        this.estudioFacade.edit(estudio);
+        //Modificamos la estudio en local
+        DatosUsuario usuario = this.usuarioBean.getUsuario();
+        List<Estudio> listaEstudios = (List<Estudio>) usuario.getEstudioCollection();
+        int i=0;
+        for (Estudio es : listaEstudios) {
+            if (es.getIdEstudio().equals(estudio.getIdEstudio())) {
+                listaEstudios.remove(estudio);
+                break;
+            }else{
+                i++;
+            }
+        }
+        estudio.setCanEdit(false);
+        listaEstudios.add(i,estudio);
+        usuario.setEstudioCollection(listaEstudios);
+        this.usuarioBean.setUsuario(usuario);
         return "editar";
     }
     
