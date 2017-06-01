@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -219,5 +218,33 @@ public class UsuarioBean implements Serializable {
         setUsuariosPorExperiencia(this.datosUsuarioFacade.findByExperiencia(busqueda, getUsuario().getIdUsuario()));
         busqueda = "";
         return "buscar";
+    }
+    
+    public String irAPeticiones(){
+        cargarUsuario();
+        return "peticiones";
+    }
+    
+    public String irABandejaEntrada(){
+        cargarUsuario();
+        return "bandejaentrada";
+    }
+    
+    public Boolean coincideEmail(){
+        return this.email.equals(this.usuario.getEmail());
+    }
+    
+    public Boolean tienePeticionDeUsuario(){
+        DatosUsuario u = this.datosUsuarioFacade.obtenerUsuario(this.email, this.password);
+        return !coincideEmail()&&u.getPeticionesEnviadas().contains(usuario)&&!sonAmigos(u);
+    }
+    
+    public Boolean sonAmigos(DatosUsuario u){
+        return u.getMisAmigos().contains(this.usuario);
+    }
+    
+    public Boolean noTienePeticionDeUsuario(){
+        DatosUsuario u = this.datosUsuarioFacade.obtenerUsuario(this.email, this.password);
+        return !coincideEmail()&&!u.getPeticionesEnviadas().contains(usuario)&&!sonAmigos(u);
     }
 }

@@ -141,7 +141,9 @@ public class UsuarioModificarBean {
             return "editar";
         } else {
             this.datosUsuarioFacade.edit(this.usuarioEnSesion);
-
+            if(!usuarioEnSesion.getEmail().equals(usuarioBean.getUsuario().getEmail())){
+                this.usuarioBean.setEmail(this.usuarioEnSesion.getEmail());
+            }
             //En el CustomerBean se hace init() para ver que los datos se han actualizado
             //En cambio nosotros lo tenemos que hacer a mano
             //Puesto que en el init() de UsuarioBean no se actualiza el Usuario

@@ -120,8 +120,8 @@
                     </h:form>
                     <h:form>
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
-                            <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
-                            <li><h:link styleClass="fa fa-envelope" outcome="bandejaentrada"/></li>
+                            <li><h:commandLink styleClass="fa fa-users" action="#{UsuarioBean.irAPeticiones()}"/></li>
+                            <li><h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}"/></li>
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
                         </ul>
                     </h:form>
@@ -153,9 +153,10 @@
                             Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
                         </div>
                         <div class="co-sm-3 col-md-3">
-                            <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{!UsuarioBean.email.equals(UsuarioBean.usuario.email)}" value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>
-                            <h:commandButton styleClass="btn btn-primary btn-sm pull-left" rendered="#{!UsuarioBean.email.equals(UsuarioBean.usuario.email)}" action="mensaje" value="Enviar Mensaje" />
-                            <h:commandButton styleClass="btn btn-warning btn-sm pull-right" rendered="#{UsuarioBean.email.equals(UsuarioBean.usuario.email)}" action="editar" value="Editar Perfil"/>
+                            <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{UsuarioBean.noTienePeticionDeUsuario()}" value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>
+                            <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{UsuarioBean.tienePeticionDeUsuario()}" value="Cancelar peticion" action="#{peticionBean.cancelarPeticion()}"/>
+                            <h:commandButton styleClass="btn btn-primary btn-sm pull-left" rendered="#{!UsuarioBean.coincideEmail()}" action="mensaje" value="Enviar Mensaje" />
+                            <h:commandButton styleClass="btn btn-warning btn-sm pull-right" rendered="#{UsuarioBean.coincideEmail()}" action="editar" value="Editar Perfil"/>
                         </div>
                     </div>
                     <br/>

@@ -69,5 +69,16 @@ public class PeticionBean {
         this.datosUsuarioFacade.edit(nuevoAmigo);
         return "peticiones";
     }
+    
+    public String cancelarPeticion(){
+        usuarioEnviarPeticion = usuarioBean.getUsuario();
+        usuarioBean.cargarUsuario();
+        usuarioBean.getUsuario().getPeticionesEnviadas().remove(usuarioEnviarPeticion);
+        usuarioEnviarPeticion.getPeticionesRecibidas().remove(usuarioBean.getUsuario());
+        this.datosUsuarioFacade.edit(usuarioBean.getUsuario());
+        this.datosUsuarioFacade.edit(usuarioEnviarPeticion);
+        this.usuarioBean.setUsuario(usuarioEnviarPeticion);
+        return "index";
+    }
 
 }

@@ -95,7 +95,12 @@
                 display: inline;
                 margin-right: 2em;
             }
-
+            .insert-form{
+                margin-top: 2em;
+            }
+            .insert-input{
+                margin-left: 0.5em;
+            }
         </style>
 
         <h:outputStylesheet library="css" name="style.css" />
@@ -137,10 +142,18 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="row">
                             <h:form enctype="multipart/form-data">
-                                <div class="col-md-6" style="border-left:1px solid #ccc; height:715px; width: 40%">
+                                <div class="col-md-6 col-md-push-6" style="text-align: center;">
+                                    <p>  <div class="spacing"><h4>Foto de Perfil</h4></div>
+                                        <div>
+                                            <h:graphicImage styleClass="img-circle" alt="User Image" style="margin-bottom: 1em;" width="300" height="300" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/>
+                                        </div>
+                                        <h:inputFile value="#{usuarioModificarBean.archivo}" style="margin: 0 auto;"/>
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-md-pull-6" style="border-left:1px solid #ccc; height:715px;">
                                     <fieldset>
 
                                         <div class="spacing"><small>Nombre</small></div>
@@ -174,14 +187,7 @@
                                         <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" />
                                     </fieldset>
                                 </div>
-                                <div class="col-md-6" style="text-align: center;">
-                                    <p>  <div class="spacing"><h4>Foto de Perfil</h4></div>
-                                        <div>
-                                            <h:graphicImage styleClass="img-circle" alt="User Image" style="margin-bottom: 1em;" width="300" height="300" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/>
-                                        </div>
-                                        <h:inputFile value="#{usuarioModificarBean.archivo}" style="margin: 0 auto;"/>
-                                    </p>
-                                </div>
+
                             </h:form>
                         </div>
                     </div>
@@ -229,7 +235,6 @@
                                     <h:inputText size="8" value = "#{experiencia.webEmpresa}" rendered = "#{experiencia.canEdit}"/>
                                 </h:column>
                                 <h:column>
-
                                     <h:commandButton action="#{experienciaBean.doGuardar(experiencia)}" rendered = "#{experiencia.canEdit}" value="Guardar" class="btn btn-success" >
                                         <f:ajax  execute="@form" render="@form" />
                                     </h:commandButton>
@@ -237,76 +242,59 @@
                                     <h:commandButton action="#{experienciaBean.doEditar(experiencia)}" value="Editar" class="btn btn-warning" rendered = "#{!experiencia.canEdit}">
                                         <f:ajax  render="@form" />
                                     </h:commandButton>
-
                                 </h:column>
-
                                 <h:column>
-
                                     <h:commandButton action="#{experienciaBean.doBorrar(experiencia)}" value="Borrar" class="btn btn-danger ">
                                         <f:ajax render="@form" />
                                     </h:commandButton>
-
                                 </h:column>
                             </h:dataTable>
                         </div>
                     </h:form>
-                    <h:form id="datosExperiencia">
-                        <h:inputText value="#{experienciaBean.nuevaExperiencia.empresa}"></h:inputText>
-
-                        <h:inputText value="#{experienciaBean.nuevaExperiencia.puesto}"></h:inputText>
-
-                        <h:inputText p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaComienzo}" >
+                    <h:form styleClass="form-inline insert-form" id="datosExperiencia">
+                        <div class="form-group">
+                        <h:inputText styleClass="form-control insert-input" value="#{experienciaBean.nuevaExperiencia.empresa}"></h:inputText>
+                        <h:inputText styleClass="form-control insert-input" value="#{experienciaBean.nuevaExperiencia.puesto}"></h:inputText>
+                        <h:inputText styleClass="form-control insert-input" p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaComienzo}" >
                             <f:convertDateTime pattern="yyyy-MM-dd"/> 
                         </h:inputText>
-
-                        <h:inputText p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaFinalizacion}" >
+                        <h:inputText styleClass="form-control insert-input" p:type="date" value="#{experienciaBean.nuevaExperiencia.fechaFinalizacion}" >
                             <f:convertDateTime pattern="yyyy-MM-dd"/> 
                         </h:inputText>
-
-                        <h:inputText id="nuevaExperiencia" value="#{experienciaBean.nuevaExperiencia.webEmpresa}"></h:inputText>
-
+                        <h:inputText styleClass="form-control insert-input" id="nuevaExperiencia" value="#{experienciaBean.nuevaExperiencia.webEmpresa}"></h:inputText>
                         <h:commandButton action="#{experienciaBean.doCrear()}" value="Insertar" class="btn btn-default">
                             <f:ajax execute="@form" render="form-experiencia datosExperiencia"/>
                         </h:commandButton>
+                        </div>
                     </h:form>
 
                     <h4>Aficiones:</h4>
                     <h:form id="form-aficion">
                         <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
-
                             <h:column>
-
                                 <f:facet name="header">
                                     Nombre
                                 </f:facet>
                                 <h:outputText value = "#{aficion.nombre}" rendered = "#{!aficion.canEdit}" />
                                 <h:inputText value = "#{aficion.nombre}" rendered = "#{aficion.canEdit}"/>
                             </h:column>
-
                             <h:column>
-
                                 <h:commandButton action="#{aficionBean.doGuardar(aficion)}" rendered = "#{aficion.canEdit}" value="Guardar" class="btn btn-success" >
                                     <f:ajax  execute="@form" render="@form" />
                                 </h:commandButton>
-
                                 <h:commandButton action="#{aficionBean.doEditar(aficion)}" value="Editar" class="btn btn-warning" rendered = "#{!aficion.canEdit}">
                                     <f:ajax  render="@form" />
                                 </h:commandButton>
-
                             </h:column>
-
                             <h:column>
-
                                 <h:commandButton action="#{aficionBean.doBorrar(aficion)}" value="Borrar" class="btn btn-danger ">
                                     <f:ajax render="@form" />
                                 </h:commandButton>
-
                             </h:column>
                         </h:dataTable>
                     </h:form>
                     <h:form>
                         <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
-
                         <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default">
                             <f:ajax render="form-aficion" execute="@form" />
                         </h:commandButton>
@@ -357,23 +345,17 @@
                                     <h:inputText size="8" value = "#{estudio.ubicacion}" rendered = "#{estudio.canEdit}"/>
                                 </h:column>
                                 <h:column>
-
                                     <h:commandButton action="#{estudioBean.doGuardar(estudio)}" rendered = "#{estudio.canEdit}" value="Guardar" class="btn btn-success" >
                                         <f:ajax  execute="@form" render="@form" />
                                     </h:commandButton>
-
                                     <h:commandButton action="#{estudioBean.doEditar(estudio)}" value="Editar" class="btn btn-warning" rendered = "#{!estudio.canEdit}">
                                         <f:ajax  render="@form" />
                                     </h:commandButton>
-
                                 </h:column>
-
                                 <h:column>
-
                                     <h:commandButton action="#{estudioBean.doBorrar(estudio)}" value="Borrar" class="btn btn-danger ">
                                         <f:ajax render="@form" />
                                     </h:commandButton>
-
                                 </h:column>
                             </h:dataTable>
                         </div>
