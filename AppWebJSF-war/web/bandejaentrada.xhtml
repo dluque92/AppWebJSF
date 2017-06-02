@@ -6,18 +6,6 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <!--
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-            Latest compiled and minified JavaScript
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-            <script src="https://use.fontawesome.com/40f6f1cf0c.js"></script>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        -->
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
@@ -27,12 +15,19 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link href='style.css' rel='stylesheet' type='text/css'/>
         <!-- Icons -->
         <script src="https://use.fontawesome.com/0e798431ad.js"></script>
         <title>Bandeja de Entrada</title>
         <style>
-            body { padding-top: 70px; }
+            body { 
+                padding-top: 70px; 
+                background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
+                background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
+                background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
+                background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Opera 11.10+ */
+                background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* W3C */
+                padding-top: 60px; /* ESTO LO PIDE LA PAGINA WEB DE BOOTSTRAP */
+            }
             .message-panel{
                 background-color: #EEEEEE;
                 width: 100%;
@@ -40,6 +35,7 @@
             }
             .container{
                 margin: 1em;
+                width: 100%;
             }
             .msg{
                 margin: 0.2em;
@@ -77,23 +73,35 @@
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
                 <h:form>
-                    <div class="navbar-header">
-                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
+                    <div class="navbar-header" style="margin-left:50px;margin-top: 0.5em;margin-right: 1em">
+                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage alt="JobsNow" style="height:2.5em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
                     </div>
                 </h:form>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <h:form>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
-                                <h:inputText value="#{UsuarioBean.busqueda}"/>
+                                <h:inputText value="#{UsuarioBean.busqueda}" />
                             </div>
                             <h:commandLink styleClass="btn btn-default fa fa-search" action="#{UsuarioBean.hacerBusqueda()}"/>
                         </div>
                     </h:form>
                     <h:form>
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
-                            <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
-                            <li><h:link styleClass="fa fa-envelope" outcome="bandejaentrada"/></li>
+                            <li>
+                                <h:commandLink styleClass="fa fa-users" action="#{UsuarioBean.irAPeticiones()}">
+                                    <h:panelGrid class="badge badge-notify" rendered="#{UsuarioBean.usuario.peticionesRecibidas.size()>0}">
+                                        <span>#{UsuarioBean.usuario.peticionesRecibidas.size()}</span>
+                                    </h:panelGrid>
+                                </h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}">
+                                    <h:panelGrid class="badge badge-notify" rendered="#{mensajesBean.getMensajesAmigos().size()>0}">
+                                        <span>#{mensajesBean.getMensajesAmigos().size()}</span>
+                                    </h:panelGrid>
+                                </h:commandLink>
+                            </li>
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
                         </ul>
                     </h:form>
@@ -103,86 +111,93 @@
 
 
         <div class="container">
-            <h:form>
-                <div class="col-sm-2">
-                    <div class="list-unstyled">
-                        <!-- Aquí es donde listamos el recuadro de amigos que aparece
-                        en la izquierda -->        
-                        <ui:repeat value="#{mensajesBean.listaAmigos}" var="amigo">
-                            <h:column>
-                                <h:commandLink rendered="#{!mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}">
-                                    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="35" height="35" value="#{UsuarioBean.getFoto(amigo)}"/>
-                                    #{amigo.nombre} #{amigo.apellidos}
-                                    <f:ajax render="cuadroMensajes"/>
-                                </h:commandLink>
-                                <h:commandLink rendered="#{mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}" value="#{amigo.nombre} #{amigo.apellidos}"><i class="fa fa-exclamation-circle" style="color:orangered; "></i></h:commandLink>
-                            </h:column>
-                        </ui:repeat>
-                    </div>
-                </div>  
-            </h:form>
-
-            <div id="div1" class="col-sm-8">
-                <div id="div2" class="jumbotron" style="border-radius: 8px; border-style: solid; border-width: 0.01px; width: 900px; padding: 0px !important;">
-                    <div id="msg-end-scroll" class="jumbotron" style="margin-top: 0.5em; border-radius: 0px; overflow-y: auto; height:350px;">
-
-                        <h:panelGroup id="cuadroMensajes">
-                            <ui:repeat value="#{mensajesBean.listaMensajesAmigo}" var="mensaje">
-                                <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
-                                <h:panelGroup id="esMensajeDeAmigo1" rendered="#{mensajesBean.esMensajeDeAmigo(mensaje)}">
-                                    <div id="friend" class="msg-box">
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <h:graphicImage styleClass="img-rounded" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(mensajesBean.amigo)}"/>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <div class="msg">
-                                                    <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                                    <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
-                                                    <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.idUsuario.toString().length())}</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                </h:panelGroup>
-                                <!--</h:outputText>-->
-
-                                <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
-                                <h:panelGroup id="esMensajeDeAmigo2" rendered="#{!mensajesBean.esMensajeDeAmigo(mensaje)}">
-                                    <div id="user" class="msg-box">
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <h:graphicImage styleClass="img-rounded" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <div class="msg">
-                                                    <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
-                                                    <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
-                                                    <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.idUsuario.toString().length())}</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </h:panelGroup>
-                                <!--</h:outputText>-->
-                            </ui:repeat>
-                        </h:panelGroup>
-                    </div>
-                </div>
                 <h:form>
-                    <div class="send-wrap ">
-                        <h:inputTextarea id="campoMensaje" value="#{mensajesBean.mensaje}" class="form-control send-message" rows="3" p:placeholder="Escribe un mensaje..."/>
-                    </div>
-                    <div class="btn-panel">
-                        <h:commandButton action="#{mensajesBean.doEnviarMensaje()}" styleClass="btn btn-success" role="button" value="Enviar mensaje">
-                            <f:ajax execute="campoMensaje" render="cuadroMensajes campoMensaje"/>
-                        </h:commandButton>
-                    </div>
+                    <div class="col-sm-3">
+                        <div class="list-unstyled">
+                            <!-- Aquí es donde listamos el recuadro de amigos que aparece
+                            en la izquierda -->        
+                            <ui:repeat value="#{mensajesBean.listaAmigos}" var="amigo">
+                                <h:column>
+                                    <h:commandLink rendered="#{!mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" action="#{mensajesBean.cambiarAmigo(amigo)}">
+                                        <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="35" height="35" value="#{UsuarioBean.getFoto(amigo)}"/>
+                                        #{amigo.nombre} #{amigo.apellidos}
+                                        <f:ajax render="cuadroMensajes"/>
+                                    </h:commandLink>
+                                    <h:commandLink rendered="#{mensajesBean.tieneMensaje(amigo)}" styleClass="list-group-item" 
+                                                   action="#{mensajesBean.cambiarAmigo(amigo)}">
+                                        <i class="fa fa-exclamation-circle" style="color:orangered; "></i>
+                                        <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="35" height="35" value="#{UsuarioBean.getFoto(amigo)}"/>
+                                        #{amigo.nombre} #{amigo.apellidos}
+                                        <f:ajax render="cuadroMensajes"/>
+                                    </h:commandLink>
+                                </h:column>
+                            </ui:repeat>
+                        </div>
+                    </div>  
                 </h:form>
 
-            </div>
-        </div>
+                <div id="div1" class="col-sm-8">
+                    <div id="div2" class="jumbotron" style="border-radius: 8px; border-style: solid; border-width: 0.01px; width: 100%; padding: 0px !important;">
+                        <div id="msg-end-scroll" class="jumbotron" style="margin-top: 0.5em; border-radius: 0px; overflow-y: auto; height:500px;">
 
+                            <h:panelGroup id="cuadroMensajes">
+                                <div class="panel panel-heading" style="text-align: center; font-size: 14px; margin-top: -20px;">
+                                    #{mensajesBean.amigo.nombre} #{mensajesBean.amigo.apellidos}
+                                </div>
+                                <ui:repeat value="#{mensajesBean.listaMensajesAmigo}" var="mensaje">
+                                    <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
+                                    <h:panelGroup id="esMensajeDeAmigo1" rendered="#{mensajesBean.esMensajeDeAmigo(mensaje)}">
+                                        <div id="friend" class="msg-box">
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <h:graphicImage styleClass="img-rounded" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(mensajesBean.amigo)}"/>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="msg">
+                                                        <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                                        <h6 class="media-heading">#{mensajesBean.amigo.nombre } #{mensajesBean.amigo.apellidos}</h6>
+                                                        <small class="msg-friend col-md-10 text-muted">#{mensaje.getMensaje().substring(mensajesBean.amigo.idUsuario.toString().length())}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </h:panelGroup>
+                                    <!--</h:outputText>-->
+
+                                    <!--<h:outputText rendered="{mensajesBean.esMensajeDeAmigo(mensaje)}">-->
+                                    <h:panelGroup id="esMensajeDeAmigo2" rendered="#{!mensajesBean.esMensajeDeAmigo(mensaje)}">
+                                        <div id="user" class="msg-box">
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <h:graphicImage styleClass="img-rounded" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="msg">
+                                                        <small class="pull-right time" style="font-size: 10px"><i class="fa fa-clock-o"></i>#{mensaje.getFecha()}</small>
+                                                        <h6 class="media-heading">#{UsuarioBean.usuario.nombre } #{UsuarioBean.usuario.apellidos}</h6>
+                                                        <small class="msg-user col-md-10 text-muted">#{mensaje.getMensaje().substring(UsuarioBean.usuario.idUsuario.toString().length())}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:panelGroup>
+                                    <!--</h:outputText>-->
+                                </ui:repeat>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <h:form>
+                        <div class="send-wrap " style="margin-bottom: 1em">
+                            <h:inputTextarea id="campoMensaje" value="#{mensajesBean.mensaje}" class="form-control send-message" rows="3" p:placeholder="Escribe un mensaje..."/>
+                        </div>
+                        <div class="btn-panel" style="position: relative; text-align: right">
+                            <h:commandButton action="#{mensajesBean.doEnviarMensaje()}" styleClass="btn btn-success" role="button" value="Enviar mensaje">
+                                <f:ajax execute="campoMensaje" render="cuadroMensajes campoMensaje"/>
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+        </div>
     </h:body>
 </html>
 

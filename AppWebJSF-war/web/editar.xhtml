@@ -109,8 +109,8 @@
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
                 <h:form>
-                    <div class="navbar-header">
-                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
+                    <div class="navbar-header" style="margin-left:50px;margin-top: 0.5em;margin-right: 1em">
+                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage alt="JobsNow" style="height:2.5em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
                     </div>
                 </h:form>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -124,8 +124,20 @@
                     </h:form>
                     <h:form>
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
-                            <li><h:link styleClass="fa fa-users" outcome="peticiones"/></li>
-                            <li><h:link styleClass="fa fa-envelope" outcome="bandejaentrada"/></li>
+                            <li>
+                                <h:commandLink styleClass="fa fa-users" action="#{UsuarioBean.irAPeticiones()}">
+                                    <h:panelGrid class="badge badge-notify" rendered="#{UsuarioBean.usuario.peticionesRecibidas.size()>0}">
+                                        <span>#{UsuarioBean.usuario.peticionesRecibidas.size()}</span>
+                                    </h:panelGrid>
+                                </h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}">
+                                    <h:panelGrid class="badge badge-notify" rendered="#{mensajesBean.getMensajesAmigos().size()>0}">
+                                        <span>#{mensajesBean.getMensajesAmigos().size()}</span>
+                                    </h:panelGrid>
+                                </h:commandLink>
+                            </li>
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
                         </ul>
                     </h:form>

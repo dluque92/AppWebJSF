@@ -135,7 +135,9 @@
                             </li>
                             <li>
                                 <h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}">
-                                    <span class="badge badge-notify">3</span>
+                                    <h:panelGrid class="badge badge-notify" rendered="#{mensajesBean.getMensajesAmigos().size()>0}">
+                                        <span>#{mensajesBean.getMensajesAmigos().size()}</span>
+                                    </h:panelGrid>
                                 </h:commandLink>
 
                             </li>
