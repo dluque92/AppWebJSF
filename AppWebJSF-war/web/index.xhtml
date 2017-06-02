@@ -97,7 +97,13 @@
                 display: inline;
                 margin-right: 2em;
             }
-
+            .badge-notify{
+                background: crimson;
+                position:relative;
+                font-size: 12px;
+                top: -5px;
+                left: 0px;
+            }
         </style>
     </h:head>
     <h:body>
@@ -105,8 +111,8 @@
         <nav class="navbar navbar-inverse navbar-fixed-top  navbar-static-top">
             <div class="container-fluid">
                 <h:form>
-                    <div class="navbar-header">
-                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage style="height:2em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
+                    <div class="navbar-header" style="margin-left:50px;margin-top: 0.5em;margin-right: 1em">
+                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage alt="JobsNow" style="height:2.5em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
                     </div>
                 </h:form>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -120,8 +126,20 @@
                     </h:form>
                     <h:form>
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
-                            <li><h:commandLink styleClass="fa fa-users" action="#{UsuarioBean.irAPeticiones()}"/></li>
-                            <li><h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}"/></li>
+                            <li>
+                                <h:commandLink styleClass="fa fa-users" action="#{UsuarioBean.irAPeticiones()}">
+                                    <h:panelGrid class="badge badge-notify" rendered="#{UsuarioBean.usuario.peticionesRecibidas.size()>0}">
+                                        <span>#{UsuarioBean.usuario.peticionesRecibidas.size()}</span>
+                                    </h:panelGrid>
+                                </h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}">
+                                    <span class="badge badge-notify">3</span>
+                                </h:commandLink>
+
+                            </li>
+
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
                         </ul>
                     </h:form>
@@ -150,7 +168,11 @@
                         </div>
                         <div class="col-sm-9 col-md-9">
                             <h3>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</h3><br/>
-                            Visitas a tu perfil: #{UsuarioBean.usuario.visitas}<br/>
+                            <div id="visitas" style="text-align: right">
+                                <h:graphicImage width="40px" height="40px" alt="Visitas a tu perfil" value="https://image.flaticon.com/icons/png/512/22/22966.png"/> 
+                                <h4 style="margin-right: 10px;">#{UsuarioBean.usuario.visitas}</h4>
+                            </div>
+                            <br/>
                         </div>
                         <div class="co-sm-3 col-md-3">
                             <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{UsuarioBean.noTienePeticionDeUsuario()}" value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>
@@ -161,93 +183,111 @@
                     </div>
                     <br/>
 
-                    <h4>Aficiones:</h4>
-                    <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
-                        <h:column>
-                            <f:facet name="header">
-                                Nombre
-                            </f:facet>
-                            #{aficion.nombre}
-                        </h:column>
-                    </h:dataTable>
-                    <h4>Estudios:</h4>
+                    <div class="container">
+                        <div class="co-sm-3 col-md-3">
+                            <div class="panel panel-info" style="text-align: center">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Aficiones</h4>
+                                </div>
 
-                    <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
-                        <h:column>
-                            <f:facet name="header">
-                                Nombre
-                            </f:facet>
-                            #{estudio.nombre}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Descripción
-                            </f:facet>
-                            #{estudio.descripcion}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de Comienzo
-                            </f:facet>
-                            #{estudio.fechaComienzoString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de finalización
-                            </f:facet>
-                            #{estudio.fechaFinString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Ubicación
-                            </f:facet>
-                            #{estudio.ubicacion}
-                        </h:column>
-                    </h:dataTable>
-                    <h4>Experiencia:</h4>
-                    <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
-                        <h:column>
-                            <f:facet name="header">
-                                Empresa
-                            </f:facet>
-                            #{experiencia.empresa}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Puesto
-                            </f:facet>
-                            #{experiencia.puesto}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de comienzo
-                            </f:facet>
-                            #{experiencia.fechaComienzoString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Fecha de finalización
-                            </f:facet>
-                            #{experiencia.fechaFinalizacionString}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Web de la empresa
-                            </f:facet>
-                            #{experiencia.webEmpresa}
-                        </h:column>
-                    </h:dataTable>
-                    <h4>Amigos</h4>
-                    <div class="list-unstyled" style="padding:1em; display: inline-block">
-                        <ui:repeat value="#{UsuarioBean.amigosAmostrar}" var="amigo" >
-                            <div class="col-sm-1 col-md-1" style="padding-right: 3em">  
-
-                                <h:commandLink action="#{buscarBean.buscar(amigo)}" style="font-size: 12px;left: 50%">
-                                    <h:graphicImage styleClass="img-circle" alt="User Image" style="left: 30%;" width="50" height="50" value="#{UsuarioBean.getFoto(amigo)}"/><br/>
-                                    #{amigo.nombre} #{amigo.apellidos}
-                                </h:commandLink>
-                            </div> 
-                        </ui:repeat>
+                                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
+                                    <h:column>
+                                        #{aficion.nombre}
+                                    </h:column>
+                                </h:dataTable>
+                            </div>
+                        </div>
+                        <div class="co-sm-6 col-md-6">
+                            <div class="panel panel-secondary">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Amigos</h4>
+                                </div>
+                                <div class="list-unstyled" style="padding:1em; display: inline-block">
+                                    <ui:repeat value="#{UsuarioBean.amigosAmostrar}" var="amigo" >
+                                        <div class="col-sm-1 col-md-1" style="padding-right: 4.5em">  
+                                            <h:commandLink action="#{buscarBean.buscar(amigo)}" style="font-size: 12px;left: 50%">
+                                                <h:graphicImage styleClass="img-rounded" alt="User Image" style="text-align: center" width="60" height="60" value="#{UsuarioBean.getFoto(amigo)}"/><br/>
+                                                #{amigo.nombre} #{amigo.apellidos}
+                                            </h:commandLink>
+                                        </div> 
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Estudios</h4>
+                        </div>
+                        <h:dataTable  styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+                            <h:column>
+                                <f:facet name="header">
+                                    Nombre
+                                </f:facet>
+                                #{estudio.nombre}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Descripción
+                                </f:facet>
+                                #{estudio.descripcion}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de Comienzo
+                                </f:facet>
+                                #{estudio.fechaComienzoString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de finalización
+                                </f:facet>
+                                #{estudio.fechaFinString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Ubicación
+                                </f:facet>
+                                #{estudio.ubicacion}
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Experiencias</h4>
+                        </div>
+                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
+                            <h:column>
+                                <f:facet name="header">
+                                    Empresa
+                                </f:facet>
+                                #{experiencia.empresa}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Puesto
+                                </f:facet>
+                                #{experiencia.puesto}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de comienzo
+                                </f:facet>
+                                #{experiencia.fechaComienzoString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Fecha de finalización
+                                </f:facet>
+                                #{experiencia.fechaFinalizacionString}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    Web de la empresa
+                                </f:facet>
+                                #{experiencia.webEmpresa}
+                            </h:column>
+                        </h:dataTable>
                     </div>
                 </div>
             </div>
