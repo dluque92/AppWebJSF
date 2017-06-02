@@ -44,6 +44,15 @@ public class UsuarioBean implements Serializable {
     private List<DatosUsuario> usuariosPorExperiencia = null;
     private List<DatosUsuario> usuarioPorEstudio = null;
     private Map<BigDecimal, String> fotosUsuarios = new HashMap<>();
+    private Boolean resetPassword = false;
+
+    public Boolean getResetPassword() {
+        return resetPassword;
+    }
+
+    public void setResetPassword(Boolean resetPassword) {
+        this.resetPassword = resetPassword;
+    }
 
     public Boolean getErrorRegistrar() {
         return errorRegistrar;
@@ -127,12 +136,12 @@ public class UsuarioBean implements Serializable {
             return "login";
         } else {
             cargarUsuario();
-            getFoto(usuario);
             if (usuario == null) {
                 error = true;
                 limpiarCampos();
                 return "login";
             } else {
+                getFoto(usuario);
                 error = false;
                 return "index";
             }

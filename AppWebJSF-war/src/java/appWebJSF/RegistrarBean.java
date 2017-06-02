@@ -159,7 +159,6 @@ public class RegistrarBean {
                 } catch (DropboxControllerException ex) {
                     //Fallo en Dropbox
                 }
-
             } else {
                 nombreFoto = "default.jpg";
             }
@@ -168,5 +167,4 @@ public class RegistrarBean {
             return "login";
         }
     }
-
 }
