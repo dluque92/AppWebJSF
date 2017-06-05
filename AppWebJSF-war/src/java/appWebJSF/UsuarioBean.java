@@ -7,6 +7,7 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import appweb.security.hash;
 import dropbox.DropboxController;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -164,7 +165,7 @@ public class UsuarioBean implements Serializable {
     }
 
     public void cargarUsuario() {
-        this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
+        this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, hash.stringToHash(password)));
     }
 
     public String getBusqueda() {

@@ -7,6 +7,7 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import appweb.security.hash;
 import dropbox.DropboxController;
 import dropbox.DropboxControllerException;
 import java.io.IOException;
@@ -136,6 +137,7 @@ public class RegistrarBean {
             return "registrar";
         } else {
             this.usuarioBean.setErrorRegistrar(false);
+            this.setPassword(hash.stringToHash(password));
             DatosUsuario usuario = this.datosUsuarioFacade.crearUsuario(email, password, nombre, apellidos);
             if (twitter != null && !twitter.isEmpty()) {
                 usuario.setTwitter(twitter);
