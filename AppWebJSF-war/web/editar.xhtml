@@ -304,8 +304,6 @@
                                 </h:commandButton>
                             </h:column>
                         </h:dataTable>
-                    </h:form>
-                    <h:form>
                         <h:inputText value="#{aficionBean.nuevaAficion.nombre}"></h:inputText>
                         <h:commandButton action="#{aficionBean.doCrear()}" value="Insertar" class="btn btn-default">
                             <f:ajax render="form-aficion" execute="@form" />

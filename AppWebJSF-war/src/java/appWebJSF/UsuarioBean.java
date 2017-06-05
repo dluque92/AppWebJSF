@@ -136,6 +136,7 @@ public class UsuarioBean implements Serializable {
             limpiarCampos();
             return "login";
         } else {
+            this.password = hash.stringToHash(password);
             cargarUsuario();
             if (usuario == null) {
                 error = true;
@@ -165,7 +166,7 @@ public class UsuarioBean implements Serializable {
     }
 
     public void cargarUsuario() {
-        this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, hash.stringToHash(password)));
+        this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
     }
 
     public String getBusqueda() {
