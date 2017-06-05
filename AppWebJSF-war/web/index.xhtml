@@ -112,7 +112,7 @@
             <div class="container-fluid">
                 <h:form>
                     <div class="navbar-header" style="margin-left:50px;margin-top: 0.5em;margin-right: 1em">
-                        <h:commandLink action="#{UsuarioBean.volverAIndex()}"><h:graphicImage alt="JobsNow" style="height:2.5em;" value="https://img.clipartfest.com/6ce9d186fb2c7050f360764b2a087dda_big-image-png-job-clipart-png_2230-1803.png"/></h:commandLink>
+                        <h:commandLink style="text-decoration:none;color:whitesmoke;" action="#{UsuarioBean.volverAIndex()}"><strong style="font-size: 24px">JobsNow</strong></h:commandLink>
                     </div>
                 </h:form>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -139,9 +139,7 @@
                                         <span>#{mensajesBean.getMensajesAmigos().size()}</span>
                                     </h:panelGrid>
                                 </h:commandLink>
-
                             </li>
-
                             <li><h:commandLink styleClass="fa fa-sign-out" action="#{UsuarioBean.doLogout()}"/></li>
                         </ul>
                     </h:form>
