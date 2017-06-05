@@ -46,7 +46,7 @@ public class UsuarioBean implements Serializable {
     private List<DatosUsuario> usuarioPorEstudio = null;
     private Map<BigDecimal, String> fotosUsuarios = new HashMap<>();
     private Boolean resetPassword = false;
-
+    
     public Boolean getResetPassword() {
         return resetPassword;
     }

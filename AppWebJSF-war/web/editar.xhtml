@@ -181,7 +181,8 @@
                                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                         </h:inputText>
                                         <div class="spacing"><small>Contraseña Antigua:</small></div>
-                                        <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passAntigua }"/>
+                                        <h:inputSecret id="pass" styleClass="form-control input-md" required="true" requiredMessage="Introduzca Password Antigua" value="#{usuarioModificarBean.passAntigua }"/>
+                                        <h:message for="pass" style="color: red" errorClass="errorMessage"></h:message>
                                         <h:outputText style="color: red; font: bolder" value="Contraseña Incorrecta" rendered="#{usuarioModificarBean.badPasswordAntigua}"/>
                                         <div class="spacing"><small>Nueva Contraseña:</small></div>
                                         <h:inputSecret styleClass="form-control input-md" required="false"  value="#{usuarioModificarBean.passNueva}"/>
@@ -196,7 +197,10 @@
                                         <h:inputText styleClass="form-control input-md" value="#{usuarioModificarBean.usuarioEnSesion.web}" />
 
                                         <br/>
-                                        <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" />
+                                        <h:commandButton styleClass="btn btn-info btn-sm pull-right" action="#{usuarioModificarBean.doGuardar()}" value="Guardar" >
+                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        </h:commandButton>
+                                        
                                     </fieldset>
                                 </div>
 

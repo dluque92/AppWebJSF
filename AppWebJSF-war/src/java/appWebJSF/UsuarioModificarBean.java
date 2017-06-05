@@ -7,6 +7,7 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import appweb.security.hash;
 import dropbox.DropboxController;
 import java.io.IOException;
 import java.io.InputStream;
@@ -113,9 +114,9 @@ public class UsuarioModificarBean {
         //Como las variables son bidireccionales, entonces 
         //La variable "usuarioEnSesion" tiene todos los datos que se han modificado
         if (!passAntigua.isEmpty()) {
-            if (passAntigua.equals(this.usuarioEnSesion.getPassword())) {
+            if (hash.stringToHash(passAntigua).equals(this.usuarioEnSesion.getPassword())) {
                 if (this.passNueva.equals(this.passRepetida)) {
-                    this.usuarioEnSesion.setPassword(passNueva);
+                    this.usuarioEnSesion.setPassword(hash.stringToHash(passNueva));
                 } else {
                     badPasswordRepetida = true;
                 }
@@ -134,14 +135,13 @@ public class UsuarioModificarBean {
                 //Fallo al subir la foto
             }
             //Fallo en Dropbox
-
         }
-        
+
         if (badPasswordAntigua || badPasswordRepetida) {
             return "editar";
         } else {
             this.datosUsuarioFacade.edit(this.usuarioEnSesion);
-            if(!usuarioEnSesion.getEmail().equals(usuarioBean.getUsuario().getEmail())){
+            if (!usuarioEnSesion.getEmail().equals(usuarioBean.getUsuario().getEmail())) {
                 this.usuarioBean.setEmail(this.usuarioEnSesion.getEmail());
             }
             //En el CustomerBean se hace init() para ver que los datos se han actualizado
