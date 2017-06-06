@@ -258,4 +258,10 @@ public class UsuarioBean implements Serializable {
         DatosUsuario u = this.datosUsuarioFacade.obtenerUsuario(this.email, this.password);
         return !coincideEmail()&&!u.getPeticionesEnviadas().contains(usuario)&&!sonAmigos(u);
     }
+    
+    public String doEnviarMensaje(DatosUsuario amigo){
+        this.amigoAListarMensajes = amigo;
+        this.cargarUsuario();
+        return "bandejaentrada";
+    }
 }

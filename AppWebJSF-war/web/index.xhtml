@@ -177,7 +177,7 @@
                         <div class="co-sm-3 col-md-3">
                             <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{UsuarioBean.noTienePeticionDeUsuario()}" value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>
                             <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{UsuarioBean.tienePeticionDeUsuario()}" value="Cancelar peticion" action="#{peticionBean.cancelarPeticion()}"/>
-                            <h:commandButton styleClass="btn btn-primary btn-sm pull-left" rendered="#{!UsuarioBean.coincideEmail()}" action="mensaje" value="Enviar Mensaje" />
+                            <h:commandButton styleClass="btn btn-primary btn-sm pull-left" rendered="#{!UsuarioBean.coincideEmail()}" action="#{UsuarioBean.doEnviarMensaje(UsuarioBean.usuario)}" value="Enviar Mensaje" />
                             <h:commandButton styleClass="btn btn-warning btn-sm pull-right" rendered="#{UsuarioBean.coincideEmail()}" action="editar" value="Editar Perfil"/>
                         </div>
                     </div>
