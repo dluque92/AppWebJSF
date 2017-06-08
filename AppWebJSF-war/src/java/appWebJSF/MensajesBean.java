@@ -213,16 +213,7 @@ public class MensajesBean {
 
         return "bandejaentrada";
     }
-    public List<Mensaje> getMensajesAmigos(){
-        List<Mensaje> mensajes = new ArrayList<>();
-        for(Mensaje m : usuarioBean.getUsuario().getMensajeCollection()) {
-            boolean empieza = !m.getMensaje().startsWith(usuarioBean.getUsuario().getIdUsuario().toString());
-            if (m.getLeido() == '0' && empieza) {
-                mensajes.add(m);
-            }
-        }
-        return mensajes;
-    }
+    
     public Boolean tieneMensaje(DatosUsuario amigo) {
         boolean tieneMensajes = false;
         for (Mensaje m : usuario.getMensajeCollection()) {

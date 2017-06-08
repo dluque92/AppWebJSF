@@ -68,6 +68,13 @@
                 display: inline;
                 margin-right: 2em;
             }
+            .badge-notify{
+                background: crimson;
+                position:relative;
+                font-size: 12px;
+                top: -5px;
+                left: 0px;
+            }
         </style>
         <script type="text/javascript">
             window.onload = function () {
@@ -105,8 +112,8 @@
                             </li>
                             <li>
                                 <h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}">
-                                    <h:panelGrid class="badge badge-notify" rendered="#{mensajesBean.getMensajesAmigos().size()>0}">
-                                        <span>#{mensajesBean.getMensajesAmigos().size()}</span>
+                                    <h:panelGrid class="badge badge-notify" rendered="#{UsuarioBean.getMensajesAmigos().size()>0}">
+                                        <span>#{UsuarioBean.getMensajesAmigos().size()}</span>
                                     </h:panelGrid>
                                 </h:commandLink>
                             </li>

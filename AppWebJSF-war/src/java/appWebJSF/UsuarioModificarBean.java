@@ -115,9 +115,9 @@ public class UsuarioModificarBean {
         //La variable "usuarioEnSesion" tiene todos los datos que se han modificado
         if (!passAntigua.isEmpty()) {
             if (hash.stringToHash(passAntigua).equals(this.usuarioEnSesion.getPassword())) {
-                if (this.passNueva.equals(this.passRepetida)) {
+                if (this.passNueva.equals(this.passRepetida) && !this.passNueva.isEmpty()) {
                     this.usuarioEnSesion.setPassword(hash.stringToHash(passNueva));
-                } else {
+                } else if(!this.passNueva.equals(this.passRepetida) && !this.passNueva.isEmpty()){
                     badPasswordRepetida = true;
                 }
             } else {
@@ -144,10 +144,12 @@ public class UsuarioModificarBean {
             if (!usuarioEnSesion.getEmail().equals(usuarioBean.getUsuario().getEmail())) {
                 this.usuarioBean.setEmail(this.usuarioEnSesion.getEmail());
             }
+            //this.usuarioEnSesion = this.datosUsuarioFacade.find(this.usuarioEnSesion.getIdUsuario());
             //En el CustomerBean se hace init() para ver que los datos se han actualizado
             //En cambio nosotros lo tenemos que hacer a mano
             //Puesto que en el init() de UsuarioBean no se actualiza el Usuario
             this.usuarioBean.setUsuario(usuarioEnSesion);
+            this.usuarioBean.setUsuarioVisitado(usuarioEnSesion);
             //Después de guardar los cambios vuelve a index
             return "index";
         }

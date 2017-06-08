@@ -36,13 +36,10 @@ public class PeticionBean {
     }
 
     public String enviarPeticion() {
-        usuarioEnviarPeticion = usuarioBean.getUsuario();
-        usuarioBean.cargarUsuario();
-        usuarioBean.getUsuario().getPeticionesEnviadas().add(usuarioEnviarPeticion);
-        usuarioEnviarPeticion.getPeticionesRecibidas().add(usuarioBean.getUsuario());
-        this.datosUsuarioFacade.edit(usuarioEnviarPeticion);
+        usuarioBean.getUsuario().getPeticionesEnviadas().add(usuarioBean.getUsuarioVisitado());
+        usuarioBean.getUsuarioVisitado().getPeticionesRecibidas().add(usuarioBean.getUsuario());
+        this.datosUsuarioFacade.edit(usuarioBean.getUsuarioVisitado());
         this.datosUsuarioFacade.edit(usuarioBean.getUsuario());
-        usuarioBean.setUsuario(usuarioEnviarPeticion);
         return "index";
     }
 
@@ -71,13 +68,10 @@ public class PeticionBean {
     }
     
     public String cancelarPeticion(){
-        usuarioEnviarPeticion = usuarioBean.getUsuario();
-        usuarioBean.cargarUsuario();
-        usuarioBean.getUsuario().getPeticionesEnviadas().remove(usuarioEnviarPeticion);
-        usuarioEnviarPeticion.getPeticionesRecibidas().remove(usuarioBean.getUsuario());
+        usuarioBean.getUsuario().getPeticionesEnviadas().remove(usuarioBean.getUsuarioVisitado());
+        usuarioBean.getUsuarioVisitado().getPeticionesRecibidas().remove(usuarioBean.getUsuario());
         this.datosUsuarioFacade.edit(usuarioBean.getUsuario());
-        this.datosUsuarioFacade.edit(usuarioEnviarPeticion);
-        this.usuarioBean.setUsuario(usuarioEnviarPeticion);
+        this.datosUsuarioFacade.edit(usuarioBean.getUsuarioVisitado());
         return "index";
     }
 

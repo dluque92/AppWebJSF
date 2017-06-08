@@ -7,6 +7,7 @@ package appWebJSF;
 
 import appWebJSF.ejb.DatosUsuarioFacade;
 import appWebJSF.entity.DatosUsuario;
+import appWebJSF.entity.Mensaje;
 import appweb.security.hash;
 import dropbox.DropboxController;
 import java.io.Serializable;
@@ -36,6 +37,7 @@ public class UsuarioBean implements Serializable {
     private String busqueda;
     private String email = "";
     private String password = "";
+    private DatosUsuario usuarioVisitado;
     private DatosUsuario usuario;
     private Boolean error = false;
     private Boolean errorRegistrar = false;
@@ -65,12 +67,12 @@ public class UsuarioBean implements Serializable {
 
     public List<DatosUsuario> getAmigosAmostrar() {
         List<DatosUsuario> misAmigos = new ArrayList();
-        misAmigos.addAll(usuario.getMisAmigos());
-        if (usuario.getMisAmigos().size() > 5) {
+        misAmigos.addAll(usuarioVisitado.getMisAmigos());
+        if (usuarioVisitado.getMisAmigos().size() > 5) {
             Random alea = new Random();
             amigosAmostrar = new ArrayList<>(5);
             while (amigosAmostrar.size() < 5) {
-                DatosUsuario u = misAmigos.get(alea.nextInt(usuario.getMisAmigos().size()));
+                DatosUsuario u = misAmigos.get(alea.nextInt(usuarioVisitado.getMisAmigos().size()));
                 if (!amigosAmostrar.contains(u)) {
                     amigosAmostrar.add(u);
                 }
@@ -104,6 +106,14 @@ public class UsuarioBean implements Serializable {
         this.usuario = usuario;
     }
 
+    public DatosUsuario getUsuarioVisitado() {
+        return usuarioVisitado;
+    }
+
+    public void setUsuarioVisitado(DatosUsuario usuarioVisitado) {
+        this.usuarioVisitado = usuarioVisitado;
+    }
+    
     public Boolean getError() {
         return error;
     }
@@ -138,12 +148,13 @@ public class UsuarioBean implements Serializable {
         } else {
             this.password = hash.stringToHash(password);
             cargarUsuario();
+            cargarUsuarioVisitado();
             if (usuario == null) {
                 error = true;
                 limpiarCampos();
                 return "login";
             } else {
-                getFoto(usuario);
+                getFoto(usuarioVisitado);
                 error = false;
                 return "index";
             }
@@ -162,12 +173,19 @@ public class UsuarioBean implements Serializable {
 
     public String volverAIndex() {
         cargarUsuario();
+        this.usuarioVisitado = this.usuario;//??
         return "index";
     }
 
     public void cargarUsuario() {
         this.setUsuario(this.datosUsuarioFacade.obtenerUsuario(email, password));
     }
+    
+     public void cargarUsuarioVisitado() {
+        this.setUsuarioVisitado(this.datosUsuarioFacade.obtenerUsuario(email, password));
+    }
+    
+    
 
     public String getBusqueda() {
         return busqueda;
@@ -210,15 +228,15 @@ public class UsuarioBean implements Serializable {
     }
 
     public String getTwitter() {
-        return "http://www.twitter.com/" + usuario.getTwitter();
+        return "http://www.twitter.com/" + usuarioVisitado.getTwitter();
     }
 
     public String getInstagram() {
-        return "http://www.instagram.com/" + usuario.getInstagram();
+        return "http://www.instagram.com/" + usuarioVisitado.getInstagram();
     }
 
     public String getWeb() {
-        return "http://www." + usuario.getWeb();
+        return "http://www." + usuarioVisitado.getWeb();
     }
 
     public String hacerBusqueda() {
@@ -241,13 +259,17 @@ public class UsuarioBean implements Serializable {
         return "bandejaentrada";
     }
     
+    public Boolean NoCoincideEmailYEsAmigo(){
+        return !coincideEmail() && usuario.getMisAmigos().contains(usuarioVisitado);
+    }
+    
     public Boolean coincideEmail(){
-        return this.email.equals(this.usuario.getEmail());
+        return this.usuarioVisitado.getEmail().equals(this.usuario.getEmail());
     }
     
     public Boolean tienePeticionDeUsuario(){
-        DatosUsuario u = this.datosUsuarioFacade.obtenerUsuario(this.email, this.password);
-        return !coincideEmail()&&u.getPeticionesEnviadas().contains(usuario)&&!sonAmigos(u);
+        //DatosUsuario u = this.datosUsuarioFacade.obtenerUsuario(this.email, this.password);
+        return !coincideEmail()&&usuario.getPeticionesEnviadas().contains(usuarioVisitado)&&!sonAmigos(usuario);
     }
     
     public Boolean sonAmigos(DatosUsuario u){
@@ -255,13 +277,24 @@ public class UsuarioBean implements Serializable {
     }
     
     public Boolean noTienePeticionDeUsuario(){
-        DatosUsuario u = this.datosUsuarioFacade.obtenerUsuario(this.email, this.password);
-        return !coincideEmail()&&!u.getPeticionesEnviadas().contains(usuario)&&!sonAmigos(u);
+        //DatosUsuario u = this.datosUsuarioFacade.obtenerUsuario(this.email, this.password);
+        return !coincideEmail()&&!usuario.getPeticionesEnviadas().contains(usuarioVisitado)&& !sonAmigos(usuarioVisitado);
     }
     
     public String doEnviarMensaje(DatosUsuario amigo){
         this.amigoAListarMensajes = amigo;
         this.cargarUsuario();
         return "bandejaentrada";
+    }
+    
+    public List<Mensaje> getMensajesAmigos(){
+        List<Mensaje> mensajes = new ArrayList<>();
+        for(Mensaje m : this.getUsuario().getMensajeCollection()) {
+            boolean empieza = !m.getMensaje().startsWith(this.getUsuario().getIdUsuario().toString());
+            if (m.getLeido() == '0' && empieza) {
+                mensajes.add(m);
+            }
+        }
+        return mensajes;
     }
 }

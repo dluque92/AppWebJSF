@@ -52,7 +52,7 @@ public class BuscarBean{
     }
     
     public String buscar(DatosUsuario usuario){
-        usuarioBean.setUsuario(usuario);
+        usuarioBean.setUsuarioVisitado(usuario);
         visita(usuario);
         return "index";
     }

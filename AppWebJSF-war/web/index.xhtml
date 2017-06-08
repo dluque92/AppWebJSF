@@ -86,8 +86,9 @@
             .bgimg {
                 padding: 2em;
                 width: 100%;
-                background-image: url('http://medioambiente.blogs.upv.es/files/2013/10/cabecera1.jpg');
-                background-size: cover;
+                height: auto;
+                background-image: url('https://ak8.picdn.net/shutterstock/videos/1532761/thumb/1.jpg');
+                background-size: 100% 100%;
                 margin: 0.1em;
             }
             ul{
@@ -135,8 +136,8 @@
                             </li>
                             <li>
                                 <h:commandLink styleClass="fa fa-envelope" action="#{UsuarioBean.irABandejaEntrada()}">
-                                    <h:panelGrid class="badge badge-notify" rendered="#{mensajesBean.getMensajesAmigos().size()>0}">
-                                        <span>#{mensajesBean.getMensajesAmigos().size()}</span>
+                                    <h:panelGrid class="badge badge-notify" rendered="#{UsuarioBean.getMensajesAmigos().size()>0}">
+                                        <span>#{UsuarioBean.getMensajesAmigos().size()}</span>
                                     </h:panelGrid>
                                 </h:commandLink>
                             </li>
@@ -151,33 +152,33 @@
                 <div class="jumbotron vertical-center">
                     <div class="row bgimg">
                         <div class="col-sm-3 col-md-3">  
-                            <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#{UsuarioBean.getFoto(UsuarioBean.usuario)}"/><br/>
+                            <h:graphicImage styleClass="img-circle" alt="User Image" width="150" height="150" value="#{UsuarioBean.getFoto(UsuarioBean.usuarioVisitado)}"/><br/>
                         </div>
                         <div class="col-sm-3 col-md-3">
                             <div class="social-links">
-                                <h:panelGrid rendered="#{UsuarioBean.usuario.twitter.length() > 0}">
+                                <h:panelGrid rendered="#{UsuarioBean.usuarioVisitado.twitter.length() > 0}">
                                     <a href="#{UsuarioBean.getTwitter()}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
                                 </h:panelGrid>
-                                <h:panelGrid rendered="#{UsuarioBean.usuario.instagram.length() > 0}">
+                                <h:panelGrid rendered="#{UsuarioBean.usuarioVisitado.instagram.length() > 0}">
                                     <a href="#{UsuarioBean.getInstagram()}" target="_blank"><i class="fa fa-instagram fa-lg"></i></a>
                                 </h:panelGrid>
-                                <h:panelGrid rendered="#{UsuarioBean.usuario.web.length() > 0}">
+                                <h:panelGrid rendered="#{UsuarioBean.usuarioVisitado.web.length() > 0}">
                                     <a href="#{UsuarioBean.getWeb()}" target="_blank"><i class="fa fa-link fa-lg"></i></a>
                                 </h:panelGrid>
                             </div>
                         </div>
-                        <div class="col-sm-9 col-md-9">
-                            <h3>#{UsuarioBean.usuario.nombre} #{UsuarioBean.usuario.apellidos}</h3><br/>
+                        <div class="col-sm-6 col-md-6">
+                            <h3>#{UsuarioBean.usuarioVisitado.nombre} #{UsuarioBean.usuarioVisitado.apellidos}</h3><br/>
                             <div id="visitas" style="text-align: right">
                                 <h:graphicImage width="40px" height="40px" alt="Visitas a tu perfil" value="https://image.flaticon.com/icons/png/512/22/22966.png"/> 
-                                <h4 style="margin-right: 10px;">#{UsuarioBean.usuario.visitas}</h4>
+                                <h4 style="margin-right: 10px;">#{UsuarioBean.usuarioVisitado.visitas}</h4>
                             </div>
                             <br/>
                         </div>
                         <div class="co-sm-3 col-md-3">
                             <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{UsuarioBean.noTienePeticionDeUsuario()}" value="Añadir peticion" action="#{peticionBean.enviarPeticion()}"/>
                             <h:commandButton styleClass="btn btn-success btn-sm pull-left" rendered="#{UsuarioBean.tienePeticionDeUsuario()}" value="Cancelar peticion" action="#{peticionBean.cancelarPeticion()}"/>
-                            <h:commandButton styleClass="btn btn-primary btn-sm pull-left" rendered="#{!UsuarioBean.coincideEmail()}" action="#{UsuarioBean.doEnviarMensaje(UsuarioBean.usuario)}" value="Enviar Mensaje" />
+                            <h:commandButton styleClass="btn btn-primary btn-sm pull-left" rendered="#{UsuarioBean.NoCoincideEmailYEsAmigo()}" action="#{UsuarioBean.doEnviarMensaje(UsuarioBean.usuarioVisitado)}" value="Enviar Mensaje" />
                             <h:commandButton styleClass="btn btn-warning btn-sm pull-right" rendered="#{UsuarioBean.coincideEmail()}" action="editar" value="Editar Perfil"/>
                         </div>
                     </div>
@@ -190,7 +191,7 @@
                                     <h4 class="panel-title">Aficiones</h4>
                                 </div>
 
-                                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.aficionCollection}" var="aficion">
+                                <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuarioVisitado.aficionCollection}" var="aficion">
                                     <h:column>
                                         #{aficion.nombre}
                                     </h:column>
@@ -219,7 +220,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">Estudios</h4>
                         </div>
-                        <h:dataTable  styleClass="table table-responsive" value="#{UsuarioBean.usuario.estudioCollection}" var="estudio">
+                        <h:dataTable  styleClass="table table-responsive" value="#{UsuarioBean.usuarioVisitado.estudioCollection}" var="estudio">
                             <h:column>
                                 <f:facet name="header">
                                     Nombre
@@ -256,7 +257,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">Experiencias</h4>
                         </div>
-                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuario.experienciaCollection}" var="experiencia">
+                        <h:dataTable styleClass="table table-responsive" value="#{UsuarioBean.usuarioVisitado.experienciaCollection}" var="experiencia">
                             <h:column>
                                 <f:facet name="header">
                                     Empresa
